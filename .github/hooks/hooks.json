@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "bash": "./.github/hooks/scripts/session-start.sh",
+        "timeoutSec": 10,
+        "comment": "Load wiki/hot.md if a vault is present in this repo."
+      }
+    ],
+    "agentStop": [
+      {
+        "type": "command",
+        "bash": "./.github/hooks/scripts/agent-stop.sh",
+        "timeoutSec": 10,
+        "comment": "If wiki/ pages changed this turn, prompt the agent to refresh wiki/hot.md."
+      }
+    ]
+  }
+}
