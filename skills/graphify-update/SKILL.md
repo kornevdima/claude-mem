@@ -58,17 +58,22 @@ if [ -f "$TARGET/graphify-out/.graphify_python" ]; then
     fi
 fi
 
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(ls -d "$HOME"/.claude/plugins/cache/*/claude-mem/*/ 2>/dev/null | sort -V | tail -1 | sed 's:/$::')}"
+[ -z "$PLUGIN_ROOT" ] && PLUGIN_ROOT="$HOME/.claude/plugins/claude-mem"
+
 if [ -z "$PYTHON" ]; then
-    SETUP="${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/claude-mem}/bin/setup-graphify.sh"
+    SETUP="$PLUGIN_ROOT/bin/setup-graphify.sh"
     bash "$SETUP" "$TARGET"
     PYTHON=$(cat "$TARGET/graphify-out/.graphify_python")
 fi
 ```
 
+`PLUGIN_ROOT` is reused in later steps. If `CLAUDE_PLUGIN_ROOT` is unset, the snippet locates the newest install under `~/.claude/plugins/cache/*/claude-mem/*/`.
+
 ### Step 2 — Detect what changed
 
 ```bash
-SKILL_DIR="${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/claude-mem}/skills/graphify-update"
+SKILL_DIR="$PLUGIN_ROOT/skills/graphify-update"
 "$PYTHON" "$SKILL_DIR/scripts/detect.py" "$TARGET"
 ```
 
@@ -163,7 +168,7 @@ If `.unlabeled_communities.json` is empty (everything inherited), skip this step
 Reuse `graphify-ingest`'s regenerate script — same outputs, same shape:
 
 ```bash
-INGEST_SCRIPT="${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/claude-mem}/skills/graphify-ingest/scripts/regenerate.py"
+INGEST_SCRIPT="$PLUGIN_ROOT/skills/graphify-ingest/scripts/regenerate.py"
 "$PYTHON" "$INGEST_SCRIPT" "$TARGET" "$TARGET/graphify-out/labels.json"
 ```
 

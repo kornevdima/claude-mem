@@ -62,17 +62,21 @@ If the user has not yet seen the wiki layer, briefly tell them what you're about
 Delegate to the bundled installer. It detects the best Python (>=3.10,<3.14), installs `graphifyy` via the right strategy (pip, --user, --break-system-packages), verifies the import, and pins the interpreter for this project.
 
 ```bash
-SETUP="${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/claude-mem}/bin/setup-graphify.sh"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(ls -d "$HOME"/.claude/plugins/cache/*/claude-mem/*/ 2>/dev/null | sort -V | tail -1 | sed 's:/$::')}"
+[ -z "$PLUGIN_ROOT" ] && PLUGIN_ROOT="$HOME/.claude/plugins/claude-mem"
+SETUP="$PLUGIN_ROOT/bin/setup-graphify.sh"
 bash "$SETUP" "$TARGET"
 PYTHON=$(cat "$TARGET/graphify-out/.graphify_python")
 ```
+
+`PLUGIN_ROOT` is reused in later steps. If `CLAUDE_PLUGIN_ROOT` is unset (it should be set by Claude Code at skill invocation, but isn't always), the snippet locates the newest install under `~/.claude/plugins/cache/*/claude-mem/*/`.
 
 If the script exits non-zero (no compatible Python, install failure), it tells the user exactly what to do next (install Python 3.13 via pyenv or Homebrew). Stop here and surface that message — don't try to recover automatically.
 
 ### Step 2 — Compute the chunk plan
 
 ```bash
-SKILL_DIR="${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/claude-mem}/skills/graphify-ingest"
+SKILL_DIR="$PLUGIN_ROOT/skills/graphify-ingest"
 "$PYTHON" "$SKILL_DIR/scripts/chunks.py" "$TARGET" --mode B
 ```
 
@@ -128,6 +132,14 @@ Show the merge output verbatim. Note the dropped-edge count — if it's >25% of 
 ### Step 5 — Label communities
 
 Read `$TARGET/graphify-out/.graphify_analysis.json` and `$TARGET/graphify-out/.graphify_extract.json`.
+
+The `communities` field is a dict of `{community_id: [node_id, node_id, ...]}` — each value is a plain list of member node IDs, NOT a dict with `size`/`members` keys. Iterate as:
+
+```python
+for cid, members in analysis["communities"].items():
+    if len(members) >= 3:
+        ...
+```
 
 For each community with size ≥ 3, look at the node labels (you can quickly scan them). Write a 2-5 word plain-language name that captures what the cluster IS — focus on the dominant concept, not every member.
 
