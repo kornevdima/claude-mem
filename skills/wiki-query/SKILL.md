@@ -1,6 +1,6 @@
 ---
 name: wiki-query
-description: "Answer questions using the Obsidian wiki vault and (when present) the graphify code graph. Reads hot cache first, routes code-structural questions to graphify-out/graph.json via graphify CLI, narrative questions to wiki pages. Synthesizes answers with citations. Files good answers back as wiki pages. Supports quick, standard, and deep modes. Triggers on: what do you know about, query:, what is, explain, summarize, find in wiki, search the wiki, based on the wiki, wiki query quick, wiki query deep, what calls X, where is X defined, how does A connect to B."
+description: "Answer questions using the Obsidian wiki vault and (when present) the graphify code graph. Reads hot cache first, routes code-structural questions to graphify-out/graph.json via graphify CLI, narrative questions to wiki pages. Synthesizes answers with citations. Files good answers back as wiki pages. Supports quick, standard, and deep modes, and auto-scales to large / ADLC vaults with grep-first + bounded-recursion reads (RLM-style). Triggers on: what do you know about, query:, what is, explain, summarize, find in wiki, search the wiki, based on the wiki, wiki query quick, wiki query deep, what calls X, where is X defined, how does A connect to B."
 ---
 
 # wiki-query: Query the Wiki
@@ -18,6 +18,24 @@ Three depths. Choose based on the question complexity.
 | **Quick** | `query quick: ...` or simple factual Q | hot.md + index.md only | ~1,500 | "What is X?", date lookups, quick facts |
 | **Standard** | default (no flag) | hot.md + index + 3-5 pages (or graph commands) | ~3,000 | Most questions |
 | **Deep** | `query deep: ...` or "thorough", "comprehensive" | Full wiki + optional web | ~8,000+ | "Compare A vs B across everything", synthesis, gap analysis |
+
+---
+
+## Vault Scale: Calibrate the Read Strategy
+
+The modes above choose **depth**. Vault **size** chooses *how* to read. Calibrate automatically, no flag needed:
+
+- **Small vault (under ~50 pages, single wiki):** the tiered load is fine. Read `hot.md` then `index.md` then a few pages directly. Do not recurse.
+- **Large vault (50+ pages, or an ADLC vault with `services/*/wiki/` code wikis):** do not load the index plus pages into context (that invites context rot). Switch to **grep-first + bounded recursion** (see the large-vault section below). This applies the Recursive Language Model pattern: the vault is the environment, bash is the REPL.
+
+Detect scale cheaply before deciding:
+
+```bash
+find wiki -name '*.md' | wc -l          # page count
+ls -d services/*/wiki 2>/dev/null         # ADLC code wikis present?
+```
+
+When the count is large or service wikis exist, prefer grep-first.
 
 ---
 
@@ -136,6 +154,31 @@ Use for synthesis questions, comparisons, or "tell me everything about X."
 4. If wiki coverage is thin, offer to supplement with web search.
 5. Synthesize a comprehensive answer with full citations.
 6. Always file the result back as a wiki page. Deep answers are too valuable to lose.
+
+---
+
+## Large-Vault Mode: Grep-First + Bounded Recursion
+
+For large or ADLC vaults, treat the wiki filesystem as the context environment and program over it instead of loading it. The agent already has bash, which is the precondition. (Basis: Recursive Language Models; calibrate per the reproduction critique that warns against over-recursion.)
+
+1. **Peek.** Read `wiki/hot.md`. If it answers, stop.
+2. **Locate (grep, do not load).** `rg` the query terms across `wiki/` and any `services/*/wiki/`, targeting greppable frontmatter and `_index.md` files. Collect a bounded candidate set; do not read every match.
+   ```bash
+   rg -l -i "term1|term2" wiki services/*/wiki 2>/dev/null | head -40
+   rg -i "^(type|status|req_id|traces_to):" wiki/<folder> 2>/dev/null
+   ```
+3. **Read or recurse.**
+   - A handful of small pages: read the matched slices directly.
+   - A large or dense area (e.g. all of `requirements/`, or one service's `specs/`): dispatch ONE sub-agent for that area with the sub-query. It reads the subtree and returns a condensed, cited answer (~1-2K tokens). This is the `rlm_query(sub_query, chunk)` step. Fan out independent areas **in parallel** (one message).
+4. **Synthesize.** Combine the sub-answers, cite the pages, answer. File valuable answers to `questions/`.
+
+### Guardrails
+
+- **Bound depth to 1** (optionally 2 for service code wikis). Never recurse unbounded.
+- **Calibrate.** If the candidate set is small, just read it; recursion only earns its cost on large or dense areas.
+- **Terminate explicitly.** Fix the candidate set before recursing; no open-ended exploration.
+- **Verify.** Require sub-agents to cite pages so you can spot-check; this limits error propagation.
+- **Cost.** Sub-calls are blocking. Parallelize independent areas; do not chain them serially.
 
 ---
 

@@ -25,6 +25,22 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-06-28] plan | Graphify Relative Paths (multi-member portability)
+- Filed [[Graphify Relative Paths]]: committed graphify artifacts (graph.json source_file, GRAPH_REPORT.md, wiki/code/*) store machine-absolute paths that break for teammates at other checkout paths.
+- Plan: post-merge relativization to project-root-relative source_file; subagent records relative; query skills resolve to absolute only when reading. Tracked as roadmap Phase 13.
+- Already fine: runtime TARGET=$(cd&&pwd), gitignored .graphify_python, chunks.py/detect.py relative file lists.
+
+---
+
+## [2026-06-28] autoresearch | Recursive Language Models
+- Rounds: 2 | Searches: 3 | Sources fetched: 4
+- Pages created: [[Recursive Language Models]], [[Context Rot]], [[RLM-Optimized Wiki Querying]], [[Alex L. Zhang]], [[rlm-paper-arxiv]], [[rlm-blog-zhang]], [[rlm-github-repo]], [[rlm-reproduction-overthink]]
+- Synthesis: [[Research Recursive Language Models]]
+- Key finding: RLM stores long context in a REPL the model greps/chunks/recurses over (depth=1), sidestepping context rot; maps onto a bash-capable ADLC agent for grep-first + bounded-recursion wiki-query.
+- Application: design filed at [[RLM-Optimized Wiki Querying]] — evolve wiki-query, do not rebuild; reinforce greppable frontmatter, per-folder _index, short pages, stable cross-wiki IDs.
+
+---
+
 ## [2026-05-09] design | Project Profile Skill Suite (end-to-end)
 - Type: design synthesis (no research; resolves open questions from prior two passes)
 - Pages created: [[Project Profile Skill Suite]]

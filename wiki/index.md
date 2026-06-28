@@ -23,7 +23,7 @@ related:
 
 # Wiki Index
 
-Last updated: 2026-05-09 | Total pages: 51 | Sources ingested: 4
+Last updated: 2026-06-28 | Total pages: 60 | Sources ingested: 4
 
 Navigation: [[overview]] | [[log]] | [[hot]] | [[maintenance-triggers]]
 
@@ -49,6 +49,10 @@ Navigation: [[overview]] | [[log]] | [[hot]] | [[maintenance-triggers]]
 - [[SDLC Wiki Concerns]] — design pattern for serving SDLC roles (DevOps, QA, security, design, writing) via base mode + opt-in concerns (status: evergreen)
 - [[Spec-Kit and claude-mem]] — comparison with GitHub spec-kit; recommend coexistence over integration; BA-without-code-access angle (status: evergreen)
 - [[Wiki Sharing Patterns]] — three sub-problems for team adoption: multi-role access, multi-service structure, wiki location; options awaiting field feedback before defaults change (status: developing)
+- [[Recursive Language Models]] — inference strategy: long context as a REPL variable the model greps/chunks/recurses over; sidesteps context rot (status: developing)
+- [[Context Rot]] — model accuracy degrades as context grows even within the window; the motivation for RLM and tight-context habits (status: current)
+- [[RLM-Optimized Wiki Querying]] — design: apply RLM (grep-first + bounded recursion over the wiki filesystem) to wiki-query for large ADLC vaults (status: developing)
+- [[Graphify Relative Paths]] — plan: store project-root-relative source_file in committed graph artifacts so the project is portable across team members (status: planned)
 
 ---
 
@@ -63,6 +67,7 @@ Navigation: [[overview]] | [[log]] | [[hot]] | [[maintenance-triggers]]
 - [[rvk7895-llm-knowledge-bases]] — 3-depth query system, Marp slides, parallel deep research (status: current)
 - [[kepano-obsidian-skills]] — official skills from Obsidian creator; defuddle, obsidian-bases (status: current)
 - [[Claudian-YishenTu]] — native Obsidian plugin embedding Claude Code; plan mode, @mention (status: current)
+- [[Alex L. Zhang]] — MIT CSAIL; lead author of Recursive Language Models (status: current)
 
 ---
 
@@ -82,6 +87,10 @@ Navigation: [[overview]] | [[log]] | [[hot]] | [[maintenance-triggers]]
 - [[wiki-sharing-research]] — 2026-05-10 | web-research synthesis | Obsidian sharing tools (Sync, Relay, Publish), docs-as-code topologies, Backstage TechDocs cross-team patterns
 - [[anthropic-harness-design]] — 2026 | Anthropic Engineering | generator-evaluator separation as trust-boundary
 - [[claude-obsidian-ecosystem-research]] — 2026-04-08 | web research across 16+ repos | 8 wiki pages created
+- [[rlm-paper-arxiv]] — 2025-12-31 | Zhang, Kraska, Khattab (MIT CSAIL) | the RLM paper (arXiv 2512.24601)
+- [[rlm-blog-zhang]] — 2025-10 | Alex L. Zhang | informal primary writeup with mechanics
+- [[rlm-github-repo]] — alexzhang13/rlm | reference implementation (REPL backends, rlm_query)
+- [[rlm-reproduction-overthink]] — 2026 | reproduction (arXiv 2603.02615) | confirms mechanism, flags over-recursion
 
 ---
 
@@ -90,6 +99,7 @@ Navigation: [[overview]] | [[log]] | [[hot]] | [[maintenance-triggers]]
 - [[Research Pre-computed Context for Coding Agents]] — 2026-05-09 synthesis: what to pre-compute for coding agents (status: developing)
 - [[Research Feedback-Driven Project Profile]] — 2026-05-09 synthesis: how engineer feedback should update AGENTS.md (status: developing)
 - [[How does the LLM Wiki pattern work]] — how the pattern works and why it outperforms RAG at human scale (status: developing)
+- [[Research Recursive Language Models]] — 2026-06-28 synthesis: RLM mechanics, results, limits, and the wiki-query/structure application for ADLC (status: developing)
 
 ---
 
