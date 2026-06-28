@@ -53,9 +53,9 @@ Inbound sources land in `.raw/` first and get a summary page in `sources/` (via 
 
 After the BA layer is filed, the shift-left `architecture-subagent` refines requirements into per-service technical specs. See [`technical-planning.md`](technical-planning.md).
 
-## Export seam (build later)
+## Export (the ba-export skill)
 
-Reuse `ba-suite`'s Office generation to render wiki content back to `.docx` / `.xlsx`, written to `.raw/exports/`. From there, integrate to Jira (stories to issues, test cases to test management) or ClickUp. This direction is documented so folder + ID conventions stay export-friendly; it is not implemented yet.
+The `ba-export` skill (with `ba-export-subagent`) renders wiki content back to `.docx` / `.xlsx` via `ba-suite`, written to `.raw/exports/`, and optionally pushes to Jira (stories to issues, test cases to test management) or ClickUp over MCP. Folder + ID conventions are kept export-friendly so re-export is idempotent (a `tracker-manifest.json` maps pages to task IDs).
 
 Diagrams in the formal export use PlantUML (rendered PNGs alongside the Office docs). The living tech docs use Mermaid with an HTML export instead (see [`technical-planning.md`](technical-planning.md)).
 

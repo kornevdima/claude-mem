@@ -107,6 +107,7 @@ Route to the correct operation based on what the user says:
 | "save this", "file this", "/save" | SAVE | `save` |
 | "/autoresearch [topic]", "research [topic]" | AUTORESEARCH | `autoresearch` |
 | "wrap up", "end session", "session end" | SYNC | `wrap-up` |
+| "export to docs", "export BA deliverables", "export to clickup" | EXPORT | `ba-export` |
 
 ---
 

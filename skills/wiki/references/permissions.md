@@ -39,6 +39,7 @@ Replace `<VAULT_PATH>` with the project root. Trim patterns the project does not
       "Bash(npx:*)",
       "Task(ba-suite-subagent)",
       "Task(architecture-subagent)",
+      "Task(ba-export-subagent)",
       "Task(wiki-ingest-subagent)",
       "Bash(docker compose up:*)",
       "Bash(docker compose ps:*)",

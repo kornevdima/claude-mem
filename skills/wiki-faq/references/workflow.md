@@ -27,6 +27,10 @@ Use the narrative layer for any project (code, product docs, BA workflows). Add 
 - **`save`** — file the current chat conversation as a structured wiki note. Use after a useful exchange you don't want to lose.
 - **`autoresearch`** — autonomous research loop on a topic. Searches the web, synthesizes, files into the wiki. Use for deep-dives.
 
+### Export
+
+- **`ba-export`** — export wiki BA deliverables to Office docs (`.docx` / `.xlsx`, PlantUML diagrams) in `.raw/exports/`, reusing the `ba-suite` skills via `ba-export-subagent`; optional ClickUp / Jira push. One-way (wiki to docs); the wiki stays canonical.
+
 ### Querying
 
 - **`wiki-query`** — general "answer questions from the wiki." Reads hot cache → index → relevant pages. Routes code-structural questions to graphify when a graph exists. Auto-scales on large / ADLC vaults to grep-first + bounded recursion.

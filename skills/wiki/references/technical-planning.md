@@ -38,4 +38,4 @@ Tech documentation uses **Mermaid**: inline code blocks in the spec Markdown, wh
 
 ## Export to the tracker
 
-On export, deliverables map to the team's tracker via MCP (see [`mcp-setup.md`](mcp-setup.md) § ADLC MCP toolset). ClickUp hierarchy: Project to Space, Objective to Folder, Deliverable to List, Epic to Task, Story to Subtask, Task to Checklist Item. Keep a manifest mapping wiki pages to task IDs so re-export is idempotent.
+The `ba-export` skill (with `ba-export-subagent`) drives export: wiki to Office in `.raw/exports/`, then optionally to the team's tracker via MCP (see [`mcp-setup.md`](mcp-setup.md) § ADLC MCP toolset). ClickUp hierarchy: Project to Space, Objective to Folder, Deliverable to List, Epic to Task, Story to Subtask, Task to Checklist Item. Keep a manifest mapping wiki pages to task IDs so re-export is idempotent.
