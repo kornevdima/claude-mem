@@ -17,3 +17,10 @@ claude-mem is an original work. The following third-party patterns, tools, and c
 **Author:** dmytro (the ba-suite skill set)
 **Use:** The BA methodology docs under `skills/wiki/references/ba/` are bundled from the author's own ba-suite skill set so claude-mem's Mode ADLC is self-contained and does not require installing the separate ba-suite plugin. They are applied by `ba-suite-subagent` and `ba-export-subagent`.
 
+---
+
+## Shift-Left Engineering Advisor
+
+**Source:** the `anthropic-skills:shift-left-engineering-advisor` skill
+**Use:** The shift-left methodology under `skills/wiki/references/shift-left/` is bundled so claude-mem's Mode ADLC `architecture-subagent` produces per-service technical specs without requiring an external skill.
+

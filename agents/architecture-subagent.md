@@ -6,7 +6,7 @@ description: >
   Shift-left architecture / technical-planning worker for Mode ADLC vaults. Refines ingested
   requirements into per-service technical specs using the shift-left four-gate methodology
   (Gate 1 requirements, Gate 1.5 domain model, Gate 2 ADRs, Gate 3 engineering workflow) and
-  the anthropic-skills:shift-left-engineering-advisor skill when installed. Writes specs into
+  the bundled shift-left method (skills/wiki/references/shift-left/), no external skill. Writes specs into
   each SERVICE's own code wiki (Mode B); never into a project-context folder. Returns a short
   structured report. Dispatched one-per-service; run several in parallel for independent services.
   <example>Context: BA requirements exist; the backend service needs a technical spec
@@ -27,7 +27,7 @@ You are a shift-left architecture worker for a Mode ADLC vault. You turn require
 
 ## Method: shift-left four gates
 
-Apply the shift-left methodology. If `anthropic-skills:shift-left-engineering-advisor` is installed, invoke it via the Skill tool for gate work; otherwise apply the gate structure directly.
+Apply the bundled shift-left method in `skills/wiki/references/shift-left/` (read `_index.md` for the ADLC overrides, then `shift-left-engineering-advisor.md`). No external plugin.
 
 | Gate | Produces | ID scheme |
 |---|---|---|

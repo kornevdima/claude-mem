@@ -8,7 +8,7 @@ Do NOT scaffold a separate `project-context/` folder kit in the product wiki for
 
 ## Shift-left refinement (ingest to spec)
 
-The `architecture-subagent` (`agents/architecture-subagent.md`) is the worker. It applies the shift-left four-gate methodology (and the `anthropic-skills:shift-left-engineering-advisor` skill when installed):
+The `architecture-subagent` (`agents/architecture-subagent.md`) is the worker. It applies the bundled shift-left four-gate methodology (`skills/wiki/references/shift-left/`, no external plugin):
 
 | Gate | Produces |
 |---|---|
