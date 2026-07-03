@@ -25,6 +25,14 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-03] impl | Product Management Layer skill shipped
+- Built `skills/product-management-layer/` the claude-mem way (not the plan's absent skill-creator toolchain): `SKILL.md` (135 lines, pushy description w/ trigger phrases; On Init, 5 modes INTAKE/VENDOR-REVIEW/BUY-VS-BUILD/COMPLIANCE-SCOPE/REGISTRY-STATUS, domain invariants, ID scheme, handoffs) + `references/reference.md` (10 artifact templates). Auto-discovered via the plugin manifest — no plugin.json edit.
+- Registry persistence (plan P3.6) resolved: Markdown under `wiki/governance/` when a vault exists, else `docs/governance/`; decision-log append-only.
+- Handoffs wired: down (approved intake → shift-left Gate 1 packet w/ trace IDs), up (shift-left escalates here), sideways (evidence → solutioning). Vocabulary kept disjoint.
+- [[Product Management Layer Skill]] flipped planned → implemented; README Skills table updated. NOT done: encoded E1–E8 eval harness, PlantUML diagrams, formal Gates 1–4 docs (documented as next steps).
+
+---
+
 ## [2026-07-03] patch | shift-left advisor — Gate 0 governance escalation
 - Companion change for [[Product Management Layer Skill]]: added a "Governance Escalation (Gate 0, up)" section to the bundled `shift-left-engineering-advisor.md` so vendor/tool/buy-vs-build/subscription/compliance/shelfware questions route **up** to the planned pm-layer skill (satisfies eval E6), keeping vocabularies disjoint; documented the down-handoff (approved intake → Gate 1 with trace IDs).
 - Also fixed a dead `reference.md` link (dropped when shift-left was bundled) → `_index.md` + `technical-planning.md`; added a 5th ADLC override note in the bundle `_index.md`.

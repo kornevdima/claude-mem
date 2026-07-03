@@ -40,7 +40,7 @@ Navigation: [[overview]] | [[log]] | [[hot]] | [[maintenance-triggers]]
 - [[Generator-Evaluator Pattern]] — trust-boundary architecture: split agent that produces from agent that judges (status: current)
 - [[Feedback Loop for Project Profile]] — design synthesis for the feedback half of /project-profile (status: developing)
 - [[Project Profile Skill Suite]] — end-to-end design: 5 skills + 3 subagents + 1 hook; implementation sequence (status: developing)
-- [[Product Management Layer Skill]] — planned "Gate 0" governance skill above shift-left: intake/approval registry, vendor lifecycle, buy-vs-build, compliance scoping, shelfware (status: planned)
+- [[Product Management Layer Skill]] — "Gate 0" governance skill above shift-left: intake/approval registry, vendor lifecycle, buy-vs-build, compliance scoping, shelfware (status: implemented)
 - [[maintenance-triggers]] — when to run which skill/command; the answer to "what should I update?" (status: current)
 - [[graphify-integration]] — design of the structural code-graph layer; option C, Jaccard preservation, labels.json gotcha (status: current)
 - [[LLM Wiki Pattern]] — the pattern for building persistent, compounding knowledge bases using LLMs (status: mature)

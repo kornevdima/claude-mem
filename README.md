@@ -67,6 +67,7 @@ bash bin/setup-graphify.sh /path/to/your-app   # also pin to a specific code pro
 | `/wiki-faq` | In-session help: requirements, workflow, troubleshooting, glossary |
 | `/save` | File the current conversation as a wiki note |
 | `/autoresearch [topic]` | Autonomous research loop: search, fetch, synthesize, file |
+| `/product-management-layer` | Gate 0 governance advisor: tool/vendor approval, buy-vs-build TCO, compliance scoping, shelfware — hands approved intake down to shift-left |
 | `obsidian-markdown` | Reference for correct Obsidian Flavored Markdown |
 | `obsidian-bases` | Create and edit `.base` files (Obsidian's database layer) |
 | `graphify-ingest` | Build a structural code graph for a project, file summaries into `wiki/code/` |

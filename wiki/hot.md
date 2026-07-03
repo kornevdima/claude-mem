@@ -20,23 +20,25 @@ Navigation: [[index]] | [[log]]
 
 ## Last Updated
 
-**2026-07-03 (feature: Product Management Layer Skill)**: Filed the design/plan for a new planned skill. Page at [[Product Management Layer Skill]]; raw governing plan (immutable) at [[pm-layer-execution-plan]] in `.raw/`.
+**2026-07-03 (impl: Product Management Layer skill)**: Shipped the Gate 0 governance skill at `skills/product-management-layer/` and patched the shift-left advisor to escalate up to it. Design page: [[Product Management Layer Skill]] (now status: implemented).
 
 ## Key Recent Facts
 
-- **`product-management-layer`** is a planned **"Gate 0" governance skill** above [[shift-left-engineering-advisor]]. It governs *which tools/vendors are allowed* before engineering starts; shift-left governs Gates 1–4 (requirements → ADR).
-- **v1 scope (8 FRs):** use-case intake & approval registry · vendor lifecycle + re-review triggers (acquisition/sunset/newUseCase/expiry) · per-use-case compliance scoping · buy-vs-build + TCO · shelfware detection · portfolio STATUS · handoff contracts · decision log.
-- **Handoff:** up = shift-left escalates vendor/tool Qs here; down = approved intake → shift-left Gate 1 with trace IDs. Companion shift-left patch is a **separate** skill-creator mini-cycle (its own regression eval).
-- **Key rule:** an ApprovalEntry is scoped to (use case × tool) and **never transfers**; acquisition/sunset triggers invalidate dependent approvals; AssetRecord without approval ⇒ shelfware.
-- **Main risk:** trigger collision with shift-left → disjoint vocabulary (P3.5) + negative evals E5/E6 + description optimization (P5.9). Golden eval E1 = the Embrace.ai sunset retrospective.
+- **`product-management-layer`** is a shipped, user-facing claude-mem skill (auto-discovered from `skills/*/SKILL.md`). It governs *which tools/vendors are approved* before engineering; shift-left governs Gates 1–4.
+- **Built the claude-mem way, not the plan's way.** The plan assumed `skill-creator` / `package_skill` / `docs/adr` / `evals/` tooling that **doesn't exist here**. So: a `SKILL.md` (pushy description, 5 modes) + `references/reference.md` (10 artifact templates). No plugin.json edit needed.
+- **5 modes:** INTAKE · VENDOR-REVIEW · BUY-VS-BUILD · COMPLIANCE-SCOPE · REGISTRY-STATUS. Registries persist as Markdown under `wiki/governance/` (or `docs/governance/`); decision-log append-only.
+- **Domain invariants:** ApprovalEntry scoped to (use case × tool), never transfers; acquisition/sunset triggers invalidate dependent approvals + spawn a migration checklist; asset with no approval ⇒ shelfware.
+- **Handoffs:** down = approved intake → shift-left Gate 1 (packet w/ trace IDs); up = shift-left escalates governance Qs here; sideways = evidence → solutioning. Vocabulary disjoint (satisfies eval E6).
 
 ## Recent Changes
 
-- Created: [[Product Management Layer Skill]] (concepts/), [[pm-layer-execution-plan]] (.raw/).
-- Updated: [[index]] (+1 concept, 60→61), [[log]] (new plan entry at top).
+- Created: `skills/product-management-layer/SKILL.md` + `references/reference.md`.
+- Patched: `skills/wiki/references/shift-left/` (Gate 0 escalation + dead-link fix), README Skills table.
+- Updated: [[Product Management Layer Skill]] (planned→implemented), [[index]], [[log]] (impl entry), [[hot]].
+- Committed: 2 commits (shift-left patch; wiki plan filing). Skill impl + wiki updates still uncommitted.
 
 ## Active Threads
 
-- **pm-layer skill**: plan filed, **not yet built**. Build is gated (ai-agent-builder) via skill-creator: Gates 1–4 → SKILL.md → evals E1–E8 → package/install on branch `feat/pm-layer-skill`. Nothing implemented yet.
-- **RLM → wiki-query**: design filed ([[RLM-Optimized Wiki Querying]]), not yet implemented.
-- **ADLC mode (Phase 11)**: shipped in code (skills/agents/hooks); tracked in the roadmap memory.
+- **pm-layer evals**: E1–E8 (E1 golden = Embrace.ai sunset; E5/E6 negative triggers) are **documented but not encoded/run**. Next step if wanted.
+- **`plugin.json`**: pre-existing version bump 0.3.0→0.4.0, still uncommitted (user-managed).
+- **RLM → wiki-query**: design filed ([[RLM-Optimized Wiki Querying]]), not implemented.

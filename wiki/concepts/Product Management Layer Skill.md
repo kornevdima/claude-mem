@@ -16,8 +16,8 @@ tags:
   - implementation-plan
   - governance
   - shift-left
-  - planned
-status: planned
+  - implemented
+status: implemented
 related:
   - "[[Project Profile Skill Suite]]"
   - "[[shift-left-engineering-advisor]]"
@@ -33,7 +33,9 @@ sources:
 
 Design + execution plan for `product-management-layer`, a new **"Gate 0" governance skill** that sits **above** [[shift-left-engineering-advisor]] in the claude-mem skill family. It answers the questions that come *before* engineering starts: is this tool approved, should we buy or build, is the vendor viable, what compliance class applies, are we paying for shelfware. Once a use case is governed and approved, it hands off *down* into shift-left's Gate 1.
 
-Status: **planned** — governing plan captured, not yet built. Source of record: [[pm-layer-execution-plan]] (raw, immutable). Built via `ai-agent-builder` (gates/git discipline) + `skill-creator` (draft → eval → iterate → package).
+Status: **implemented** (2026-07-03) — shipped as a real claude-mem skill at `skills/product-management-layer/` (`SKILL.md` + `references/reference.md`), auto-discovered via the plugin manifest. The shift-left companion patch (upward Governance Escalation) is in place. Source of record for the original governing plan: [[pm-layer-execution-plan]] (raw, immutable).
+
+> **Build note — plan vs repo.** The execution plan assumed the `anthropic-skills` / `ai-agent-builder` / `skill-creator` toolchain (`scripts.package_skill`, `docs/adr/`, `evals/`, `eval-viewer`). That tooling does **not** exist in claude-mem, so the skill was built the **claude-mem way**: a user-facing `SKILL.md` with a pushy description + a `references/reference.md` of artifact templates (progressive disclosure, body < 500 lines). Registries persist as Markdown under a `governance/` area (`wiki/governance/` when a vault exists, else `docs/governance/`). Formal Gates 1–4 docs, PlantUML diagrams, and an encoded E1–E8 eval harness were **not** produced — the eval scenarios remain a documented next step, not automated fixtures.
 
 ## Where it sits in the skill family
 
