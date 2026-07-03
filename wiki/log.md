@@ -1,7 +1,7 @@
 ---
 type: meta
 title: "Operation Log"
-updated: 2026-05-09
+updated: 2026-07-03
 tags:
   - meta
   - log
@@ -22,6 +22,13 @@ Append-only. New entries go at the TOP. Never edit past entries.
 Entry format: `## [YYYY-MM-DD] operation | Title`
 
 Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
+
+---
+
+## [2026-07-03] wrap-up | Session end sync
+- Trigger: operator "wrap up". Scope: this vault only (plugin repo; no `services/` checkouts). Tree was clean — all session work already in 3 commits on `adlc` (harness hardening `bc511a3`, team-sync `0278002`, 5-talk ingest `59449d5`).
+- Rollup reconciliation (per the new wrap-up step 6): rewrote [[overview]] — it still described the April demo-seed vault ("26 pages, seed content") while the vault is the claude-mem design wiki at 80 pages; also removed two dead canvas links. Fixed [[index]] header metric (ambiguous "Sources ingested: 9" → "Source pages: 23"); bumped log frontmatter date.
+- Follow-ups for the human: redeploy updated `agents/*.md` to service repos (stale `.claude/agents/` snapshots); add `log.md merge=union` `.gitattributes` to project vaults; tier 2–3 harness backlog in [[hot]]; pm-layer evals E1–E8 still not encoded.
 
 ---
 
