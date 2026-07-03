@@ -161,6 +161,10 @@ The ingest and planning pipelines run through two workers that each cover a whol
 
 The per-service **build pipeline** runs five more service-level workers: `agents/feature-builder.md`, `agents/feature-tester.md`, `agents/feature-reviewer.md`, `agents/feature-verifier.md`, `agents/doc-writer.md` (build -> test -> review -> verify -> document; review loops back to builder / tester on changes requested). Export uses `agents/ba-export-subagent.md`. All BA + build + shift-left methods are bundled (`references/ba/`, `references/shift-left/`) — no external plugin.
 
+### Team state sharing
+
+When more than one person (dev, architect, BA / QA, writer) operates agents against the same wiki set, follow [`team-sync.md`](team-sync.md): git as the state bus, role → concern ownership, pull-first / wrap-up-last session protocol, union-merge for `log.md`, regenerate-don't-merge for `hot.md`, machine-local `services/` symlinks.
+
 ### Permissions
 
 ADLC is agent-operated: routine project work should run without prompts, destructive operations stay gated. Scaffold `.claude/settings.json` from [`permissions.md`](permissions.md) (`allow` / `ask` / `deny` lists).
