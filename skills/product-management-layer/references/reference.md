@@ -33,7 +33,7 @@ One row per **use case × tool** pair. An entry never transfers to another pair.
 ```
 
 **Status values:** `proposed` → `approved` → `under-review` → `expired` / `retired`.
-- `under-review` is set automatically-by-rule when an acquisition/sunset ReviewTrigger fires (§7). Attach a Migration Checklist (§7a).
+- `under-review` is set **by the VENDOR-REVIEW gate** when it records an acquisition/sunset ReviewTrigger (§7) — a named step, not a background job. Attach a Migration Checklist (§7a).
 - An approval within 60 days of `Expires` shows in STATUS as "near expiry".
 
 ---
@@ -128,7 +128,7 @@ Never inherit a class across use cases — re-scope each pair.
 ```
 
 **Trigger types:** `acquisition` · `sunset` · `newUseCase` · `expiry`.
-- `acquisition` / `sunset` → set every dependent ApprovalEntry to `under-review` (§2) and attach a Migration Checklist (§7a).
+- `acquisition` / `sunset` → set every dependent ApprovalEntry to `under-review` (§2) and attach a Migration Checklist (§7a). If the tool is **in use but ungoverned** (no ApprovalEntry), open a retroactive intake (§1) first so the migration is tracked — never no-op.
 - `newUseCase` → open a fresh intake (a new use case × tool pair is not covered by an existing approval).
 - `expiry` → the approval must be re-reviewed before its `Expires` date.
 
@@ -140,6 +140,7 @@ Never inherit a class across use cases — re-scope each pair.
 - [ ] Confirm affected use cases and approvals (<AP-ids>)
 - [ ] Export / secure our data (portability check from §3 exit plan)
 - [ ] Shortlist replacements → run BUY-VS-BUILD (§4)
+- [ ] **Open a NEW ApprovalEntry for the chosen replacement — do not reuse the old approval** (approvals never transfer between tools)
 - [ ] Compliance re-scope for the replacement (§5)
 - [ ] Cutover plan + drop-dead date <YYYY-MM-DD>
 - [ ] Retire old subscription (update §6, cancel to avoid shelfware)

@@ -10,7 +10,9 @@ description: >
   Triggers on: "should we use vendor X", "is this tool approved", "buy vs build",
   "we're paying for X and not using it", "compliance class for this use case",
   "vendor is shutting down", "vendor got acquired", "which tool should we standardize on",
-  "vendor viability", "shelfware", "governance status", "/product-management-layer".
+  "why are we still paying for X", "do we still need X", "consolidate our tools",
+  "rationalize our tool stack", "vendor viability", "shelfware", "governance status",
+  "/product-management-layer".
 ---
 
 # Product Management Layer: Gate 0 Governance
@@ -60,6 +62,7 @@ Respect the user's choice. Log the skipped step as an open item.
 
 - An **ApprovalEntry is scoped to one (use case × tool) pair and never transfers** to another tool or another use case. A new pair needs a new entry.
 - A **ReviewTrigger of type acquisition or sunset invalidates** every dependent ApprovalEntry — mark them `under-review` and produce a migration checklist.
+- **Retroactive intake:** if a trigger fires on an **in-use tool that was never governed** (no ApprovalEntry exists), open a retroactive intake first so there is something to invalidate and the migration is tracked. Never let a trigger silently no-op on an in-use tool.
 - An **AssetRecord with no linked ApprovalEntry is shelfware** — flag it with a renewal or cancel action.
 - **No ghost approvals:** never mark something approved that the owner did not approve.
 - **Anti-Magic:** if a behavior "automatically re-reviews" or "auto-expires", define the trigger and its owner explicitly — nothing happens on its own without a named mechanism (a calendar reminder, a review cadence, an owner).
@@ -115,7 +118,7 @@ Keep this skill's vocabulary (vendor, tool approval, buy vs build, subscription,
 
 ## Mode Details
 
-Each mode presents one artifact from [reference.md](references/reference.md), asks "Does this look right?", then writes the record to the registry on approval.
+Each mode presents its artifact(s) from [reference.md](references/reference.md), asks "Does this look right?", then writes the record to the registry on approval. A mode may emit several **linked parts** in one response (e.g. VENDOR-REVIEW yields a scorecard + a fired trigger + a migration checklist) — these are one gate, not several. "One gate per exchange" means one *mode's* output per exchange.
 
 - **INTAKE** → Intake form + a new ApprovalEntry row (status `proposed`), and a stub compliance scope (`[TBD]` class).
 - **VENDOR-REVIEW** → Vendor Viability Scorecard + any fired Review Triggers. If a trigger of type acquisition/sunset fires, mark dependent approvals `under-review` and attach a Migration Checklist.

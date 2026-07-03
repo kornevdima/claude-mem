@@ -25,6 +25,12 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-03] eval | Product Management Layer skill — 4/4 pass + 5 fixes
+- Role-played E1 (Embrace.ai sunset, golden), E2 (buy-vs-build + owned Arize asset), E5 (negative: ADR request), E6 (cross-trigger: buy inside shift-left escalates up) against the actual skill files via a subagent. Verdict: **PASS 4/4** — disjoint-vocabulary contract + non-transferability + buy-vs-build option set enforced as hard rules on both sides.
+- Applied 5 minor fixes: (1) retroactive intake when a sunset/acquisition trigger hits an in-use *ungoverned* tool (was a silent no-op — the real E1 edge); (2) reworded §2 "automatically" to name the VENDOR-REVIEW gate (Anti-Magic self-conflict); (3) spelled out "open a NEW ApprovalEntry for the replacement" in the migration checklist; (4) added rationalization trigger phrases ("why are we still paying for X", "do we still need X", "consolidate our tools"); (5) clarified a mode's linked parts = one gate.
+
+---
+
 ## [2026-07-03] impl | Product Management Layer skill shipped
 - Built `skills/product-management-layer/` the claude-mem way (not the plan's absent skill-creator toolchain): `SKILL.md` (135 lines, pushy description w/ trigger phrases; On Init, 5 modes INTAKE/VENDOR-REVIEW/BUY-VS-BUILD/COMPLIANCE-SCOPE/REGISTRY-STATUS, domain invariants, ID scheme, handoffs) + `references/reference.md` (10 artifact templates). Auto-discovered via the plugin manifest — no plugin.json edit.
 - Registry persistence (plan P3.6) resolved: Markdown under `wiki/governance/` when a vault exists, else `docs/governance/`; decision-log append-only.
