@@ -1,6 +1,6 @@
 {
   "name": "claude-mem",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Claude + Obsidian knowledge companion. Persistent, compounding wiki vault plus an optional structural code graph (via graphify) wired into the same vault. Adds AGENTS.md project-profile skill for brownfield-codebase calibration. Covers memory management, session notetaking, knowledge organization, code-structure mapping, and cross-tool agent context across projects. Based on Andrej Karpathy's LLM Wiki pattern.",
   "author": {
     "name": "dmytro"

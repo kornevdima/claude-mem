@@ -19,7 +19,7 @@ Navigation: [[index]] | [[log]]
 
 ## Last Updated
 
-**2026-07-04 (post-wrap-up increments, UNCOMMITTED)**: After the tier-3 commit (`8ba3856`), the session continued with two more increments — pm-layer evals E1–E8 and the RLM → wiki-query follow-ups. Both are logged and now fully synced (this wrap-up completion), but **not yet committed** on `adlc`.
+**2026-07-04 (post-wrap-up increments, committed)**: After the tier-3 commit (`8ba3856`), the session continued with two more increments — pm-layer evals E1–E8 (`3a740df`) and the RLM → wiki-query follow-ups (`9e9b02f`). Both synced (wrap-up completion, `2e56b07`) and committed on `adlc`; plugin bumped to 0.6.0 (`8cfc840`).
 
 ## Key Recent Facts
 
@@ -35,7 +35,6 @@ Navigation: [[index]] | [[log]]
 
 ## Active Threads
 
-- **Commit pending**: the two increments above are uncommitted on `adlc` — commit is the next human/operator action.
-- Redeploy `agents/*.md` snapshots to service repos (carrying graphify grounding; one repo lacks feature-reviewer entirely); `/graphify-ingest` once in graph-less service repos.
-- Other human follow-ups: `.gitattributes` two-liner in existing project vaults; seed the two `meta/` pages in existing ADLC vaults; `plugin.json` 0.3.0→0.4.0.
+- **All committed** — next: redeploy `agents/*.md` snapshots to service repos (carrying graphify grounding; one repo lacks feature-reviewer entirely); `/graphify-ingest` once in graph-less service repos.
+- Other human follow-ups: `.gitattributes` two-liner in existing project vaults; seed the two `meta/` pages in existing ADLC vaults. (Plugin version bump: done, 0.6.0.)
 - Optional: run the pm-layer golden case (E1) on the default model and record the verdict in [[log]].
