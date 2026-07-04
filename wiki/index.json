@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-04T10:07:29Z",
- "page_count": 84,
+ "generated": "2026-07-04T11:38:47Z",
+ "page_count": 85,
  "pages": [
   {
    "path": "wiki/comparisons/Wiki vs RAG.md",
@@ -20,6 +20,30 @@
     "Compounding Knowledge",
     "index",
     "How does the LLM Wiki pattern work"
+   ]
+  },
+  {
+   "path": "wiki/concepts/ADLC Field Review Findings.md",
+   "name": "ADLC Field Review Findings",
+   "type": "concept",
+   "title": "ADLC Field Review Findings",
+   "created": "2026-07-04",
+   "updated": "2026-07-04",
+   "confidence": "high",
+   "tags": [
+    "concept",
+    "adlc",
+    "field-evidence",
+    "review",
+    "metrics"
+   ],
+   "status": "mature",
+   "related": [
+    "Grilling Session",
+    "Validation Contract",
+    "Vertical Slices for Agent Tasks",
+    "Wiki Sharing Patterns",
+    "RLM-Optimized Wiki Querying"
    ]
   },
   {

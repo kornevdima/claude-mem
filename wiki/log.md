@@ -25,6 +25,13 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-04] review | ADLC field review captured: [[ADLC Field Review Findings]]
+- Reviewed a production two-wiki ADLC setup end-to-end (genericized — no project names): flow-trace over both wiki logs + ~24 feature plans, duplication analysis (a/b/c classification), per-repo usage ledgers. Two parallel Explore workers (~240K subagent output); main context got only the condensed reports.
+- Headline findings filed: the pipeline ships but **inverted** (code-first, BA registered after prod; unregistered local IDs the failure mode); the handoff seam leaks (zero requirement-ID references in plans, re-derivation of context the plan should carry — the `architecture-subagent` template enforces exactly what the manual substitute skipped); records must be pages not prose (verdicts were narrative-only; two "not implemented" pages contradicted shipped reality — the plan-rot trap live); duplication ~6–8% by volume / 25–30% hard in the shared layer (single-source formulas + decision rationale); efficiency operator-set (48–66% delegation on pipelined features vs 4% on a main-thread marathon; harness bounds variance, operator sets the mean).
+- Same session (not wiki-filed, in project repos): harness alignment applied to three service repos — reviewer agents added where missing, verifiers now write record pages, coverage ledgers, tier-2/3 dispatcher rules, `.gitattributes` union merge, mission-control seeded in the ADLC vault, `index.json` + `usage.md` generated.
+
+---
+
 ## [2026-07-04] impl | Token-usage rollup: meta/usage.md generated at wrap-up
 - Operator asked to keep an eye on token consumption and what drives it. New `skills/wrap-up/scripts/usage_report.py` (zero-dep): parses the host's Claude Code transcripts (`~/.claude/projects/<slug>/`), dedupes streamed usage by `requestId`, filters `<synthetic>` placeholder entries, attributes subagent runs via their `.meta.json` sidecars, and writes `wiki/meta/usage.md` — cumulative session ledger (rows survive transcript GC) + top-consumer / per-model / per-subagent-type tables.
 - Wired: `wrap-up` step 7 refreshes it alongside `index.json`; `mission-control.md` documents it as the third derived meta page (host-local: each teammate regenerates from their own transcripts; going stale on non-Claude-Code hosts is expected, not drift).

@@ -58,6 +58,7 @@ Navigation: [[overview]] | [[log]] | [[hot]] | [[maintenance-triggers]]
 - [[Multi-Agent Communication Taxonomy]] — five primitives: delegation, creator-verifier, direct communication, negotiation, broadcast; missions composes four (status: current)
 - [[Validation Contract]] — correctness written at planning time before any code; assertion coverage accounted across features; validated behaviorally by adversarial validators (status: current)
 - [[Structured Handoff]] — schema-shaped worker report (done / undone / commands + exit codes / issues / procedure compliance); progress blocks on unresolved issues (status: current)
+- [[ADLC Field Review Findings]] — production two-wiki ADLC review: pipeline ships but inverts (code-first + BA catch-up), handoff-seam costs, duplication rates, operator-set efficiency (status: mature)
 - [[Grilling Session]] — alignment-first relentless interview (one question at a time + recommended answer) until a shared design concept exists; precedes any plan/PRD (status: current)
 - [[Ralph Wiggum Loop]] — AFK implementation loop: fresh context per iteration over an issue backlog, sentinel-terminated, Docker-sandboxed; Sandcastle parallel version (status: current)
 - [[Vertical Slices for Agent Tasks]] — tracer-bullet issue decomposition; Kanban DAG of independently grabbable all-layer slices enables parallel agents (status: current)

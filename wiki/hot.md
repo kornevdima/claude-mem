@@ -28,11 +28,14 @@ Navigation: [[index]] | [[log]]
 - **Token-usage rollup (newest):** `skills/wrap-up/scripts/usage_report.py` generates `wiki/meta/usage.md` from local Claude Code transcripts — cumulative session ledger (survives transcript GC) + top-consumer / per-model / per-subagent-type tables; wrap-up step 7 refreshes it; documented in `mission-control.md` as the third (host-local) derived meta page. Dogfood numbers: ~1.3M output tokens across 10 sessions; subagent share peaked at 63%.
 - Committed earlier same day: tier 3 (metrics seam / mission-control + graphify grounding for workers, `8ba3856`) and tier 2 (`91934de`).
 
+- **ADLC field review filed ([[ADLC Field Review Findings]], new):** production two-wiki setup reviewed end-to-end. Grounded in evidence: code-first inversion (BA as catch-up; unregistered local IDs = the failure mode), handoff-seam costs (zero FR-ID traceability in ~24 plans, re-derivation), records-as-pages (narrative verdicts + two stale "not implemented" pages = plan-rot live), duplication ~6–8% volume / 25–30% of the shared layer, efficiency operator-set (48–66% delegation on pipelined features vs 4% on marathons). Harness alignment applied to three service repos in the same session (reviewer agents, verification records, ledgers, mission-control seed — in those repos, uncommitted for owner review).
+
 ## Recent Changes
 
 - Created: `skills/product-management-layer/evals/` (cases, fixtures, runner, README), `skills/wiki-query/scripts/build_index_json.py`, `wiki/index.json`.
 - Edited: `skills/wiki-query/SKILL.md` (cache-first locate, index.json, sub-answer caching), `skills/wrap-up/SKILL.md` (step 7 regen), `skills/wiki-lint/SKILL.md` + `agents/wiki-lint-subagent.md` (staleness checks), [[Product Management Layer Skill]] (evals build note), [[RLM-Optimized Wiki Querying]] (status → implemented).
-- Logged: [[log]] entries `impl | pm-layer evals E1–E8 encoded` and `impl | RLM follow-ups: index.json locator + sub-answer caching`, plus this wrap-up completion.
+- Logged: [[log]] entries `impl | pm-layer evals E1–E8 encoded` and `impl | RLM follow-ups: index.json locator + sub-answer caching`, plus the wrap-up completion, the usage-rollup impl, and `review | ADLC field review captured`.
+- Created: [[ADLC Field Review Findings]] (concepts/), indexed in [[index]] + concepts index.
 
 ## Active Threads
 
