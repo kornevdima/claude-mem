@@ -2,15 +2,15 @@
 type: concept
 title: "RLM-Optimized Wiki Querying"
 created: 2026-06-28
-updated: 2026-06-28
-confidence: medium
+updated: 2026-07-04
+confidence: high
 tags:
   - concept
   - design
   - rlm
   - wiki-query
   - adlc
-status: developing
+status: implemented
 related:
   - "[[Recursive Language Models]]"
   - "[[Context Rot]]"
@@ -22,6 +22,8 @@ related:
 # RLM-Optimized Wiki Querying
 
 A design for applying [[Recursive Language Models]] to claude-mem's `wiki-query` skill and `wiki/` structure, so wiki work in **Mode ADLC** scales to large multi-service vaults without [[Context Rot]]. The main ADLC agent already runs a frontier model and can execute bash, which is exactly the RLM precondition: the vault is the environment, bash is the REPL.
+
+Status: **implemented** (2026-06-28 core, 2026-07-04 follow-ups). The grep-first + bounded-recursion loop shipped as `wiki-query`'s large-vault mode; the 2026-07-04 pass closed the open items: `wiki/index.json` generated locator (`skills/wiki-query/scripts/build_index_json.py`, refreshed by `wrap-up`, staleness-linted by `wiki-lint`) and sub-answer caching to `questions/` with `scope:` frontmatter plus a cache-staleness guardrail.
 
 ## The mapping
 
@@ -61,7 +63,7 @@ The structure is already grep-friendly; reinforce it rather than rebuild:
 - **Per-folder `_index.md`** (already present): these are the cheap "directory listings" the root reads before recursing.
 - **Short pages** (under 200-300 lines, already a rule): chunk-sized so a single read or one sub-call covers a page.
 - **Stable IDs** across product wiki and service code wikis: makes cross-wiki grep + traceability work for recursion.
-- Optional: a generated `wiki/index.json` (machine-readable mirror of `index.md`) if grep over markdown proves noisy at scale. Defer until needed.
+- A generated `wiki/index.json` (machine-readable locator mirror of the frontmatter: path, type, status, tags, ADLC trace IDs; `--services` adds code wikis). **Built 2026-07-04** — `skills/wiki-query/scripts/build_index_json.py` (zero-dep). Locator, not content: trust it to find, never to answer. `wrap-up` regenerates it; `wiki-lint` flags a stale `generated` stamp.
 
 ## Why this fits ADLC specifically
 

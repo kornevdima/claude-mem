@@ -1,0 +1,1754 @@
+{
+ "generated": "2026-07-04T09:45:48Z",
+ "page_count": 83,
+ "pages": [
+  {
+   "path": "wiki/comparisons/Wiki vs RAG.md",
+   "name": "Wiki vs RAG",
+   "type": "comparison",
+   "title": "Wiki vs RAG",
+   "created": "2026-04-07",
+   "updated": "2026-07-03",
+   "tags": [
+    "comparison",
+    "llm-wiki",
+    "knowledge-management"
+   ],
+   "status": "mature",
+   "related": [
+    "LLM Wiki Pattern",
+    "Compounding Knowledge",
+    "index",
+    "How does the LLM Wiki pattern work"
+   ]
+  },
+  {
+   "path": "wiki/concepts/AGENTS.md.md",
+   "name": "AGENTS.md",
+   "type": "concept",
+   "title": "AGENTS.md",
+   "created": "2026-05-09",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "agents-md",
+    "convention",
+    "cross-vendor"
+   ],
+   "status": "current",
+   "related": [
+    "Context Engineering for Coding Agents",
+    "Project Profile",
+    "agents-md-spec",
+    "evaluating-agents-md-eth"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Claude-mem Hooks.md",
+   "name": "Claude-mem Hooks",
+   "type": "concept",
+   "title": "Claude-mem Hooks",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "architecture",
+    "hooks",
+    "infrastructure"
+   ],
+   "status": "evergreen",
+   "related": [
+    "graphify-integration"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Compounding Knowledge.md",
+   "name": "Compounding Knowledge",
+   "type": "concept",
+   "title": "Compounding Knowledge",
+   "created": "2026-04-07",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "knowledge-management"
+   ],
+   "status": "mature",
+   "related": [
+    "LLM Wiki Pattern",
+    "Hot Cache",
+    "Andrej Karpathy",
+    "concepts/_index"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Context Engineering for Coding Agents.md",
+   "name": "Context Engineering for Coding Agents",
+   "type": "concept",
+   "title": "Context Engineering for Coding Agents",
+   "created": "2026-05-09",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "context-engineering",
+    "coding-agents",
+    "llm"
+   ],
+   "status": "developing",
+   "related": [
+    "AGENTS.md",
+    "Repo Map",
+    "Contextual Retrieval",
+    "Project Profile",
+    "anthropic-context-engineering",
+    "evaluating-agents-md-eth"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Context Rot.md",
+   "name": "Context Rot",
+   "type": "concept",
+   "title": "Context Rot",
+   "created": "2026-06-28",
+   "updated": "2026-07-03",
+   "confidence": "high",
+   "tags": [
+    "concept",
+    "long-context",
+    "context-engineering"
+   ],
+   "status": "current",
+   "related": [
+    "Recursive Language Models",
+    "Context Engineering for Coding Agents",
+    "Domain-Specific Agents",
+    "Hot Cache",
+    "rlm-blog-zhang",
+    "yt-pocock-ai-coding-workflow"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Contextual Retrieval.md",
+   "name": "Contextual Retrieval",
+   "type": "concept",
+   "title": "Contextual Retrieval",
+   "created": "2026-05-09",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "rag",
+    "retrieval",
+    "prompt-caching"
+   ],
+   "status": "current",
+   "related": [
+    "Context Engineering for Coding Agents",
+    "Hot Cache",
+    "anthropic-contextual-retrieval"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Deep Modules.md",
+   "name": "Deep Modules",
+   "type": "concept",
+   "title": "Deep Modules",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "software-design",
+    "testability",
+    "agent-enablement"
+   ],
+   "status": "current",
+   "related": [
+    "yt-pocock-ai-coding-workflow",
+    "Vertical Slices for Agent Tasks",
+    "Context Engineering for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Domain-Specific Agents.md",
+   "name": "Domain-Specific Agents",
+   "type": "concept",
+   "title": "Domain-Specific Agents",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "confidence": "medium",
+   "tags": [
+    "concept",
+    "agents",
+    "multi-agent",
+    "context-engineering"
+   ],
+   "status": "developing",
+   "related": [
+    "Context Engineering for Coding Agents",
+    "Context Rot",
+    "Generator-Evaluator Pattern",
+    "Recursive Language Models"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Feedback Loop for Project Profile.md",
+   "name": "Feedback Loop for Project Profile",
+   "type": "concept",
+   "title": "Feedback Loop for Project Profile",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "concept",
+    "design",
+    "feedback-loop",
+    "project-profile"
+   ],
+   "status": "developing",
+   "related": [
+    "Project Profile",
+    "Rule Generation from Chat",
+    "Generator-Evaluator Pattern",
+    "AGENTS.md",
+    "Context Engineering for Coding Agents",
+    "Research Feedback-Driven Project Profile"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Generator-Evaluator Pattern.md",
+   "name": "Generator-Evaluator Pattern",
+   "type": "concept",
+   "title": "Generator-Evaluator Pattern",
+   "created": "2026-05-09",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "pattern",
+    "generator-evaluator",
+    "trust-boundary"
+   ],
+   "status": "current",
+   "related": [
+    "Rule Generation from Chat",
+    "Feedback Loop for Project Profile",
+    "anthropic-harness-design",
+    "reflexion-paper"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Graphify Relative Paths.md",
+   "name": "Graphify Relative Paths",
+   "type": "concept",
+   "title": "Graphify Relative Paths (plan)",
+   "created": "2026-06-28",
+   "updated": "2026-06-28",
+   "confidence": "high",
+   "tags": [
+    "concept",
+    "design",
+    "graphify",
+    "plan",
+    "multi-member"
+   ],
+   "status": "implemented",
+   "related": [
+    "graphify-integration"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Grilling Session.md",
+   "name": "Grilling Session",
+   "type": "concept",
+   "title": "Grilling Session",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "agent-workflow",
+    "planning",
+    "elicitation"
+   ],
+   "status": "current",
+   "related": [
+    "yt-pocock-ai-coding-workflow",
+    "Matt Pocock",
+    "Context Engineering for Coding Agents",
+    "Vertical Slices for Agent Tasks"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Hot Cache.md",
+   "name": "Hot Cache",
+   "type": "concept",
+   "title": "Hot Cache",
+   "created": "2026-04-07",
+   "updated": "2026-04-07",
+   "tags": [
+    "concept",
+    "knowledge-management",
+    "context"
+   ],
+   "status": "mature",
+   "related": [
+    "LLM Wiki Pattern",
+    "Compounding Knowledge",
+    "index",
+    "hot",
+    "concepts/_index"
+   ]
+  },
+  {
+   "path": "wiki/concepts/LLM Wiki Pattern.md",
+   "name": "LLM Wiki Pattern",
+   "type": "concept",
+   "title": "LLM Wiki Pattern",
+   "created": "2026-04-07",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "knowledge-management",
+    "llm",
+    "obsidian"
+   ],
+   "status": "mature",
+   "related": [
+    "Hot Cache",
+    "Compounding Knowledge",
+    "Andrej Karpathy",
+    "index",
+    "concepts/_index"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Multi-Agent Communication Taxonomy.md",
+   "name": "Multi-Agent Communication Taxonomy",
+   "type": "concept",
+   "title": "Multi-Agent Communication Taxonomy",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "multi-agent",
+    "orchestration",
+    "taxonomy"
+   ],
+   "status": "current",
+   "related": [
+    "Generator-Evaluator Pattern",
+    "Validation Contract",
+    "Structured Handoff",
+    "Factory"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Product Management Layer Skill.md",
+   "name": "Product Management Layer Skill",
+   "type": "concept",
+   "title": "Product Management Layer Skill",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "design",
+    "skill-design",
+    "implementation-plan",
+    "governance",
+    "shift-left",
+    "implemented"
+   ],
+   "status": "implemented",
+   "related": [
+    "Project Profile Skill Suite",
+    "shift-left-engineering-advisor",
+    "SDLC Wiki Concerns",
+    "Spec-Kit and claude-mem",
+    "maintenance-triggers",
+    "Generator-Evaluator Pattern"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Project Profile Skill Suite.md",
+   "name": "Project Profile Skill Suite",
+   "type": "concept",
+   "title": "Project Profile Skill Suite",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "concept",
+    "design",
+    "skill-design",
+    "project-profile",
+    "implementation-plan"
+   ],
+   "status": "developing",
+   "related": [
+    "Project Profile",
+    "Feedback Loop for Project Profile",
+    "Rule Generation from Chat",
+    "Generator-Evaluator Pattern",
+    "Context Engineering for Coding Agents",
+    "AGENTS.md",
+    "Repo Map",
+    "graphify-integration",
+    "maintenance-triggers"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Project Profile.md",
+   "name": "Project Profile",
+   "type": "concept",
+   "title": "Project Profile",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "concept",
+    "project-profile",
+    "design",
+    "skill-design"
+   ],
+   "status": "developing",
+   "related": [
+    "AGENTS.md",
+    "Repo Map",
+    "Context Engineering for Coding Agents",
+    "Research Pre-computed Context for Coding Agents",
+    "graphify-integration",
+    "Hot Cache"
+   ]
+  },
+  {
+   "path": "wiki/concepts/RLM-Optimized Wiki Querying.md",
+   "name": "RLM-Optimized Wiki Querying",
+   "type": "concept",
+   "title": "RLM-Optimized Wiki Querying",
+   "created": "2026-06-28",
+   "updated": "2026-07-04",
+   "confidence": "high",
+   "tags": [
+    "concept",
+    "design",
+    "rlm",
+    "wiki-query",
+    "adlc"
+   ],
+   "status": "implemented",
+   "related": [
+    "Recursive Language Models",
+    "Context Rot",
+    "rlm-github-repo",
+    "rlm-reproduction-overthink",
+    "Research Recursive Language Models"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Ralph Wiggum Loop.md",
+   "name": "Ralph Wiggum Loop",
+   "type": "concept",
+   "title": "Ralph Wiggum Loop",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "agent-workflow",
+    "automation",
+    "loops"
+   ],
+   "status": "current",
+   "related": [
+    "yt-pocock-ai-coding-workflow",
+    "Vertical Slices for Agent Tasks",
+    "Matt Pocock",
+    "Context Rot"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Recursive Language Models.md",
+   "name": "Recursive Language Models",
+   "type": "concept",
+   "title": "Recursive Language Models",
+   "created": "2026-06-28",
+   "updated": "2026-06-28",
+   "confidence": "high",
+   "tags": [
+    "concept",
+    "rlm",
+    "long-context",
+    "inference"
+   ],
+   "status": "developing",
+   "related": [
+    "Context Rot",
+    "RLM-Optimized Wiki Querying",
+    "Context Engineering for Coding Agents",
+    "Wiki vs RAG",
+    "rlm-paper-arxiv",
+    "rlm-blog-zhang",
+    "rlm-github-repo"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Repo Map.md",
+   "name": "Repo Map",
+   "type": "concept",
+   "title": "Repo Map",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "concept",
+    "repo-map",
+    "tree-sitter",
+    "codebase-understanding"
+   ],
+   "status": "current",
+   "related": [
+    "Context Engineering for Coding Agents",
+    "Aider",
+    "graphify-integration",
+    "aider-repo-map"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Rule Generation from Chat.md",
+   "name": "Rule Generation from Chat",
+   "type": "concept",
+   "title": "Rule Generation from Chat",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "concept",
+    "rule-generation",
+    "feedback-driven",
+    "context-engineering"
+   ],
+   "status": "developing",
+   "related": [
+    "Feedback Loop for Project Profile",
+    "AGENTS.md",
+    "Generator-Evaluator Pattern",
+    "cursor-generate-rules"
+   ]
+  },
+  {
+   "path": "wiki/concepts/SDLC Wiki Concerns.md",
+   "name": "SDLC Wiki Concerns",
+   "type": "concept",
+   "title": "SDLC Wiki Concerns",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "architecture",
+    "modes",
+    "sdlc"
+   ],
+   "status": "evergreen",
+   "related": [
+    "Project Profile",
+    "Context Engineering for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Spec-Kit and claude-mem.md",
+   "name": "Spec-Kit and claude-mem",
+   "type": "concept",
+   "title": "Spec-Kit and claude-mem",
+   "created": "2026-05-10",
+   "updated": "2026-05-10",
+   "tags": [
+    "architecture",
+    "sdd",
+    "spec-driven",
+    "tooling-comparison",
+    "design-decision"
+   ],
+   "status": "evergreen",
+   "related": [
+    "SDLC Wiki Concerns",
+    "Project Profile"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Structured Handoff.md",
+   "name": "Structured Handoff",
+   "type": "concept",
+   "title": "Structured Handoff",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "multi-agent",
+    "context-engineering",
+    "handoff"
+   ],
+   "status": "current",
+   "related": [
+    "Context Engineering for Coding Agents",
+    "Validation Contract",
+    "Multi-Agent Communication Taxonomy"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Validation Contract.md",
+   "name": "Validation Contract",
+   "type": "concept",
+   "title": "Validation Contract",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "validation",
+    "multi-agent",
+    "testing"
+   ],
+   "status": "current",
+   "related": [
+    "Generator-Evaluator Pattern",
+    "Multi-Agent Communication Taxonomy",
+    "Structured Handoff"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Vertical Slices for Agent Tasks.md",
+   "name": "Vertical Slices for Agent Tasks",
+   "type": "concept",
+   "title": "Vertical Slices for Agent Tasks",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "agent-workflow",
+    "planning",
+    "task-decomposition"
+   ],
+   "status": "current",
+   "related": [
+    "yt-pocock-ai-coding-workflow",
+    "Ralph Wiggum Loop",
+    "Deep Modules"
+   ]
+  },
+  {
+   "path": "wiki/concepts/Wiki Sharing Patterns.md",
+   "name": "Wiki Sharing Patterns",
+   "type": "concept",
+   "title": "Wiki Sharing Patterns",
+   "created": "2026-05-10",
+   "updated": "2026-05-10",
+   "tags": [
+    "architecture",
+    "sharing",
+    "team-collaboration",
+    "microservices",
+    "design-decision"
+   ],
+   "status": "developing",
+   "related": [
+    "SDLC Wiki Concerns",
+    "Spec-Kit and claude-mem"
+   ]
+  },
+  {
+   "path": "wiki/concepts/_index.md",
+   "name": "_index",
+   "type": "meta",
+   "title": "Concepts Index",
+   "updated": "2026-07-03",
+   "tags": [
+    "meta",
+    "index",
+    "concept"
+   ],
+   "status": "evergreen",
+   "related": [
+    "index",
+    "Hot Cache",
+    "LLM Wiki Pattern",
+    "Compounding Knowledge"
+   ]
+  },
+  {
+   "path": "wiki/concepts/cherry-picks.md",
+   "name": "cherry-picks",
+   "type": "concept",
+   "title": "Cherry-Picks: Feature Backlog from Ecosystem Research",
+   "created": "2026-04-08",
+   "updated": "2026-04-08",
+   "tags": [
+    "backlog",
+    "cherry-picks",
+    "product-roadmap",
+    "claude-obsidian"
+   ],
+   "status": "current",
+   "related": [
+    "claude-obsidian-ecosystem",
+    "LLM Wiki Pattern"
+   ]
+  },
+  {
+   "path": "wiki/concepts/graphify-integration.md",
+   "name": "graphify-integration",
+   "type": "concept",
+   "title": "Graphify Integration",
+   "created": "2026-04-26",
+   "updated": "2026-07-03",
+   "tags": [
+    "concept",
+    "graphify",
+    "architecture",
+    "design-decision"
+   ],
+   "status": "developing",
+   "related": [
+    "hot",
+    "maintenance-triggers",
+    "LLM Wiki Pattern"
+   ]
+  },
+  {
+   "path": "wiki/concepts/maintenance-triggers.md",
+   "name": "maintenance-triggers",
+   "type": "concept",
+   "title": "Maintenance Triggers",
+   "created": "2026-04-26",
+   "updated": "2026-04-26",
+   "tags": [
+    "concept",
+    "maintenance",
+    "operations"
+   ],
+   "status": "developing",
+   "related": [
+    "hot",
+    "log",
+    "graphify-integration"
+   ]
+  },
+  {
+   "path": "wiki/entities/Aider.md",
+   "name": "Aider",
+   "type": "entity",
+   "title": "Aider",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "entity",
+    "project",
+    "coding-agent",
+    "aider"
+   ],
+   "status": "current",
+   "related": [
+    "Repo Map",
+    "Context Engineering for Coding Agents",
+    "aider-repo-map"
+   ]
+  },
+  {
+   "path": "wiki/entities/Alex L. Zhang.md",
+   "name": "Alex L. Zhang",
+   "type": "entity",
+   "title": "Alex L. Zhang",
+   "created": "2026-06-28",
+   "updated": "2026-06-28",
+   "confidence": "high",
+   "tags": [
+    "entity",
+    "person",
+    "researcher"
+   ],
+   "status": "current",
+   "related": [
+    "Recursive Language Models",
+    "rlm-paper-arxiv",
+    "rlm-blog-zhang"
+   ]
+  },
+  {
+   "path": "wiki/entities/Andrej Karpathy.md",
+   "name": "Andrej Karpathy",
+   "type": "entity",
+   "title": "Andrej Karpathy",
+   "created": "2026-04-07",
+   "updated": "2026-07-03",
+   "tags": [
+    "entity",
+    "person",
+    "ai-researcher"
+   ],
+   "status": "mature",
+   "related": [
+    "LLM Wiki Pattern",
+    "Compounding Knowledge",
+    "entities/_index"
+   ]
+  },
+  {
+   "path": "wiki/entities/Ar9av-obsidian-wiki.md",
+   "name": "Ar9av-obsidian-wiki",
+   "type": "entity",
+   "title": "Ar9av/obsidian-wiki",
+   "created": "2026-04-08",
+   "updated": "2026-04-08",
+   "tags": [
+    "github-repo",
+    "llm-wiki-pattern",
+    "multi-agent"
+   ],
+   "status": "current",
+   "related": [
+    "LLM Wiki Pattern",
+    "cherry-picks",
+    "claude-obsidian-ecosystem"
+   ]
+  },
+  {
+   "path": "wiki/entities/Claudian-YishenTu.md",
+   "name": "Claudian-YishenTu",
+   "type": "entity",
+   "title": "Claudian (YishenTu/claudian)",
+   "created": "2026-04-08",
+   "updated": "2026-04-08",
+   "tags": [
+    "github-repo",
+    "native-obsidian-plugin",
+    "embedded-ai"
+   ],
+   "status": "current",
+   "related": [
+    "cherry-picks",
+    "claude-obsidian-ecosystem"
+   ]
+  },
+  {
+   "path": "wiki/entities/ETH Zurich AGENTbench Team.md",
+   "name": "ETH Zurich AGENTbench Team",
+   "type": "entity",
+   "title": "ETH Zurich AGENTbench Team",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "entity",
+    "research-group",
+    "eth-zurich",
+    "empirical"
+   ],
+   "status": "current",
+   "related": [
+    "AGENTS.md",
+    "evaluating-agents-md-eth",
+    "Context Engineering for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/entities/Factory.md",
+   "name": "Factory",
+   "type": "entity",
+   "title": "Factory",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "entity",
+    "organization",
+    "multi-agent",
+    "coding-agents"
+   ],
+   "status": "current",
+   "related": [
+    "Luke Alvoeiro",
+    "Multi-Agent Communication Taxonomy",
+    "Validation Contract"
+   ]
+  },
+  {
+   "path": "wiki/entities/Justin Schroeder.md",
+   "name": "Justin Schroeder",
+   "type": "entity",
+   "title": "Justin Schroeder",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "confidence": "medium",
+   "tags": [
+    "entity",
+    "person",
+    "agents"
+   ],
+   "status": "current",
+   "related": [
+    "StandardAgents",
+    "Domain-Specific Agents"
+   ]
+  },
+  {
+   "path": "wiki/entities/Luke Alvoeiro.md",
+   "name": "Luke Alvoeiro",
+   "type": "entity",
+   "title": "Luke Alvoeiro",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "entity",
+    "person",
+    "multi-agent"
+   ],
+   "status": "current",
+   "related": [
+    "Factory",
+    "Multi-Agent Communication Taxonomy"
+   ]
+  },
+  {
+   "path": "wiki/entities/Matt Pocock.md",
+   "name": "Matt Pocock",
+   "type": "entity",
+   "title": "Matt Pocock",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "entity",
+    "person",
+    "ai-coding",
+    "educator"
+   ],
+   "status": "current",
+   "related": [
+    "yt-pocock-ai-coding-workflow",
+    "Grilling Session",
+    "Ralph Wiggum Loop",
+    "Deep Modules"
+   ]
+  },
+  {
+   "path": "wiki/entities/Nexus-claudesidian-mcp.md",
+   "name": "Nexus-claudesidian-mcp",
+   "type": "entity",
+   "title": "Nexus (ProfSynapse/claudesidian-mcp)",
+   "created": "2026-04-08",
+   "updated": "2026-04-08",
+   "tags": [
+    "github-repo",
+    "obsidian-plugin",
+    "mcp-server",
+    "native-plugin"
+   ],
+   "status": "current",
+   "related": [
+    "cherry-picks",
+    "claude-obsidian-ecosystem"
+   ]
+  },
+  {
+   "path": "wiki/entities/Orlov.md",
+   "name": "Orlov",
+   "type": "entity",
+   "title": "Orlov",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "entity",
+    "person",
+    "content-creator"
+   ],
+   "status": "current",
+   "related": [
+    "orlov-rag-wiki-llm-graphify",
+    "LLM Wiki Pattern",
+    "Andrej Karpathy",
+    "entities/_index"
+   ]
+  },
+  {
+   "path": "wiki/entities/StandardAgents.md",
+   "name": "StandardAgents",
+   "type": "entity",
+   "title": "StandardAgents",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "confidence": "low",
+   "tags": [
+    "entity",
+    "organization",
+    "agents"
+   ],
+   "status": "developing",
+   "related": [
+    "Justin Schroeder",
+    "Domain-Specific Agents"
+   ]
+  },
+  {
+   "path": "wiki/entities/_index.md",
+   "name": "_index",
+   "type": "meta",
+   "title": "Entities Index",
+   "updated": "2026-07-03",
+   "tags": [
+    "meta",
+    "index",
+    "entity"
+   ],
+   "status": "evergreen",
+   "related": [
+    "index",
+    "Andrej Karpathy",
+    "hot",
+    "LLM Wiki Pattern"
+   ]
+  },
+  {
+   "path": "wiki/entities/ballred-obsidian-claude-pkm.md",
+   "name": "ballred-obsidian-claude-pkm",
+   "type": "entity",
+   "title": "ballred/obsidian-claude-pkm",
+   "created": "2026-04-08",
+   "updated": "2026-04-08",
+   "tags": [
+    "github-repo",
+    "llm-wiki-pattern",
+    "pkm",
+    "productivity"
+   ],
+   "status": "current",
+   "related": [
+    "LLM Wiki Pattern",
+    "cherry-picks",
+    "claude-obsidian-ecosystem"
+   ]
+  },
+  {
+   "path": "wiki/entities/kepano-obsidian-skills.md",
+   "name": "kepano-obsidian-skills",
+   "type": "entity",
+   "title": "kepano/obsidian-skills",
+   "created": "2026-04-08",
+   "updated": "2026-04-08",
+   "tags": [
+    "github-repo",
+    "official",
+    "agent-skills",
+    "obsidian-creator"
+   ],
+   "status": "current",
+   "related": [
+    "LLM Wiki Pattern",
+    "cherry-picks",
+    "claude-obsidian-ecosystem"
+   ]
+  },
+  {
+   "path": "wiki/entities/rvk7895-llm-knowledge-bases.md",
+   "name": "rvk7895-llm-knowledge-bases",
+   "type": "entity",
+   "title": "rvk7895/llm-knowledge-bases",
+   "created": "2026-04-08",
+   "updated": "2026-04-08",
+   "tags": [
+    "github-repo",
+    "llm-wiki-pattern",
+    "deep-research"
+   ],
+   "status": "current",
+   "related": [
+    "LLM Wiki Pattern",
+    "cherry-picks",
+    "claude-obsidian-ecosystem",
+    "Andrej Karpathy"
+   ]
+  },
+  {
+   "path": "wiki/hot.md",
+   "name": "hot",
+   "type": "meta",
+   "title": "Hot Cache",
+   "updated": "2026-07-04T18:30:00",
+   "tags": [
+    "meta",
+    "hot-cache"
+   ],
+   "status": "evergreen",
+   "related": [
+    "index",
+    "log",
+    "Product Management Layer Skill",
+    "RLM-Optimized Wiki Querying"
+   ]
+  },
+  {
+   "path": "wiki/index.md",
+   "name": "index",
+   "type": "meta",
+   "title": "Wiki Index",
+   "updated": "2026-07-03",
+   "tags": [
+    "meta",
+    "index"
+   ],
+   "status": "evergreen",
+   "related": [
+    "overview",
+    "log",
+    "hot",
+    "concepts/_index",
+    "entities/_index",
+    "sources/_index",
+    "LLM Wiki Pattern",
+    "Hot Cache",
+    "Compounding Knowledge",
+    "Andrej Karpathy",
+    "Project Profile",
+    "AGENTS.md"
+   ]
+  },
+  {
+   "path": "wiki/log.md",
+   "name": "log",
+   "type": "meta",
+   "title": "Operation Log",
+   "updated": "2026-07-04",
+   "tags": [
+    "meta",
+    "log"
+   ],
+   "status": "evergreen",
+   "related": [
+    "index",
+    "hot",
+    "overview",
+    "sources/_index"
+   ]
+  },
+  {
+   "path": "wiki/overview.md",
+   "name": "overview",
+   "type": "overview",
+   "title": "Wiki Overview",
+   "created": "2026-04-07",
+   "updated": "2026-07-04",
+   "tags": [
+    "meta",
+    "overview"
+   ],
+   "status": "evergreen",
+   "related": [
+    "index",
+    "hot",
+    "log",
+    "LLM Wiki Pattern"
+   ]
+  },
+  {
+   "path": "wiki/questions/How does the LLM Wiki pattern work.md",
+   "name": "How does the LLM Wiki pattern work",
+   "type": "question",
+   "title": "How does the LLM Wiki pattern work?",
+   "answer_quality": "definitive",
+   "created": "2026-04-07",
+   "updated": "2026-04-07",
+   "tags": [
+    "question",
+    "llm-wiki",
+    "knowledge-management"
+   ],
+   "status": "developing",
+   "related": [
+    "LLM Wiki Pattern",
+    "Compounding Knowledge",
+    "Hot Cache",
+    "index",
+    "Wiki vs RAG"
+   ]
+  },
+  {
+   "path": "wiki/questions/Research Feedback-Driven Project Profile.md",
+   "name": "Research Feedback-Driven Project Profile",
+   "type": "synthesis",
+   "title": "Research: Feedback-Driven Project Profile",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "research",
+    "synthesis",
+    "project-profile",
+    "feedback-loop"
+   ],
+   "status": "developing",
+   "related": [
+    "Project Profile",
+    "Feedback Loop for Project Profile",
+    "Rule Generation from Chat",
+    "Generator-Evaluator Pattern",
+    "Research Pre-computed Context for Coding Agents",
+    "cursor-generate-rules",
+    "aider-conventions",
+    "reflexion-paper",
+    "anthropic-harness-design"
+   ]
+  },
+  {
+   "path": "wiki/questions/Research Pre-computed Context for Coding Agents.md",
+   "name": "Research Pre-computed Context for Coding Agents",
+   "type": "synthesis",
+   "title": "Research: Pre-computed Context for Coding Agents",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "tags": [
+    "research",
+    "synthesis",
+    "agent-context",
+    "project-profile"
+   ],
+   "status": "developing",
+   "related": [
+    "Context Engineering for Coding Agents",
+    "AGENTS.md",
+    "Repo Map",
+    "Contextual Retrieval",
+    "Project Profile",
+    "ETH Zurich AGENTbench Team",
+    "Aider",
+    "agents-md-spec",
+    "evaluating-agents-md-eth",
+    "aider-repo-map",
+    "anthropic-context-engineering",
+    "anthropic-contextual-retrieval",
+    "racg-survey-2025"
+   ]
+  },
+  {
+   "path": "wiki/questions/Research Recursive Language Models.md",
+   "name": "Research Recursive Language Models",
+   "type": "synthesis",
+   "title": "Research: Recursive Language Models",
+   "created": "2026-06-28",
+   "updated": "2026-06-28",
+   "tags": [
+    "research",
+    "rlm",
+    "long-context",
+    "wiki-query",
+    "adlc"
+   ],
+   "status": "developing",
+   "related": [
+    "Recursive Language Models",
+    "Context Rot",
+    "RLM-Optimized Wiki Querying",
+    "Alex L. Zhang",
+    "rlm-paper-arxiv",
+    "rlm-blog-zhang",
+    "rlm-github-repo",
+    "rlm-reproduction-overthink"
+   ]
+  },
+  {
+   "path": "wiki/sources/_index.md",
+   "name": "_index",
+   "type": "meta",
+   "title": "Sources Index",
+   "updated": "2026-07-03",
+   "tags": [
+    "meta",
+    "index",
+    "source"
+   ],
+   "status": "evergreen",
+   "related": [
+    "index",
+    "log",
+    "entities/_index",
+    "Andrej Karpathy"
+   ]
+  },
+  {
+   "path": "wiki/sources/agents-md-spec.md",
+   "name": "agents-md-spec",
+   "type": "source",
+   "title": "AGENTS.md Specification",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "specification",
+    "agents-md",
+    "coding-agents"
+   ],
+   "status": "current",
+   "related": [
+    "AGENTS.md",
+    "Context Engineering for Coding Agents",
+    "Research Pre-computed Context for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/sources/aider-conventions.md",
+   "name": "aider-conventions",
+   "type": "source",
+   "title": "Aider Conventions Documentation",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "aider",
+    "conventions",
+    "manual"
+   ],
+   "status": "current",
+   "related": [
+    "Aider",
+    "Feedback Loop for Project Profile"
+   ]
+  },
+  {
+   "path": "wiki/sources/aider-repo-map.md",
+   "name": "aider-repo-map",
+   "type": "source",
+   "title": "Building a Better Repository Map with Tree-sitter (Aider)",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "aider",
+    "repo-map",
+    "tree-sitter",
+    "codebase-understanding"
+   ],
+   "status": "current",
+   "related": [
+    "Repo Map",
+    "Aider",
+    "Context Engineering for Coding Agents",
+    "Research Pre-computed Context for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/sources/anthropic-context-engineering.md",
+   "name": "anthropic-context-engineering",
+   "type": "source",
+   "title": "Effective Context Engineering for AI Agents (Anthropic)",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "anthropic",
+    "context-engineering",
+    "claude-code"
+   ],
+   "status": "current",
+   "related": [
+    "Context Engineering for Coding Agents",
+    "Research Pre-computed Context for Coding Agents",
+    "anthropic-contextual-retrieval"
+   ]
+  },
+  {
+   "path": "wiki/sources/anthropic-contextual-retrieval.md",
+   "name": "anthropic-contextual-retrieval",
+   "type": "source",
+   "title": "Contextual Retrieval (Anthropic)",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "anthropic",
+    "rag",
+    "retrieval",
+    "prompt-caching"
+   ],
+   "status": "current",
+   "related": [
+    "Contextual Retrieval",
+    "Context Engineering for Coding Agents",
+    "Research Pre-computed Context for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/sources/anthropic-harness-design.md",
+   "name": "anthropic-harness-design",
+   "type": "source",
+   "title": "Harness Design for Long-Running Application Development (Anthropic)",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "anthropic",
+    "harness-design",
+    "generator-evaluator"
+   ],
+   "status": "current",
+   "related": [
+    "Generator-Evaluator Pattern",
+    "Feedback Loop for Project Profile",
+    "Context Engineering for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/sources/campbell-after-ai-hype.md",
+   "name": "campbell-after-ai-hype",
+   "type": "source",
+   "title": "After the AI Hype — What's Real, and What's Next (Richard Campbell, NDC 2026)",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "confidence": "medium",
+   "tags": [
+    "source",
+    "keynote",
+    "ai-landscape",
+    "hype-cycle",
+    "agentic-sdlc"
+   ],
+   "status": "current",
+   "related": [
+    "Generator-Evaluator Pattern",
+    "Product Management Layer Skill",
+    "Context Engineering for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/sources/claude-obsidian-ecosystem-research.md",
+   "name": "claude-obsidian-ecosystem-research",
+   "type": "source",
+   "title": "Claude + Obsidian Ecosystem Research",
+   "created": "2026-04-08",
+   "updated": "2026-04-08",
+   "tags": [
+    "research",
+    "ecosystem",
+    "competitive-analysis"
+   ],
+   "status": "current",
+   "related": [
+    "claude-obsidian-ecosystem",
+    "cherry-picks",
+    "LLM Wiki Pattern"
+   ]
+  },
+  {
+   "path": "wiki/sources/cursor-generate-rules.md",
+   "name": "cursor-generate-rules",
+   "type": "source",
+   "title": "Cursor /Generate Cursor Rules (v0.49)",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "cursor",
+    "rule-generation",
+    "feedback-driven"
+   ],
+   "status": "current",
+   "related": [
+    "Rule Generation from Chat",
+    "Feedback Loop for Project Profile"
+   ]
+  },
+  {
+   "path": "wiki/sources/evaluating-agents-md-eth.md",
+   "name": "evaluating-agents-md-eth",
+   "type": "source",
+   "title": "Evaluating AGENTS.md (ETH Zurich)",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "paper",
+    "empirical",
+    "agents-md",
+    "benchmark"
+   ],
+   "status": "current",
+   "related": [
+    "AGENTS.md",
+    "Context Engineering for Coding Agents",
+    "Project Profile",
+    "Research Pre-computed Context for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/sources/orlov-rag-wiki-llm-graphify.md",
+   "name": "orlov-rag-wiki-llm-graphify",
+   "type": "source",
+   "title": "Orlov — AI Agent Memory: from RAG to Karpathy's Wiki LLM to Graphify",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "tags": [
+    "source",
+    "transcript",
+    "rag",
+    "llm-wiki",
+    "graphify"
+   ],
+   "status": "current",
+   "related": [
+    "LLM Wiki Pattern",
+    "Wiki vs RAG",
+    "graphify-integration",
+    "Andrej Karpathy",
+    "Orlov",
+    "Contextual Retrieval",
+    "sources/_index"
+   ]
+  },
+  {
+   "path": "wiki/sources/racg-survey-2025.md",
+   "name": "racg-survey-2025",
+   "type": "source",
+   "title": "Retrieval-Augmented Code Generation Survey (Tao et al., 2025)",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "survey",
+    "rag",
+    "code-generation",
+    "repository-level"
+   ],
+   "status": "current",
+   "related": [
+    "Context Engineering for Coding Agents",
+    "Repo Map",
+    "Research Pre-computed Context for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/sources/reflexion-paper.md",
+   "name": "reflexion-paper",
+   "type": "source",
+   "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "paper",
+    "reflexion",
+    "self-improvement",
+    "feedback-loop"
+   ],
+   "status": "current",
+   "related": [
+    "Generator-Evaluator Pattern",
+    "Feedback Loop for Project Profile",
+    "Context Engineering for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/sources/rlm-blog-zhang.md",
+   "name": "rlm-blog-zhang",
+   "type": "source",
+   "title": "Recursive Language Models (blog, Alex L. Zhang)",
+   "created": "2026-06-28",
+   "updated": "2026-06-28",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "rlm",
+    "long-context"
+   ],
+   "status": "current",
+   "related": [
+    "Recursive Language Models",
+    "rlm-paper-arxiv",
+    "Research Recursive Language Models"
+   ]
+  },
+  {
+   "path": "wiki/sources/rlm-github-repo.md",
+   "name": "rlm-github-repo",
+   "type": "source",
+   "title": "alexzhang13/rlm (GitHub)",
+   "created": "2026-06-28",
+   "updated": "2026-06-28",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "rlm",
+    "implementation"
+   ],
+   "status": "current",
+   "related": [
+    "Recursive Language Models",
+    "RLM-Optimized Wiki Querying",
+    "Research Recursive Language Models"
+   ]
+  },
+  {
+   "path": "wiki/sources/rlm-paper-arxiv.md",
+   "name": "rlm-paper-arxiv",
+   "type": "source",
+   "title": "Recursive Language Models (arXiv 2512.24601)",
+   "created": "2026-06-28",
+   "updated": "2026-06-28",
+   "confidence": "high",
+   "tags": [
+    "source",
+    "rlm",
+    "long-context",
+    "inference"
+   ],
+   "status": "current",
+   "related": [
+    "Recursive Language Models",
+    "Context Rot",
+    "Alex L. Zhang",
+    "Research Recursive Language Models"
+   ]
+  },
+  {
+   "path": "wiki/sources/rlm-reproduction-overthink.md",
+   "name": "rlm-reproduction-overthink",
+   "type": "source",
+   "title": "Think, But Don't Overthink: Reproducing Recursive Language Models (arXiv 2603.02615)",
+   "created": "2026-06-28",
+   "updated": "2026-06-28",
+   "confidence": "medium",
+   "tags": [
+    "source",
+    "rlm",
+    "reproduction",
+    "critique"
+   ],
+   "status": "current",
+   "related": [
+    "Recursive Language Models",
+    "rlm-paper-arxiv",
+    "Research Recursive Language Models"
+   ]
+  },
+  {
+   "path": "wiki/sources/sdlc-team-documentation-research.md",
+   "name": "sdlc-team-documentation-research",
+   "type": "source",
+   "title": "SDLC Team Documentation Research (web search synthesis)",
+   "created": "2026-05-09",
+   "updated": "2026-05-09",
+   "confidence": "medium",
+   "tags": [
+    "sdlc",
+    "devops",
+    "qa",
+    "security",
+    "documentation"
+   ],
+   "status": "mature",
+   "related": [
+    "SDLC Wiki Concerns"
+   ]
+  },
+  {
+   "path": "wiki/sources/spec-kit-research.md",
+   "name": "spec-kit-research",
+   "type": "source",
+   "title": "GitHub Spec-Kit Research (web synthesis)",
+   "created": "2026-05-10",
+   "updated": "2026-05-10",
+   "confidence": "medium",
+   "tags": [
+    "sdd",
+    "spec-driven-development",
+    "workflow",
+    "ba-tools"
+   ],
+   "status": "mature",
+   "related": [
+    "Spec-Kit and claude-mem"
+   ]
+  },
+  {
+   "path": "wiki/sources/wiki-sharing-research.md",
+   "name": "wiki-sharing-research",
+   "type": "source",
+   "title": "Wiki Sharing Patterns Research (web synthesis)",
+   "created": "2026-05-10",
+   "updated": "2026-05-10",
+   "confidence": "medium",
+   "tags": [
+    "wiki-sharing",
+    "team-collaboration",
+    "multi-role",
+    "microservices",
+    "docs-as-code"
+   ],
+   "status": "mature",
+   "related": [
+    "Wiki Sharing Patterns"
+   ]
+  },
+  {
+   "path": "wiki/sources/yt-alvoeiro-multi-agent-architecture.md",
+   "name": "yt-alvoeiro-multi-agent-architecture",
+   "type": "source",
+   "title": "The Multi-Agent Architecture That Actually Ships (Luke Alvoeiro, Factory)",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "confidence": "medium",
+   "tags": [
+    "source",
+    "multi-agent",
+    "factory",
+    "validation",
+    "orchestration"
+   ],
+   "status": "current",
+   "related": [
+    "Multi-Agent Communication Taxonomy",
+    "Validation Contract",
+    "Structured Handoff",
+    "Generator-Evaluator Pattern",
+    "Context Engineering for Coding Agents",
+    "Factory",
+    "Luke Alvoeiro"
+   ]
+  },
+  {
+   "path": "wiki/sources/yt-pocock-ai-coding-workflow.md",
+   "name": "yt-pocock-ai-coding-workflow",
+   "type": "source",
+   "title": "Full Walkthrough: Workflow for AI Coding (Matt Pocock)",
+   "tags": [
+    "source",
+    "transcript",
+    "ai-coding",
+    "agent-workflow",
+    "context-engineering"
+   ],
+   "status": "current",
+   "related": [
+    "Matt Pocock",
+    "Grilling Session",
+    "Ralph Wiggum Loop",
+    "Vertical Slices for Agent Tasks",
+    "Deep Modules",
+    "Context Rot",
+    "Context Engineering for Coding Agents"
+   ]
+  },
+  {
+   "path": "wiki/sources/yt-schroeder-domain-specific-agents.md",
+   "name": "yt-schroeder-domain-specific-agents",
+   "type": "source",
+   "title": "The Future Is Domain-Specific Agents (Justin Schroeder, AI Engineer)",
+   "created": "2026-07-03",
+   "updated": "2026-07-03",
+   "confidence": "medium",
+   "tags": [
+    "source",
+    "youtube",
+    "agents",
+    "multi-agent",
+    "context-engineering"
+   ],
+   "status": "current",
+   "related": [
+    "Domain-Specific Agents",
+    "Justin Schroeder",
+    "StandardAgents",
+    "Context Engineering for Coding Agents",
+    "Context Rot"
+   ]
+  }
+ ]
+}

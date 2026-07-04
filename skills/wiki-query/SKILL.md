@@ -167,10 +167,17 @@ For large or ADLC vaults, treat the wiki filesystem as the context environment a
    rg -l -i "term1|term2" wiki services/*/wiki 2>/dev/null | head -40
    rg -i "^(type|status|req_id|traces_to):" wiki/<folder> 2>/dev/null
    ```
+   **Check the answer cache first:** `rg -l -i "term1|term2" wiki/questions` — past filed answers and cached sub-answers are the cheapest hits. Cite the page's `updated:` date; if the underlying area changed since, treat the cache as a lead, not the answer (records win).
+   **If `wiki/index.json` exists**, use it as the locator instead of raw frontmatter greps — one file, one pass:
+   ```bash
+   jq -r '.pages[] | select(.type=="requirement" or (.tags|index("auth"))) | .path' wiki/index.json
+   ```
+   It is a generated mirror (see below): trust it to *find* pages, never to *answer* — and if its `generated` stamp predates recent work, regenerate before relying on it.
 3. **Read or recurse.**
    - A handful of small pages: read the matched slices directly.
    - A large or dense area (e.g. all of `requirements/`, or one service's `specs/`): dispatch ONE sub-agent for that area with the sub-query. It reads the subtree and returns a condensed, cited answer (~1-2K tokens). This is the `rlm_query(sub_query, chunk)` step. Fan out independent areas **in parallel** (one message).
 4. **Synthesize.** Combine the sub-answers, cite the pages, answer. File valuable answers to `questions/`.
+5. **Cache the sub-answers.** A condensed area answer a sub-agent produced is worth keeping even when only part of it fed the final answer: file it to `questions/` with `type: question`, a `scope:` line naming the area it covers (e.g. `scope: requirements/`), and the page citations. Future queries grep-hit it in the Locate step and skip the recursion entirely.
 
 ### Guardrails
 
@@ -179,6 +186,28 @@ For large or ADLC vaults, treat the wiki filesystem as the context environment a
 - **Terminate explicitly.** Fix the candidate set before recursing; no open-ended exploration.
 - **Verify.** Require sub-agents to cite pages so you can spot-check; this limits error propagation.
 - **Cost.** Sub-calls are blocking. Parallelize independent areas; do not chain them serially.
+- **Cache staleness.** A cached sub-answer is a derived view: if any cited page's `updated:` is newer than the cache page's, re-derive instead of reusing.
+
+### Generating `wiki/index.json` (optional locator)
+
+A machine-readable mirror of the vault's frontmatter for large vaults where raw greps get noisy. Generate or refresh it with the bundled script:
+
+```bash
+# Resolve the skill directory across hosts (same pattern as wiki-lint).
+SKILL_DIR=""
+for cand in \
+    "${CLAUDE_PLUGIN_ROOT:+$CLAUDE_PLUGIN_ROOT/skills/wiki-query}" \
+    "$HOME/.claude/plugins/claude-mem/skills/wiki-query" \
+    "$HOME/.codex/skills/claude-mem/skills/wiki-query" \
+    "$HOME/.opencode/skills/claude-mem/skills/wiki-query" \
+    "$HOME/.cursor/skills/claude-mem/skills/wiki-query"; do
+    [ -n "$cand" ] && [ -d "$cand" ] && { SKILL_DIR="$cand"; break; }
+done
+python3 "$SKILL_DIR/scripts/build_index_json.py" .            # product wiki only
+python3 "$SKILL_DIR/scripts/build_index_json.py" . --services # + services/*/wiki
+```
+
+Ship it only when the vault is actually large (50+ pages or multi-wiki); small vaults don't need the moving part. Once it exists, `wrap-up` refreshes it each session and `wiki-lint` flags it when stale.
 
 ---
 

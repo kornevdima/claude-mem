@@ -55,6 +55,7 @@ Work through these in order:
 6. **Frontmatter gaps**. Pages missing required fields (type, status, created, updated, tags).
 7. **Empty sections**. Headings with no content underneath.
 8. **Stale index entries**. Items in `wiki/index.md` pointing to renamed or deleted pages.
+8a. **Stale `index.json`** (only if `wiki/index.json` exists). The generated locator's `generated` stamp predates the newest page under `wiki/` (or `services/*/wiki/` when built with `--services`) — re-run `skills/wiki-query/scripts/build_index_json.py`. Same rule for cached sub-answer pages in `questions/` (frontmatter `scope:`) whose cited pages are newer.
 
 ### ADLC / multi-wiki layer (only if Mode ADLC)
 
