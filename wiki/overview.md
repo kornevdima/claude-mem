@@ -31,7 +31,7 @@ This is the **claude-mem design wiki**: the knowledge base behind the claude-mem
 
 - Wiki pages: 80 (32 concepts, 16 entities, 23 sources, plus comparisons / questions / meta)
 - Raw sources on disk: 8 (`.raw/`), 5 tracked in `.raw/.manifest.json`
-- Last activity: 2026-07-04 — tier 3 metrics seam / mission-control built (`references/mission-control.md`: operator board + ba-activity rollup) and all ADLC workers taught graphify grounding ("the graph finds; the code asserts") ahead of the agent redeploy; earlier same day: tier 2 harness backlog committed
+- Last activity: 2026-07-04 — pm-layer evals E1–E8 encoded as runnable fixtures (`skills/product-management-layer/evals/`) and the RLM follow-ups closed (`wiki/index.json` locator + wiki-query sub-answer caching); earlier same day: tier 3 metrics seam / mission-control + graphify grounding for ADLC workers (committed), tier 2 harness backlog (committed)
 
 ---
 
@@ -39,8 +39,7 @@ This is the **claude-mem design wiki**: the knowledge base behind the claude-mem
 
 - **Pattern & memory research** — [[LLM Wiki Pattern]], [[Hot Cache]], [[Compounding Knowledge]], [[Context Rot]], [[Recursive Language Models]], [[Contextual Retrieval]], [[Wiki vs RAG]]
 - **Harness & agent design** — [[Generator-Evaluator Pattern]], [[Multi-Agent Communication Taxonomy]], [[Validation Contract]], [[Structured Handoff]], [[Domain-Specific Agents]], [[Vertical Slices for Agent Tasks]], [[Grilling Session]]
-- **Shipped skill designs** — [[Product Management Layer Skill]], [[Project Profile Skill Suite]], [[graphify-integration]], [[SDLC Wiki Concerns]], [[Wiki Sharing Patterns]] (operational protocol: `skills/wiki/references/team-sync.md`)
-- **Planned / not yet built** — [[RLM-Optimized Wiki Querying]], pm-layer evals E1–E8 (see [[hot]])
+- **Shipped skill designs** — [[Product Management Layer Skill]] (incl. evals E1–E8), [[Project Profile Skill Suite]], [[graphify-integration]], [[SDLC Wiki Concerns]], [[Wiki Sharing Patterns]] (operational protocol: `skills/wiki/references/team-sync.md`), [[RLM-Optimized Wiki Querying]] (wiki-query large-vault mode + `index.json` locator)
 
 ---
 

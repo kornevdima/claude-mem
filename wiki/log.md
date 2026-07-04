@@ -25,6 +25,27 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-04] wrap-up | Completed interrupted sync for the two post-commit increments
+- Trigger: operator "check latest changes; last wrap-up might not have finished". Finding confirmed: the pm-layer-evals and RLM-follow-ups increments were built and logged but never synced — [[hot]] still listed both as "remaining planned".
+- Reconciled: [[hot]] rewritten (uncommitted-state flagged), [[overview]] last-activity + shipped/planned lists updated, [[RLM-Optimized Wiki Querying]] flipped `developing` → `implemented` (index.json item marked built — the plan-rot rule), `wiki/index.json` regenerated post-edits.
+- Left for the human: commit the two increments on `adlc`; optional E1 golden-case run on the default model.
+
+---
+
+## [2026-07-04] impl | pm-layer evals E1–E8 encoded (fixtures + runnable runner)
+- The eval matrix from [[Product Management Layer Skill]] is now runnable: `skills/product-management-layer/evals/` — `cases/E1..E8.md` (Prompt + Must match / Must not match regexes per case), `fixtures/governance/` (coherent portfolio: 2 approved pairs, underused Arize sub, ungoverned zero-utilization FlowMetrics, empty trigger log; `{{PLUS_45D}}`-style dates substituted at run time so near-expiry never goes stale), `run-evals.sh` (throwaway workspace per case, one `claude -p` turn, grades transcript + registry diff), README.
+- Mechanics verified with a stub model (pass path, fail path, must-not path, `--grade-only`, comment filtering). Real smoke runs: **E5 PASS** on haiku (no Gate 0 artifacts in an ADR request — the negative trigger holds). **E1 FAIL on haiku** — a genuine catch, not a runner bug: haiku fired the sunset trigger but skipped `under-review` and the never-transfer invariant. Golden-case verdict on the default model recorded separately below if run.
+- Grading design note: negative assertions grade against transcript + registry **diff** (not raw registry) so fixture text can't false-trip them; E6's escalation regex tightened after the stub exposed "governance" matching diff file paths.
+
+---
+
+## [2026-07-04] impl | RLM follow-ups: index.json locator + sub-answer caching
+- Closed the Phase 12 open items from [[RLM-Optimized Wiki Querying]]. New `skills/wiki-query/scripts/build_index_json.py` (zero-dep, flat-YAML-subset parser): generates `wiki/index.json` — a machine-readable locator mirror (path, type, status, tags, ADLC trace IDs per page; `--services` includes code wikis). Verified on this vault: 83 pages. Locator, not content: trust it to find, never to answer.
+- `wiki-query` large-vault mode: Locate step now checks the `questions/` answer cache first, uses `jq` over `index.json` when present; new step 5 files each recursion sub-answer to `questions/` with a `scope:` frontmatter line (future queries grep-hit it and skip the recursion); new cache-staleness guardrail (cited page newer than cache → re-derive).
+- Wired freshness: `wrap-up` step 7 regenerates `index.json` when present; `wiki-lint` check 8a (SKILL) + check 14 (subagent) flag a stale `generated` stamp and stale cached sub-answers.
+
+---
+
 ## [2026-07-04] wrap-up | Session end sync + commit (tier 3 + graphify grounding)
 - Trigger: operator "wrap up and commit". Scope: this vault only (plugin repo; no `services/` checkouts).
 - Rollups reconciled: [[overview]] last-activity line covers both increments; planned list already trimmed to pm-layer evals + RLM→wiki-query. [[index]] unchanged (no new wiki pages — the session's output is harness files + `references/mission-control.md`). [[hot]] rewritten.
