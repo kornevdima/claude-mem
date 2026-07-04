@@ -36,7 +36,7 @@ Design + execution plan for `product-management-layer`, a new **"Gate 0" governa
 
 Status: **implemented** (2026-07-03) — shipped as a real claude-mem skill at `skills/product-management-layer/` (`SKILL.md` + `references/reference.md`), auto-discovered via the plugin manifest. The shift-left companion patch (upward Governance Escalation) is in place. Source of record for the original governing plan: [[pm-layer-execution-plan]] (raw, immutable).
 
-> **Build note — plan vs repo.** The execution plan assumed the `anthropic-skills` / `ai-agent-builder` / `skill-creator` toolchain (`scripts.package_skill`, `docs/adr/`, `evals/`, `eval-viewer`). That tooling does **not** exist in claude-mem, so the skill was built the **claude-mem way**: a user-facing `SKILL.md` with a pushy description + a `references/reference.md` of artifact templates (progressive disclosure, body < 500 lines). Registries persist as Markdown under a `governance/` area (`wiki/governance/` when a vault exists, else `docs/governance/`). Formal Gates 1–4 docs, PlantUML diagrams, and an encoded E1–E8 eval harness were **not** produced — the eval scenarios remain a documented next step, not automated fixtures.
+> **Build note — plan vs repo.** The execution plan assumed the `anthropic-skills` / `ai-agent-builder` / `skill-creator` toolchain (`scripts.package_skill`, `docs/adr/`, `evals/`, `eval-viewer`). That tooling does **not** exist in claude-mem, so the skill was built the **claude-mem way**: a user-facing `SKILL.md` with a pushy description + a `references/reference.md` of artifact templates (progressive disclosure, body < 500 lines). Registries persist as Markdown under a `governance/` area (`wiki/governance/` when a vault exists, else `docs/governance/`). Formal Gates 1–4 docs and PlantUML diagrams were **not** produced. **Update 2026-07-04:** the E1–E8 eval harness IS now encoded — `skills/product-management-layer/evals/` (per-case prompt + regex assertions, date-substituted fixture registry, `run-evals.sh` driving one `claude -p` turn per case and grading transcript + registry diff). Smoke evidence: E5 passes on haiku; E1 fails on haiku (skips `under-review` + never-transfer) — the golden case discriminates by model strength, which is exactly what it is for.
 
 ## Where it sits in the skill family
 
@@ -104,6 +104,8 @@ Traceability: every FR maps to at least one eval case; the golden case is the **
 | E8 | STATUS mode | portfolio report: expiries, open triggers, shelfware (FR-6) |
 
 Embrace case data lives as **eval fixtures**, never in SKILL.md.
+
+**Encoded 2026-07-04** at `skills/product-management-layer/evals/` (cases + fixtures + runner + README). Fixture dates are placeholders substituted relative to the run date, so E8's near-expiry window never goes stale.
 
 ## Execution phases
 
