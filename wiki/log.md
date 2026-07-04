@@ -25,6 +25,13 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-04] impl | Token-usage rollup: meta/usage.md generated at wrap-up
+- Operator asked to keep an eye on token consumption and what drives it. New `skills/wrap-up/scripts/usage_report.py` (zero-dep): parses the host's Claude Code transcripts (`~/.claude/projects/<slug>/`), dedupes streamed usage by `requestId`, filters `<synthetic>` placeholder entries, attributes subagent runs via their `.meta.json` sidecars, and writes `wiki/meta/usage.md` — cumulative session ledger (rows survive transcript GC) + top-consumer / per-model / per-subagent-type tables.
+- Wired: `wrap-up` step 7 refreshes it alongside `index.json`; `mission-control.md` documents it as the third derived meta page (host-local: each teammate regenerates from their own transcripts; going stale on non-Claude-Code hosts is expected, not drift).
+- Dogfooded on this vault: 10 sessions, ~1.3M output / ~5.2M cache-write / ~294M cache-read tokens; top consumer = the May bootstrap session (466K output), subagent fan-out peaked at 63% of output in the 2026-07-03 ingest session.
+
+---
+
 ## [2026-07-04] wrap-up | Completed interrupted sync for the two post-commit increments
 - Trigger: operator "check latest changes; last wrap-up might not have finished". Finding confirmed: the pm-layer-evals and RLM-follow-ups increments were built and logged but never synced — [[hot]] still listed both as "remaining planned".
 - Reconciled: [[hot]] rewritten (uncommitted-state flagged), [[overview]] last-activity + shipped/planned lists updated, [[RLM-Optimized Wiki Querying]] flipped `developing` → `implemented` (index.json item marked built — the plan-rot rule), `wiki/index.json` regenerated post-edits.
