@@ -12,7 +12,7 @@ description: >
   "explain the workflow", "what are the requirements", "what do I need",
   "why is X broken", "graphify isn't working", "hot cache not loading",
   "skills not appearing", "edge drop", "labels.json mismatch", "what is hot cache",
-  "what is .raw", "what is a vault", "explain mode B", "what are concerns",
+  "what is .raw", "what is a vault", "explain mode B", "explain mode ADLC", "what are concerns", "what is wrap-up", "agentic mode",
   "what is graphify", "wiki-faq", "claude-mem faq".
 ---
 
@@ -29,7 +29,7 @@ Map the question to ONE of these reference files (or two for an open-ended overv
 | "How do I get started?", "what do I need?", "Python version?", "host tools?", "Obsidian setup?" | [`references/requirements.md`](references/requirements.md) |
 | "What's the workflow?", "which skill when?", "end-to-end example", "how does this fit together?", "explain the layers" | [`references/workflow.md`](references/workflow.md) |
 | "Why is graphify broken?", "hot cache not loading", "graphifyy not installed", "edge drop too high", "labels.json mismatch", "Python 3.14 issue" | [`references/troubleshooting.md`](references/troubleshooting.md) |
-| "What is X?" where X is a claude-mem term (vault, .raw, hot cache, base mode, concerns, community, label, AST, subagent, skill) | [`references/glossary.md`](references/glossary.md) |
+| "What is X?" where X is a claude-mem term (vault, .raw, hot cache, base mode, concerns, ADLC, wrap-up, community, label, AST, subagent, skill) | [`references/glossary.md`](references/glossary.md) |
 | Open-ended overview ("explain claude-mem", "what is this", "I just installed it") | requirements + workflow combined |
 
 If the question doesn't fit any of these, fall back to `wiki-query` for content questions, or ask the user to clarify.

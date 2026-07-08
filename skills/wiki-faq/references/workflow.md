@@ -13,30 +13,50 @@ claude-mem has **two parallel layers** in every project:
 
 Use the narrative layer for any project (code, product docs, BA workflows). Add the structural layer only for code projects that benefit from a graph.
 
-## The 14 skills, grouped by purpose
+## The skills, grouped by purpose
 
 ### Setup / scaffolding
 
-- **`/wiki`** — first-time scaffold. Asks the base mode (B / C / B+C) and which concerns apply (`ops`, `qa`, `sec`, `design`, `writing`). Creates folder structure + vault `AGENTS.md`. Run once per project. See [[SDLC Wiki Concerns]] for the mode/concern model.
+- **`/wiki`** — first-time scaffold. Asks the base mode (B / C / B+C / ADLC) and which concerns apply (`ops`, `qa`, `sec`, `design`, `writing`). Creates folder structure + vault `AGENTS.md`. Run once per project. See [[SDLC Wiki Concerns]] for the mode/concern model, and `skills/wiki/references/modes.md` § Mode ADLC for the agentic-delivery mode.
 - **`/graphify-ingest`** — first-time code-graph build. AST + parallel semantic extraction via subagents. ~$1–3 in Sonnet tokens. Writes `graphify-out/` and `wiki/code/`.
 - **`/graphify-update`** — incremental graph rebuild after a feature lands. Pennies (often $0 if changes are code-only). Preserves community labels via Jaccard matching.
 
 ### Knowledge management
 
-- **`wiki-ingest`** — process a source (file, URL, image) into the wiki. Single-source mode is interactive; batch mode (3+ sources) dispatches parallel `wiki-ingest-subagent` workers.
+- **`wiki-ingest`** — process a source (file, URL, image) into the wiki. Single-source mode is interactive; batch mode (3+ sources) dispatches parallel `wiki-ingest-subagent` workers. In an ADLC vault it routes BA deliverables to `ba-suite-subagent` and per-service specs to `architecture-subagent` instead of generic extraction.
 - **`save`** — file the current chat conversation as a structured wiki note. Use after a useful exchange you don't want to lose.
 - **`autoresearch`** — autonomous research loop on a topic. Searches the web, synthesizes, files into the wiki. Use for deep-dives.
 
+### Export
+
+- **`ba-export`** — export wiki BA deliverables to Office docs (`.docx` / `.xlsx`, PlantUML diagrams) in `.raw/exports/`, reusing the `ba-suite` skills via `ba-export-subagent`; optional ClickUp / Jira push. One-way (wiki to docs); the wiki stays canonical.
+
 ### Querying
 
-- **`wiki-query`** — general "answer questions from the wiki." Reads hot cache → index → relevant pages. Routes code-structural questions to graphify when a graph exists.
+- **`wiki-query`** — general "answer questions from the wiki." Reads hot cache → index → relevant pages. Routes code-structural questions to graphify when a graph exists. Auto-scales on large / ADLC vaults to grep-first + bounded recursion.
 - **`/graphify-explain "X"`** — single-node lookup with full edge list. Cheapest first-step query when graph exists.
 - **`/graphify-path "A" "B"`** — shortest path between two nodes.
 - **`/graphify-query "..."`** — open-ended BFS/DFS traversal anchored at term-matched nodes.
 
 ### Maintenance
 
-- **`wiki-lint`** — health check: orphan pages, dead links, frontmatter gaps, graph-layer drift (label mismatches, stale labels.json, missing community pages). Dispatches `wiki-lint-subagent` for vaults ≥20 pages.
+- **`wiki-lint`** — health check: orphan pages, dead links, frontmatter gaps, graph-layer drift (label mismatches, stale labels.json, missing community pages), and ADLC traceability / cross-wiki drift. Dispatches `wiki-lint-subagent` for vaults ≥20 pages.
+
+### Session
+
+- **`wrap-up`** — session-end sync (ADLC). On "wrap up" / "end session": checks git across `services/`, injects updates into the code wikis, reflects shipped features / gaps / requirements into the product wiki, refreshes `hot.md` + `log.md`. The `Stop` hook nudges it when `services/` changed.
+
+### Service build (ADLC, internal sub-agents)
+
+Not skills — the ADLC agent dispatches these at the service level during the per-service build pipeline:
+
+- **`feature-builder`** — implements code + unit tests from the spec (reads the service's own AGENTS.md for commands).
+- **`feature-tester`** — authors e2e specs from the feature's verification contract.
+- **`feature-reviewer`** — reviews the diff (correctness, reuse, efficiency, test coverage); registers a review record in the wiki; returns APPROVED or CHANGES_REQUESTED.
+- **`feature-verifier`** — runs the contract via `docker compose` + chrome-devtools MCP; logs pass/fail; never fixes bugs.
+- **`doc-writer`** — writes user docs for built + verified features.
+
+Sequenced build -> test -> review -> verify -> document; the agent commits. On CHANGES_REQUESTED the review loops back to builder + tester, then re-reviews (capped rounds). Stack-neutral (no hardcoded framework).
 
 ### Project context
 
@@ -104,6 +124,7 @@ Base mode:
 - **B (Repository)** — code-focused: modules, flows, ADRs, dependencies. Devs.
 - **C (Business / Project)** — product/business: stakeholders, decisions, deliverables, intel. BAs / PMs.
 - **B+C** — both layers in one vault. Mixed teams.
+- **ADLC** — agent-operated delivery lifecycle: agents cover BA/QA/PM, humans operate and gate; wiki is canonical, per-service specs in code wikis. Additive; pairs with `qa`.
 
 Concerns (opt-in, additive):
 
@@ -113,7 +134,7 @@ Concerns (opt-in, additive):
 - **design** — UX: designs, user-research
 - **writing** — Tech writers: user-docs, api-docs, tutorials
 
-A small dev team picks `B`. A platform team picks `B + ops + qa`. A regulated SaaS picks `B+C + ops + qa + sec`. See [[SDLC Wiki Concerns]] for design rationale.
+A small dev team picks `B`. A platform team picks `B + ops + qa`. A regulated SaaS picks `B+C + ops + qa + sec`. A 2-person agent-operated team picks `ADLC + qa`. See [[SDLC Wiki Concerns]] for design rationale.
 
 ## See also
 

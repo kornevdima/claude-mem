@@ -35,7 +35,7 @@ Do NOT invoke for:
 
 | Mode | What runs | Status |
 |---|---|---|
-| **first-run** | Full setup: mechanical scan + tribal interview + write AGENTS.md and `.agents/rules/_index.md` | **Implemented** |
+| **first-run** | Full setup: mechanical scan + tribal interview + write (or **augment**, non-destructively) AGENTS.md and `.agents/rules/_index.md` | **Implemented** |
 | **refresh** | Re-scan mechanical sections only, show diff, leave tribal sections untouched | Not yet (deferred) |
 | **status** | Show rule count, pruning candidates, conflicts | Not yet (deferred) |
 
@@ -63,9 +63,9 @@ Check for any of:
 
 If `AGENTS.md` already exists, **stop** and ask the user:
 
-> "AGENTS.md already exists at $TARGET. First-run mode would overwrite it. Options: (1) abort and use `--refresh` mode (not yet implemented), (2) back up the existing file and proceed, (3) cancel."
+> "AGENTS.md already exists at $TARGET. First-run can **augment** it non-destructively: I'll back it up to `AGENTS.md.bak`, refresh the mechanical sections from a fresh scan, merge in your tribal answers, and preserve verbatim every section I don't own. Options: (1) back up and augment, (2) cancel."
 
-Default to (3) cancel unless the user explicitly says proceed.
+Default to (2) cancel unless the user explicitly says proceed. When the user proceeds, **hold onto the existing file's full contents** — Step 5 merges the composed sections *into* it rather than replacing it, and Step 7 backs it up before writing. Never discard the existing content on this path.
 
 If `CLAUDE.md` / `.cursorrules` / `CONVENTIONS.md` exist but no `AGENTS.md`, note them in the output and proceed — we'll cross-reference and not duplicate their content.
 
@@ -176,7 +176,21 @@ Detailed rules live in `.agents/rules/` (one rule per file, see `_index.md`). Us
 - `CONVENTIONS.md` — superseded; consider migrating into this file
 ```
 
-Target length: under 2K tokens total. If the file exceeds 3K tokens, push back: AGENTbench shows costs ramping without benefits beyond ~2K.
+The seven headings above are the **skill-owned sections** — the only ones this skill generates or rewrites: `Build & Test`, `Linting & Formatting`, `Language Version`, `Code Generations`, `Conventions`, `Rules`, `Cross-references`.
+
+**If there is NO existing AGENTS.md** (the clean-slate case), write exactly the template above and skip to Step 6.
+
+**If an existing AGENTS.md was detected in Step 1** (the augment path), do NOT emit the bare template — it would drop the user's custom content (this is [[Project Profile Skill Suite]] DEFECT-001). Instead **merge** the composed sections into the existing file:
+
+1. Split the existing file into a preamble (the title line and anything above the first `##`) plus its `##` sections, keeping their original order.
+2. **Skill-owned sections** that appear in the existing file: replace the body.
+   - Mechanical sections (`Build & Test`, `Linting & Formatting`, `Language Version`) → the fresh scan output (configs are the source of truth; the scan wins).
+   - `Conventions` and `Code Generations` → the **union** of the existing directives and the new interview answers, deduplicated, existing directives preserved. Never silently drop a directive the user already had.
+3. **Skill-owned sections missing** from the existing file → append them (only the non-empty ones), following the template's section order.
+4. **Every other `##` section** — anything not in the skill-owned set (e.g. `wiki/` topology, ADLC, project-specific sections) — **preserve verbatim, in its original position and order.** These are the sections the scan can't reproduce; losing them is the defect. When unsure whether a heading is skill-owned, treat it as foreign and preserve it.
+5. Keep the preamble; if the existing preamble differs from the template's one-line banner, keep the existing one.
+
+Target length: under 2K tokens total for the **skill-owned** content. If the file exceeds 3K tokens, push back: AGENTbench shows costs ramping without benefits beyond ~2K. On the augment path the cap applies to skill-owned sections only — never truncate a preserved foreign section to hit a token target.
 
 ### Step 6 — Create .agents/rules/ scaffolding
 
@@ -208,9 +222,9 @@ Print the full proposed AGENTS.md to the user. Prompt:
 
 > "Looks good? [Accept / Edit / Reject]"
 
-- **Accept**: write the file to `$TARGET/AGENTS.md`, confirm path.
-- **Edit**: accept inline edits, then write.
-- **Reject**: don't write anything; report "AGENTS.md not created."
+- **Accept**: on the augment path, first back up the existing file — copy `$TARGET/AGENTS.md` to `$TARGET/AGENTS.md.bak` (if `.bak` already exists, use `.bak.1`, `.bak.2`, … so no prior backup is clobbered). Then write the composed/merged content to `$TARGET/AGENTS.md`. Confirm both paths (and the backup) on the augment path; just the path on the clean-slate path.
+- **Edit**: accept inline edits, then write (same backup step on the augment path).
+- **Reject**: don't write anything; report "AGENTS.md not created." (No backup is made — nothing was touched.)
 
 ### Step 8 — Append to wiki/log.md (if claude-mem wiki present)
 
@@ -219,10 +233,22 @@ If `$TARGET/wiki/log.md` exists, prepend a log entry:
 ```markdown
 ## [YYYY-MM-DD] project-profile | First-run setup
 - Type: skill execution
-- Created: AGENTS.md, .agents/rules/_index.md
+- Created: AGENTS.md, .agents/rules/_index.md          # clean-slate path
 - Detected stack: <one-line summary from scanner>
 - Tribal answers given: <count of non-"none" responses>
 - Existing context files cross-referenced: <CLAUDE.md, .cursorrules, etc., or "none">
+```
+
+On the augment path, record it as a merge instead of a creation:
+
+```markdown
+## [YYYY-MM-DD] project-profile | First-run augment
+- Type: skill execution
+- Augmented: AGENTS.md (backed up to AGENTS.md.bak); created .agents/rules/_index.md
+- Detected stack: <one-line summary from scanner>
+- Tribal answers given: <count of non-"none" responses>
+- Skill-owned sections refreshed: <list>
+- Foreign sections preserved: <list, or "none">
 ```
 
 If no claude-mem wiki present, skip this step. The skill is useful in projects without a wiki too.
@@ -249,10 +275,11 @@ Next steps:
 3. **Never invent commands.** If the scanner reports "(not detected)", leave the slot honest.
 4. **Cap at 4 tribal questions.** Adding more burns user patience without proportional gain.
 5. **Default to "skip" being acceptable.** Mechanical-only AGENTS.md is still useful.
+6. **Never drop a section you don't own.** When augmenting an existing AGENTS.md, preserve every foreign `##` section verbatim and back the file up before writing. Overwriting custom sections with a mechanical-only template is DEFECT-001 — the exact regression this skill must not reintroduce.
 
 ## Known limitations (intentional, deferred)
 
-- **No refresh mode yet.** When configs drift, user must re-run first-run mode (and merge by hand). Refresh comes in step 4 of the implementation sequence.
+- **No dedicated refresh mode yet.** When configs drift, re-running first-run now **augments** safely (mechanical sections refresh from the fresh scan; foreign sections are preserved; the prior file is backed up to `.bak`) — no hand-merge required. A dedicated `--refresh` that shows a section-level diff and leaves tribal sections untouched is still deferred to step 4 of the implementation sequence.
 - **No status mode yet.** No `--status` flag for rule-count/health output.
 - **No per-subdirectory AGENTS.md.** Monorepos with multiple subprojects get only a root-level file.
 - **No CLAUDE.md @path imports.** If user wants Claude Code to specifically link to AGENTS.md, they add the import manually.

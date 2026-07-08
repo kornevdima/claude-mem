@@ -7,13 +7,14 @@ aliases:
   - "/project-profile design"
   - "Skill Suite Design"
 created: 2026-05-09
-updated: 2026-05-09
+updated: 2026-07-08
 tags:
   - concept
   - design
   - skill-design
   - project-profile
   - implementation-plan
+  - defect
 status: developing
 related:
   - "[[Project Profile]]"
@@ -85,7 +86,7 @@ project-root/
 
 **First-run flow**:
 
-1. Detect existing `AGENTS.md` / `CLAUDE.md` / `.cursorrules` / `CONVENTIONS.md`. If any exist, augment rather than replace.
+1. Detect existing `AGENTS.md` / `CLAUDE.md` / `.cursorrules` / `CONVENTIONS.md`. If any exist, augment rather than replace. ✅ **The shipped implementation now honors "augment": first-run on an existing `AGENTS.md` backs it up, refreshes the skill-owned sections, and preserves foreign sections verbatim — see [[#Known Defects]] → DEFECT-001 (Fixed).**
 2. Dispatch `mechanical-scanner-subagent`: extracts build/test/lint commands from `package.json`, `Makefile`, `pyproject.toml`, CI configs, linter configs.
 3. Show user the proposed mechanical sections of AGENTS.md. Edit / approve.
 4. Conduct tribal interview (inline, not subagent):
@@ -273,6 +274,31 @@ These remain open and will be resolved during implementation, not before:
 5. The `--status` output format (table, dashboard, summary).
 
 None of these block the next step (implementation of `/project-profile` first-run).
+
+## Known Defects
+
+Defects found in the shipped implementation. Tracked here (this vault has no `defects/` folder) alongside the design they diverge from. Format: `DEFECT-NNN — one-line title`.
+
+### DEFECT-001 — first-run overwrites an existing AGENTS.md instead of augmenting it
+
+| Field | Value |
+|---|---|
+| Severity | **High** (data loss) |
+| Status | **Fixed** — 2026-07-08, `skills/project-profile/SKILL.md` Step 5 augment path |
+| Found | 2026-07-08, during a `/project-profile` first-run on a brownfield service repo whose `AGENTS.md` already carried `wiki/` + ADLC topology sections |
+| Area | `skills/project-profile/SKILL.md` — first-run composition |
+
+**Symptom.** On the "back up and proceed" path, first-run mode wrote a mechanical-only `AGENTS.md` (mechanical scan + tribal-interview output) and dropped the pre-existing custom sections.
+
+**Root cause.** The design says first-run should *augment rather than replace* when a context file exists (this page's first-run flow, step 1). The skill's Step 1 guard even passes `existing_agents_md` into the `mechanical-scanner-subagent` — but the composition step writes from a fixed template and never merges that existing content back into the final file, so anything the scan + interview didn't reproduce is lost.
+
+**Contradiction.** `skills/project-profile/SKILL.md` Step 1 correctly warns and defaults to *cancel*, but once the user chooses proceed the composed output silently ignores the "augment" intent recorded on this page — spec says augment, implementation replaces.
+
+**Workaround.** Manual merge from the `.bak` file created by the "back up and proceed" option.
+
+**Fix direction.** Composition must diff/merge the scanner + interview output into the existing `AGENTS.md`, preserving unrecognized sections — or, minimally, re-append them under a "Preserved from prior AGENTS.md" heading until the `--refresh` mode (implementation sequence step 4) lands.
+
+**Fix (2026-07-08).** `skills/project-profile/SKILL.md` Step 5 now branches: with no existing file it writes the template as before; with an existing `AGENTS.md` it takes an **augment path** — split the existing file into `##` sections, replace the seven *skill-owned* sections (mechanical sections from the fresh scan; `Conventions` / `Code Generations` as a deduplicated union of old + new), and **preserve every foreign section verbatim in its original order**. Step 1 reframes the prompt as "back up and augment" (default cancel); Step 7 backs the file up to `AGENTS.md.bak` (`.bak.N` if taken) before writing; Step 8 logs it as an augment. Hard rule 6 encodes "never drop a section you don't own." The dedicated `--refresh` mode (section-level diff, tribal untouched) is still deferred, but the data-loss regression is closed — re-running first-run is now non-destructive.
 
 ## Connections
 

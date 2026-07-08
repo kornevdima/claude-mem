@@ -32,6 +32,21 @@ from graphify.report import generate
 PROJECT = Path(sys.argv[1]).resolve()
 OUT = PROJECT / "graphify-out"
 
+
+def to_rel(src, project):
+    """Project-root-relative posix source_file, for portable committed graph artifacts.
+    Passes through already-relative paths; leaves paths outside the project unchanged."""
+    if not src:
+        return src
+    p = Path(src)
+    if not p.is_absolute():
+        return p.as_posix()
+    try:
+        return p.resolve().relative_to(project).as_posix()
+    except ValueError:
+        return src
+
+
 print("[1] Load AST extraction")
 ast = json.loads((OUT / ".ast_extract.json").read_text())
 print(f"  AST: {len(ast['nodes'])} nodes, {len(ast['edges'])} edges")
@@ -61,6 +76,13 @@ for cp in chunk_paths:
     print(f"  {cp.name}: +{new_n} new nodes, +{len(new_e)} edges, +{len(new_h)} hyperedges")
 
 print(f"  total: {len(all_nodes)} nodes, {len(all_edges)} edges, {len(all_hyper)} hyperedges")
+
+# Portability: store project-root-relative source_file so the committed graph.json
+# works across team members' checkouts (see "Graphify Relative Paths").
+for n in all_nodes:
+    s = n.get("source_file")
+    if s:
+        n["source_file"] = to_rel(s, PROJECT)
 
 print("[3] Drop edges with unknown endpoints")
 valid_ids = {n["id"] for n in all_nodes}

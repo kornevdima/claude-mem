@@ -23,6 +23,7 @@ The vault's primary scaffold shape. One of:
 - **B (Repository)** — code-focused: `modules/`, `components/`, `decisions/`, `dependencies/`, `flows/`. For developers.
 - **C (Business / Project)** — product/business: `stakeholders/`, `decisions/`, `deliverables/`, `intel/`, `comms/`. For BAs / PMs.
 - **B+C** — both, in one vault. Mixed teams.
+- **ADLC (Agentic Development Life Cycle)** — additive mode for agent-operated delivery: `requirements/`, `features/`, `user-stories/`, `gaps/`, `sprints/`, `planning/` plus the Mode C folders. Agents cover BA / QA / PM (via `ba-suite-subagent` + `architecture-subagent`); humans operate and gate. Wiki is canonical; per-service specs live in code wikis under `services/`. Pairs with the `qa` concern. See `skills/wiki/references/modes.md` § Mode ADLC.
 
 The `wiki` skill asks for the mode at scaffold time. Once chosen, mode-specific folders should always exist on disk for the labeled vault.
 

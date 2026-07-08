@@ -30,6 +30,20 @@ from graphify.export import to_canvas, to_html, to_json
 from graphify.report import generate
 
 
+def to_rel(src, project):
+    """Project-root-relative posix source_file, for portable committed graph artifacts.
+    Passes through already-relative paths; leaves paths outside the project unchanged."""
+    if not src:
+        return src
+    p = Path(src)
+    if not p.is_absolute():
+        return p.as_posix()
+    try:
+        return p.resolve().relative_to(project).as_posix()
+    except ValueError:
+        return src
+
+
 def slug(s: str) -> str:
     out = []
     for ch in s.lower():
@@ -68,13 +82,10 @@ def write_community_page(
         lbl = nd.get("label", nid)
         src = nd.get("source_file", "")
         loc = nd.get("source_location", "")
-        if src:
-            try:
-                rel = Path(src).resolve().relative_to(project)
-                line_hint = f" _(line {loc})_" if loc else ""
-                link = f"[`{lbl}`](../../{rel}){line_hint}"
-            except (ValueError, OSError):
-                link = f"`{lbl}`"
+        rel = to_rel(src, project) if src else ""
+        if rel:
+            line_hint = f" _(line {loc})_" if loc else ""
+            link = f"[`{lbl}`](../../{rel}){line_hint}"
         else:
             link = f"`{lbl}`"
         lines.append(f"- {link}")
@@ -107,6 +118,13 @@ def main() -> None:
     label_map_raw = json.loads(args.labels_path.read_text())
     # Accept str or int keys
     label_map = {int(k): v for k, v in label_map_raw.items()}
+
+    # Portability: store project-root-relative source_file in graph.json (also
+    # migrates an extract that still holds absolute paths).
+    for n in extract.get("nodes", []):
+        s = n.get("source_file")
+        if s:
+            n["source_file"] = to_rel(s, project)
 
     G = build_from_json(extract)
     communities = {int(k): v for k, v in analysis["communities"].items()}
@@ -180,12 +198,7 @@ def main() -> None:
     for g in gods[:6]:
         nd = nodes_by_id.get(g.get("id", ""), {})
         src = nd.get("source_file", "")
-        rel = ""
-        if src:
-            try:
-                rel = str(Path(src).resolve().relative_to(project))
-            except (ValueError, OSError):
-                rel = src
+        rel = to_rel(src, project) if src else ""
         suffix = f" — `{rel}`" if rel else ""
         god_lines.append(f"- `{g.get('label', '?')}`{suffix} ({g.get('degree', 0)} edges)")
 

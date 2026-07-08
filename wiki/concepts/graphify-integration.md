@@ -4,7 +4,7 @@ title: "Graphify Integration"
 complexity: intermediate
 domain: claude-mem
 created: 2026-04-26
-updated: 2026-04-26
+updated: 2026-07-03
 tags:
   - concept
   - graphify
@@ -136,6 +136,19 @@ Tested on a 169-file Next.js codebase (esg-website):
 | `/graphify-ingest --include-images` (118 images) | ~$8–20 | ~5 min |
 | `/graphify-update` after touching 1 code file | $0 | ~10 sec |
 | `/graphify-update` after editing 3 docs | ~$0.30 | ~30 sec |
+
+---
+
+## External claims about graphify (third-party)
+
+From [[orlov-rag-wiki-llm-graphify]] (2026-06, auto-transcript — figures are the speaker's claims, not verified):
+
+- Positions graphify as the "third wave" of agent memory, between RAG and the [[LLM Wiki Pattern]]: mechanical decomposition like RAG, explicit relations like a wiki, stored as JSON nodes + edges.
+- Claims input coverage beyond ours: **video and audio files** as graph inputs (step 2 of its pipeline, requires an AI key). Our `graphify-ingest` covers code, docs, and images only.
+- Confirms our layering: step 1 (code + text) runs on bundled Python scripts with **no LLM cost** — matches our $0 code-only update row above.
+- Claims token savings of "50x, even 70x" on projects with thousands of files. Marketing-grade number; our measured costs are in the table above.
+- Scale caveat worth adopting: graphify adds little on projects of ~10–20 files; the payoff starts at large file counts. Our skills don't currently gate or advise on this.
+- Author name and star count in the transcript are garbled — do not cite them.
 
 ---
 

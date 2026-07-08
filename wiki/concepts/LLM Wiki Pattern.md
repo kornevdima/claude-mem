@@ -8,7 +8,7 @@ aliases:
   - "Karpathy Wiki"
   - "Persistent Wiki"
 created: 2026-04-07
-updated: 2026-04-07
+updated: 2026-07-03
 tags:
   - concept
   - knowledge-management
@@ -90,8 +90,18 @@ At small scale (~100 sources, ~hundreds of pages), the index file is sufficient.
 
 ---
 
+## Adoption Beyond This Stack
+
+The pattern is agent- and vendor-neutral, and third parties reproduce it independently. [[orlov-rag-wiki-llm-graphify]] (2026-06) demos an Obsidian vault where Antigravity + Gemini 3.1 Pro generate a "Wiki LLM skill" from Karpathy's description — converging on the same three directories (raw inputs / wiki markdown / index.md + log.md) without any claude-mem code. The talk also stresses two properties this vault relies on:
+
+- **Incremental ingest** — a new source triggers analysis of only the new file plus index/concept updates, not a re-read of the corpus.
+- **Non-dev use cases** — e.g. a marathon-training diary (daily notes + health-tracker exports) queried holistically, showing the pattern works for personal domains, not just codebases.
+
+---
+
 ## Connections
 
 See [[Compounding Knowledge]] for why the pattern produces more value over time.
 See [[Hot Cache]] for the session context optimization.
 See [[Andrej Karpathy]] for the pattern's origin.
+See [[orlov-rag-wiki-llm-graphify]] for a third-party reproduction on a non-Claude stack.

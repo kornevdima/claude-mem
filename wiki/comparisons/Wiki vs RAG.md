@@ -12,7 +12,7 @@ dimensions:
   - "Scale limit"
 verdict: "Wiki wins at <1000 pages. RAG wins at enterprise scale."
 created: 2026-04-07
-updated: 2026-04-07
+updated: 2026-07-03
 tags:
   - comparison
   - llm-wiki
@@ -53,4 +53,8 @@ Both approaches let you query a large document collection. They differ fundament
 
 The sweet spot: run the wiki pattern for active research (where things are being added, synthesized, and connected), then export to a vector store if the collection grows beyond the index threshold.
 
-(Source: [[LLM Wiki Pattern]], [[Compounding Knowledge]])
+## The "three waves" framing
+
+[[orlov-rag-wiki-llm-graphify]] (2026-06) narrates the same space as three generations: **RAG → Wiki LLM → knowledge graph (graphify)**. The graph layer sits between the two poles of this comparison: like a wiki it captures explicit relations, like RAG it decomposes content mechanically — into JSON node files linked by edges rather than embedded chunks. That talk's stated RAG failure modes match this page's rows: no learning between queries, no entity relations, contradictions silently ignored. claude-mem's answer to the third wave is the structural layer documented in [[graphify-integration]] — a graph for code alongside the wiki for narrative, not a replacement for either.
+
+(Source: [[LLM Wiki Pattern]], [[Compounding Knowledge]], [[orlov-rag-wiki-llm-graphify]])

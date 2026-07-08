@@ -5,7 +5,7 @@ entity_type: person
 role: "AI researcher, educator, founder"
 first_mentioned: "[[LLM Wiki Pattern]]"
 created: 2026-04-07
-updated: 2026-04-07
+updated: 2026-07-03
 tags:
   - entity
   - person
@@ -16,6 +16,7 @@ related:
   - "[[Compounding Knowledge]]"
   - "[[entities/_index]]"
 sources:
+  - "[[orlov-rag-wiki-llm-graphify]]"
 ---
 
 # Andrej Karpathy
@@ -40,8 +41,18 @@ His framing: "The wiki is a persistent, compounding artifact. The cross-referenc
 
 ---
 
+## Other Attributions
+
+- Coined the term **"vibe coding"** (Source: [[orlov-rag-wiki-llm-graphify]]; widely corroborated).
+
+> [!contradiction] Unverified claim: "joined Anthropic"
+> [[orlov-rag-wiki-llm-graphify]] (auto-generated transcript, 2026-06-27) states Karpathy "has now joined Anthropic." No other source in this wiki corroborates it; known history is OpenAI founding member → Tesla AI director → independent (Eureka Labs). Needs a primary source before this page's bio changes.
+
+---
+
 ## Connections
 
 - [[LLM Wiki Pattern]] — his core contribution to knowledge management
 - [[Compounding Knowledge]] — the central insight he articulated
 - claude-obsidian plugin — this repo is a production implementation of his pattern
+- [[orlov-rag-wiki-llm-graphify]] — third-party popularization of his wiki pattern ("second wave" of agent memory)

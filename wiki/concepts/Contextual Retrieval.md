@@ -7,7 +7,7 @@ aliases:
   - "Contextual Embeddings"
   - "Contextual BM25"
 created: 2026-05-09
-updated: 2026-05-09
+updated: 2026-07-03
 tags:
   - concept
   - rag
@@ -72,6 +72,7 @@ For most projects' "important context" (AGENTS.md + key file summaries + decisio
 - Embedding models tested: Gemini and Voyage performed best.
 - Number of retrieved chunks: 20 outperformed 5 or 10.
 - Reranking is the cheapest single additional improvement.
+- Chunk sizing heuristic: chunks range ~10–500 tokens, and the **ideal chunk is a single self-contained assertion / concrete fact** — not an arbitrary text window. A chunk that already states its subject needs less prepended context. (Source: [[orlov-rag-wiki-llm-graphify]])
 
 ## Why this matters here
 

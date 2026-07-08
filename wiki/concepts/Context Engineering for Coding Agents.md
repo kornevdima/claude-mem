@@ -7,7 +7,7 @@ aliases:
   - "Agent Context Engineering"
   - "Coding Agent Context"
 created: 2026-05-09
-updated: 2026-05-09
+updated: 2026-07-03
 tags:
   - concept
   - context-engineering
@@ -26,6 +26,9 @@ sources:
   - "[[anthropic-contextual-retrieval]]"
   - "[[evaluating-agents-md-eth]]"
   - "[[racg-survey-2025]]"
+  - "[[yt-pocock-ai-coding-workflow]]"
+  - "[[yt-schroeder-domain-specific-agents]]"
+  - "[[yt-alvoeiro-multi-agent-architecture]]"
 ---
 
 # Context Engineering for Coding Agents
@@ -84,6 +87,12 @@ From [[anthropic-context-engineering]]:
 2. **Structured note-taking** — agents write to durable scratchpads (NOTES.md, todo list, memory tool) and re-read on demand.
 3. **Sub-agent architectures** — specialized sub-agents return condensed summaries (typically 1-2K tokens) to a coordinator. claude-mem's `graphify-extract-subagent` and `wiki-ingest-subagent` already follow this pattern.
 
+Factory's missions system ([[yt-alvoeiro-multi-agent-architecture]]) pushes the third pattern furthest for multi-day runs: each feature gets a worker with **clean context** ("no accumulated baggage, no degraded attention"), state travels only via [[Structured Handoff]]s and Git commits, and features run **serially** with parallelism reserved for read-only operations (search, research, code review) — naive parallel writers "step on each other's changes" and coordination overhead eats the throughput gains.
+
+## Composition as the limit case of sub-agent architectures
+
+[[yt-schroeder-domain-specific-agents]] pushes pattern 3 to its logical end: the skills/MCP/system-prompt stack is **inheritance** (inflating one agent's context), and past some skill count returns go negative — "if you use very many of these, it actually makes your agent substantially worse". The alternative is **composition**: many small complete agents, each with a domain-written system prompt, minimal toolset, and own message history, coordinated in plain English. A sub-agent's total context can be just its system prompt + tools + the one incoming ask, claimed to yield >80% token efficiency per task and make far cheaper models viable. See [[Domain-Specific Agents]]. This converges with the ETH finding above from a different direction: more upfront context is not free, and scoping beats stacking.
+
 ## Quantitative bounds for retrieval
 
 From [[anthropic-contextual-retrieval]]:
@@ -102,6 +111,17 @@ Critically: below 200K tokens of "important context" (~500 pages), Anthropic rec
 - **Specific over general.** Concrete commands and named tools beat overview prose.
 - **Hand-curated tribal knowledge is the only consistent positive.** This is the part agents can't extract for you.
 
+## A full practitioner instantiation (Pocock, 2026)
+
+[[yt-pocock-ai-coding-workflow]] shows what these principles look like as a working end-to-end workflow, and adds practitioner rules the papers don't state:
+
+- **Push vs pull for standards.** Coding standards should be *pull* for the implementer (skills the agent loads on demand) but *push* for the automated reviewer (inject the standards next to the diff so the reviewer has both). This refines the "cap the upfront budget" rule: the budget depends on the role in the pipeline.
+- **Review in a fresh context.** Never review in the session that implemented — the reviewer inherits a degraded (dumb-zone) context. Clear first. See [[Context Rot]] and [[Generator-Evaluator Pattern]].
+- **Model tiering by role**: cheaper model (Sonnet) for implementation, stronger model (Opus) for review and merging.
+- **Feedback loops as the ceiling**: "the quality of your feedback loops influences how good your AI can code" — tests and typecheckers are context the agent *earns at runtime*, and improving them (see [[Deep Modules]]) beats adding more upfront prose.
+- **Doc rot as anti-context**: stale planning docs (old PRDs) left in the repo are *negative* context — agents find and trust them after the code has diverged. Pocock deletes/closes them post-implementation. This is the practitioner echo of the ETH finding that wrong/duplicative context files are net-negative.
+- **Token visibility**: a status line showing exact token usage in every session, so the operator knows distance to the dumb zone.
+
 ## Connections
 
 - [[AGENTS.md]] — the convention layer
@@ -109,3 +129,4 @@ Critically: below 200K tokens of "important context" (~500 pages), Anthropic rec
 - [[Contextual Retrieval]] — the retrieval-side complement
 - [[Project Profile]] — claude-mem's planned design that synthesizes these findings
 - [[Hot Cache]] — claude-mem's existing always-loaded context, which is itself a context-engineering choice
+- [[Structured Handoff]] — the artifact that makes clean-context worker resets viable ([[yt-alvoeiro-multi-agent-architecture]])

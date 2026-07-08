@@ -15,6 +15,19 @@ git commit -m "Initial vault scaffold"
 
 ---
 
+## .gitattributes (always)
+
+Create a `.gitattributes` in the vault root as part of the scaffold:
+
+```gitattributes
+wiki/log.md merge=union
+**/wiki/log.md merge=union
+```
+
+`log.md` is append-only with newest entries at the top, so concurrent sessions (teammates, parallel agents, a wrap-up racing an ingest) both prepend — a normal merge conflicts every time, while `merge=union` keeps both entries automatically. The `**/` pattern covers co-located code wikis under `services/`. The team-sync protocol (`team-sync.md`) depends on this being present before the second concurrent session ever runs.
+
+---
+
 ## .gitignore
 
 The root `.gitignore` in this repo already covers the right exclusions:

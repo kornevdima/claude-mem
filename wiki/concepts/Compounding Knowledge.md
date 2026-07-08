@@ -7,7 +7,7 @@ aliases:
   - "Knowledge Compounding"
   - "Persistent Synthesis"
 created: 2026-04-07
-updated: 2026-04-07
+updated: 2026-07-03
 tags:
   - concept
   - knowledge-management
@@ -61,6 +61,12 @@ LLMs don't get bored. They don't forget to update a cross-reference. The cost of
 One X user turned 383 scattered files and over 100 meeting transcripts into a compact wiki and dropped token usage by 95% when querying with Claude. The drop came from two sources: better navigation (index + hot cache vs. full document search) and pre-compiled synthesis (no re-deriving the same insights from scratch).
 
 ---
+
+## The doc-rot boundary
+
+> [!contradiction] Conflict with [[yt-pocock-ai-coding-workflow]]
+> This page claims persistent docs compound in value. Matt Pocock argues the opposite for *planning* documents: a PRD kept in the repo after implementation becomes **doc rot** — the code diverges (names, structure, even requirements), and a future agent that finds the stale PRD trusts it and is misled. He deletes or closes PRDs once implemented.
+> Likely resolution: both are right about different document classes. Point-in-time *plans* rot and should be closed/archived; *maintained, as-built* knowledge (what this wiki is, kept current by wrap-up and lint) compounds. The compounding claim holds only while maintenance actually happens — which is the wiki pattern's core bet that LLMs do the bookkeeping.
 
 ## Connections
 

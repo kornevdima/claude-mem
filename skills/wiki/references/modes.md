@@ -1,6 +1,6 @@
 # Wiki Modes
 
-claude-mem ships two scaffolds aligned with its primary use cases: **Mode B (Repository)** for code projects and **Mode C (Business / Project)** for product documentation. They can be combined when a project needs both layers.
+claude-mem ships scaffolds aligned with its primary use cases: **Mode B (Repository)** for code projects, **Mode C (Business / Project)** for product documentation, and **Mode ADLC (Agentic Development Life Cycle)** for small teams where AI agents cover the BA / QA / PM roles and humans operate them. B and C can be combined (B+C). ADLC is a separate, additive option (it does not replace B or C); it composes with the `qa` and `ops` concerns and with co-located Mode B code wikis.
 
 > The original LLM Wiki pattern by Andrej Karpathy defined six modes (A: Website, B: Repository, C: Business, D: Personal, E: Research, F: Book / Course). The full historical pattern is preserved at [`.raw/llm-wiki-pattern-spec.md`](../../../.raw/llm-wiki-pattern-spec.md). Modes A, D, E, F are out of scope for the active claude-mem skills but you can still scaffold them by hand from the reference if needed.
 
@@ -86,6 +86,96 @@ updated: YYYY-MM-DD
 ```
 
 Key wiki pages to create: `[[Project Overview]]`, `[[Stakeholder Map]]`, `[[Decision Log]]`, `[[Competitor Landscape]]`
+
+---
+
+## Mode ADLC: Agentic Development Life Cycle
+
+Use when: a small team runs an **agent-operated delivery lifecycle**. AI agents cover the BA / QA / PM roles, humans operate the agents and hold the gates (scope confirmation, sign-off). Phrases: "agentic delivery wiki", "BA + delivery hub run by agents", "ingest Confluence / Jira / meeting notes into BA deliverables".
+
+ADLC is a **separate, additive** mode. It does not replace Mode B or Mode C. It composes with the `qa` (recommended) and `ops` concerns, and with co-located Mode B code wikis under `services/`.
+
+### Operating model
+
+- **The wiki is canonical.** BA deliverables live here as Markdown with stable IDs. Office files are a generated view, not the source of truth.
+- **Multi-wiki topology.** One product / ADLC wiki plus N code wikis (Mode B), linked through `services/` symlinks. Work flows down (impl specs into code wikis) and up (shipped features back into the product wiki).
+- **The bundled BA method set is the engine at both ends** (`skills/wiki/references/ba/`, no external plugin). It ingests raw context (Confluence, Jira, meeting notes) into BA deliverables, and exports wiki content to Office formats. See [`ba-suite-pipeline.md`](ba-suite-pipeline.md).
+- **Humans operate and gate.** Agents produce; humans confirm scope and sign off. The value is measurable: deliverables produced per feature against the BA / QA / PM time they replace.
+
+### Folder map
+
+```
+vault/
+├── .raw/                 # Confluence / Jira / meeting-note sources (immutable)
+│   └── exports/          # formal Office exports (PlantUML) + HTML tech-doc exports (Mermaid)
+├── wiki/
+│   ├── requirements/     # registers, RTM, approval packs, change records
+│   ├── features/         # feature specs, AS-IS / TO-BE
+│   ├── user-stories/     # INVEST backlog + Gherkin
+│   ├── gaps/             # gap registers, heatmaps, roadmap
+│   ├── stakeholders/     # RACI, power / interest, engagement
+│   ├── decisions/        # product / business decisions (not engineering ADRs)
+│   ├── deliverables/     # business cases, solution assessments, milestones
+│   ├── sprints/          # sprint packs, impediment + retro logs
+│   ├── planning/         # BA approach, governance, information mgmt, performance
+│   ├── comms/            # circulation memos, synthesis exports, meeting notes
+│   ├── sources/          # one summary page per ingested raw source
+│   └── meta/             # mission-control board, ba-activity ledger (metrics seam), lint reports
+├── services/             # symlinks to code checkouts; each service's code wiki holds its specs (no project-context folder)
+└── AGENTS.md
+```
+
+Recommended concerns: add `qa` (`test-plans/`, `test-cases/`, `coverage/`, `bugs/`) in almost all cases, since ADLC produces test artifacts. Add `ops` when the product is operated in production.
+
+Frontmatter for `wiki/requirements/` notes (representative; reuse the relevant pattern per folder):
+```yaml
+---
+type: requirement        # requirement | feature | user-story | gap | sprint | ...
+req_id: ""               # stable ba-suite ID, never renumber (e.g. FR-001, NFR-001)
+status: specified        # specified | implemented | partial | contradicted | approved
+moscow: must             # must | should | could | wont
+epic: ""
+produced_by: ""          # ba-suite skill that authored this (metrics seam)
+effort_estimate: ""      # optional, for cost rollups (metrics seam)
+feature: ""              # feature / cluster this belongs to (metrics seam)
+traces_to: []            # wikilinks to stories / tests / gaps
+source: []               # wikilinks to sources/
+tags: [requirement]
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+---
+```
+
+Key wiki pages to create: `[[Project Overview]]`, `[[Requirements Index]]`, `[[Backlog Index]]`, `[[Gap Analysis]]`, `[[Stakeholder Map]]`, `[[Decision Log]]`.
+
+### The pipelines
+
+1. **Ingest** — `ba-suite` converts Confluence / Jira / meeting-note context into BA deliverables (product wiki) with stable IDs and `[[traceability]]` links, and the shift-left `architecture-subagent` refines those into per-service technical specs (in each service's code wiki). This is the "ingest better deliverables" path: structured artifacts, not generic entity / concept extraction. Maps: [`ba-suite-pipeline.md`](ba-suite-pipeline.md) and [`technical-planning.md`](technical-planning.md).
+2. **Plan, build, verify** — each service is its own service: its spec lands in the service code wiki, the repo agent builds it, and the feature is verified with the operator's toolset (`docker compose` local run + chrome-devtools MCP e2e + the service's own tests). See [`technical-planning.md`](technical-planning.md).
+3. **Sync (session wrap-up)** — when the operator says "end session" or "wrap up", the `wrap-up` skill uses already-loaded context to check git changes across `services/`, inject updates into the code wikis (impl specs, ADRs, plans), reflect shipped features / resolved gaps / new requirements into this wiki, then refresh `hot.md` and append `log.md`. The Stop hook is a backstop nudge.
+4. **Export** — reuse `ba-suite`'s Office generation to render wiki content to `.xlsx` / `.docx` under `.raw/exports/`, and push deliverables to the team tracker over MCP (ClickUp or Jira). Formal-export diagrams use PlantUML; living tech docs use Mermaid, HTML-exported to `.raw/exports/`. Mapping + MCP config: [`mcp-setup.md`](mcp-setup.md). Implemented by the `ba-export` skill (+ `ba-export-subagent`); folder + ID conventions are kept export-friendly.
+
+### Sub-agent
+
+The ingest and planning pipelines run through two workers that each cover a whole skill family: `agents/ba-suite-subagent.md` (BA deliverables) and `agents/architecture-subagent.md` (shift-left technical specs). The ADLC pass and the `wrap-up` skill dispatch them one task at a time (parallel where independent) and update `index` / `log` / `hot` after. See [`ba-suite-pipeline.md`](ba-suite-pipeline.md) and [`technical-planning.md`](technical-planning.md).
+
+The per-service **build pipeline** runs five more service-level workers: `agents/feature-builder.md`, `agents/feature-tester.md`, `agents/feature-reviewer.md`, `agents/feature-verifier.md`, `agents/doc-writer.md` (build -> test -> review -> verify -> document; review loops back to builder / tester on changes requested). Export uses `agents/ba-export-subagent.md`. All BA + build + shift-left methods are bundled (`references/ba/`, `references/shift-left/`) — no external plugin.
+
+### Team state sharing
+
+When more than one person (dev, architect, BA / QA, writer) operates agents against the same wiki set, follow [`team-sync.md`](team-sync.md): git as the state bus, role → concern ownership, pull-first / wrap-up-last session protocol, union-merge for `log.md`, regenerate-don't-merge for `hot.md`, machine-local `services/` symlinks.
+
+### Permissions
+
+ADLC is agent-operated: routine project work should run without prompts, destructive operations stay gated. Scaffold `.claude/settings.json` from [`permissions.md`](permissions.md) (`allow` / `ask` / `deny` lists).
+
+### Privacy
+
+ADLC vaults often hold client data. Keep PII (person names, headcount, contract values, staffing) out of the committed wiki: put sensitive context in a gitignored private note (e.g. `proposals/`), and keep role-based RACI / engagement analysis (no named individuals) in the wiki. Anonymize when in doubt.
+
+### Metrics seam
+
+`log.md` records every operation with the skill that ran it; the `produced_by` / `effort_estimate` / `feature` frontmatter fields feed the rollups. Two derived pages in `meta/` consume them: `mission-control.md` (the operator's async delivery board, updated by the dispatcher at stage transitions) and `ba-activity.md` (the cost rollup, refreshed at wrap-up). Formats, update triggers, and the derived-view rule: [`mission-control.md`](mission-control.md). Seed both at scaffold time with empty tables.
 
 ---
 

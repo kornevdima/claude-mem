@@ -106,6 +106,8 @@ Route to the correct operation based on what the user says:
 | "lint", "health check", "clean up" | LINT | `wiki-lint` |
 | "save this", "file this", "/save" | SAVE | `save` |
 | "/autoresearch [topic]", "research [topic]" | AUTORESEARCH | `autoresearch` |
+| "wrap up", "end session", "session end" | SYNC | `wrap-up` |
+| "export to docs", "export BA deliverables", "export to clickup" | EXPORT | `ba-export` |
 
 ---
 
@@ -115,7 +117,7 @@ Trigger: user describes what the vault is for.
 
 Steps:
 
-1. Determine the wiki mode. Ask: "Is this vault for a code project (Mode B), product / business documentation (Mode C), or both (B+C)?" Read `references/modes.md` for the folder maps and details. The reference also points to the original Karpathy six-mode pattern at `.raw/llm-wiki-pattern-spec.md` if a user explicitly wants Mode A/D/E/F (rare).
+1. Determine the wiki mode. Ask: "Is this vault for a code project (Mode B), product / business documentation (Mode C), an agent-operated delivery lifecycle where AI agents cover the BA / QA / PM roles (Mode ADLC), or a combination (B+C)?" Read `references/modes.md` for the folder maps and details. ADLC is additive: it does not replace B or C, pairs with the `qa` (and often `ops`) concern, and integrates `ba-suite` via `references/ba-suite-pipeline.md`. The reference also points to the original Karpathy six-mode pattern at `.raw/llm-wiki-pattern-spec.md` if a user explicitly wants Mode A/D/E/F (rare).
 2. Determine concerns. Ask: "Does the team include any of these roles producing structured artifacts? Pick any of: ops (DevOps/SRE), qa (testing), sec (security), design (UX), writing (user docs). Or 'none'." See `references/modes.md` § Concerns for when each applies; per-concern folder maps live in `references/concerns/<name>.md`. Skip concerns where the role is informal — concerns are about **artifacts**, not roles.
 3. Ask the purpose: "In one sentence, what is this vault for?" (captured into `AGENTS.md`'s `Purpose:` field).
 4. Create full folder structure under `wiki/` based on the mode and selected concerns.
@@ -125,7 +127,7 @@ Steps:
 5. Create domain pages + `_index.md` sub-indexes (for applicable modes), and `_index.md` files for every mode-specific and concern-specific folder created in step 4.
 6. Create `wiki/index.md`, `wiki/log.md`, `wiki/hot.md`, `wiki/overview.md`.
 7. Create the vault `AGENTS.md` using the template below.
-8. Initialize git. Read `references/git-setup.md`.
+8. Initialize git. Read `references/git-setup.md`. For **Mode ADLC**, also scaffold `.claude/settings.json` from `references/permissions.md` so routine project work runs without prompts while destructive operations stay gated, and seed `wiki/meta/mission-control.md` + `wiki/meta/ba-activity.md` with empty tables per `references/mission-control.md` (the metrics seam).
 9. Present the structure and ask: "Want to adjust anything before we start?"
 
 > Visual customization (theme, color snippets, plugin recommendations) is **not** applied automatically. The default scaffold leaves Obsidian's stock appearance untouched — users pick their own theme and plugins from Obsidian's community marketplace.
@@ -145,6 +147,23 @@ Steps:
 
 If there is **no** checkout to analyze (empty folder, secrets-only repo), create `_index.md` stubs only and say what raw drops belong in `.raw/` for a later ingest.
 
+### Mode ADLC: initial BA pass
+
+**When:** The chosen mode is **ADLC** and there is source context to convert (Confluence / Jira exports, meeting notes in `.raw/`) and/or co-located code wikis under `services/`. This turns the empty `requirements/`, `user-stories/`, `gaps/`, etc. into real BA deliverables, the same way the Mode B pass populates a repo wiki. Follow `references/ba-suite-pipeline.md` for the source-to-folder map and ID rules. Dispatch each BA step below as a `ba-suite-subagent` (one per task, parallel where independent): the worker runs the `ba-suite` skills and files Markdown; you update `index` / `log` / `hot` after all workers finish.
+
+**Do this after steps 1–8:**
+
+1. **Sources** — Ingest `.raw/` drops into `wiki/sources/` (via `wiki-ingest`) so BA deliverables can cite them.
+2. **Requirements** — Run `ba-suite` (elicitation-synthesizer, then requirements-lifecycle) to author the register + RTM into `wiki/requirements/` with stable IDs. Markdown is the system of record; Office output is export-only.
+3. **Features + gaps** — From the code wikis and sources, seed `wiki/features/` (one note per feature, AS-IS / TO-BE) and a gap register in `wiki/gaps/` (gap-analysis).
+4. **Backlog** — Decompose into INVEST stories in `wiki/user-stories/` (user-story-factory), tracing each to its requirement IDs.
+5. **Tests** — With the `qa` concern present, generate test cases into `wiki/test-cases/` (test-case-generator), tracing to stories; update `coverage/`.
+6. **Technical specs (per service)** — dispatch an `architecture-subagent` per service to refine the BA requirements into a shift-left spec (Gate 1 / 1.5 / 2 / 3) inside that service's code wiki. No `project-context/` folder. See `references/technical-planning.md`.
+7. **Verify** — run the service locally via `docker compose` and verify features with the chrome-devtools MCP (e2e) plus the service's own test suite; file an execution note. Same toolset as the operator.
+8. **Integrate** — Update `wiki/index.md` (an **ADLC** section listing `requirements/`, `user-stories/`, `gaps/`, `features/`, `sprints/`), `wiki/hot.md`, append the **top** of `wiki/log.md`, and refresh vault `AGENTS.md` **Structure**. Stamp `produced_by` on authored notes and refresh `meta/ba-activity.md` from the frontmatter (the metrics seam, `references/mission-control.md`).
+
+If there is no source context yet, create `_index.md` stubs only and note what belongs in `.raw/` for a later ingest. After feature work each session, run the `wrap-up` skill to keep the code wikis and this wiki in sync.
+
 ### Vault AGENTS.md template
 
 Create this file in the vault root when scaffolding a new project vault (not this plugin directory):
@@ -152,7 +171,7 @@ Create this file in the vault root when scaffolding a new project vault (not thi
 ```markdown
 # [WIKI NAME]: LLM Wiki
 
-Mode: [B / C / B+C]
+Mode: [B / C / B+C / ADLC]
 Concerns: [comma-separated subset of: ops, qa, sec, design, writing — or "none"]
 Purpose: [ONE SENTENCE]
 Owner: [NAME]
@@ -163,6 +182,8 @@ Created: YYYY-MM-DD
 [PASTE THE FOLDER MAP FROM THE CHOSEN MODE IN references/modes.md, THEN APPEND THE FOLDERS FROM EACH SELECTED concerns/<name>.md]
 
 If Mode B and you use `wiki-ingest`, also list companion folders: `sources/`, `domains/`, `entities/`, `concepts/`, `meta/`, etc.
+
+If Mode ADLC, list the ADLC folders from `references/modes.md` (`requirements/`, `features/`, `user-stories/`, `gaps/`, `sprints/`, `planning/`, `stakeholders/`, `decisions/`, `deliverables/`, `comms/`) plus the `qa` concern folders, and note that `ba-suite` authors deliverables here per `references/ba-suite-pipeline.md`.
 
 ## Conventions
 
@@ -179,6 +200,7 @@ If Mode B and you use `wiki-ingest`, also list companion folders: `sources/`, `d
 - Query: ask any question: read index first, then drill into pages
 - Lint: say "lint the wiki" to run a health check
 - Archive: move cold sources to .archive/ to keep .raw/ clean
+- Wrap up (ADLC): say "wrap up the session" to sync code wikis + this wiki and refresh hot.md
 ```
 
 ---
@@ -197,6 +219,7 @@ When you need context not already in this project:
 1. Read wiki/hot.md first (recent context, ~500 words)
 2. If not enough, read wiki/index.md (full catalog)
 3. If the vault is **Mode B (repository)**, read `wiki/modules/_index.md` and/or `wiki/flows/_index.md` before deep-diving `domains/`.
+3a. If the vault is **Mode ADLC**, read `wiki/requirements/_index.md` and `wiki/user-stories/_index.md` for the current delivery state.
 4. If you need domain specifics, read `wiki/<domain>/_index.md`
 5. Only then read individual wiki pages
 

@@ -100,3 +100,4 @@ updated: YYYY-MM-DD
 - **Don't duplicate trackers**: `wiki/bugs/` summarizes notable bugs and their context; the external tracker (Jira, Linear, GitHub) remains the authoritative status board. Use `external_id` to link out.
 - **Cross-link to Mode B**: test cases reference `wiki/modules/` and `wiki/flows/` so an agent reading either side gets the other.
 - **Automation tag**: `automation_status` lets the team query "which manual cases should we automate next?" via Obsidian Bases or Dataview.
+- **Assertion-coverage ledger (ADLC)**: in a service code wiki, `coverage/_index.md` doubles as the ledger — one row per verification-contract scenario (feature, scenario id, `coverage:` tag, test title, last scoped-suite result + date). `feature-tester` maintains it; it is derived, and on any disagreement the contract + spec win. `wiki-lint` cross-checks it for drift.

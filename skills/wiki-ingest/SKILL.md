@@ -67,6 +67,28 @@ Steps:
 
 ---
 
+## Video / YouTube Ingestion
+
+Trigger: user passes a YouTube (or other video) URL, or says "ingest this talk".
+
+1. **Capture the transcript** with yt-dlp (subtitles only, never the video):
+   ```bash
+   yt-dlp --skip-download --write-subs --write-auto-subs --sub-lang "en.*" --sub-format vtt \
+     -o ".raw/videos/%(title)s" "<url>"
+   ```
+   Uploaded subs (`--write-subs`) beat auto-subs when both exist.
+2. **Clean the VTT**: strip cue numbers and timestamps; auto-subs repeat each line across overlapping cues — dedupe consecutive repeats; collapse into plain paragraphs.
+3. **Save** the cleaned text to `.raw/yt-[slug].md` with frontmatter: `source_url`, `source_type: video-transcript`, `speaker`, `event` (if known), `fetched`, `source_language`.
+4. Proceed with **Single Source Ingest** step 1. Caveat: auto-subs lack punctuation and mis-hear proper nouns — verify speaker / product / project names against the video page before creating entity pages, and mark uncertain ones `(sp?)` rather than guessing.
+
+---
+
+## Canonical Language
+
+Wiki pages are authored in the vault's canonical language (the language of the existing wiki; default English), regardless of the source's language. `.raw/` files stay in their original language — never translate sources. Translate at the wiki layer: keep proper nouns and technical terms in original form where translation loses meaning, record `source_language:` in the source page frontmatter, and when exact wording matters, quote the original with a translation beside it. A vault that mixes page languages splits its search space and its wikilink graph.
+
+---
+
 ## Image / Vision Ingestion
 
 Trigger: user passes an image file path (`.png`, `.jpg`, `.jpeg`, `.gif`, `.webp`, `.svg`, `.avif`).
@@ -120,6 +142,8 @@ Steps:
 11. **Check for contradictions.** If new info conflicts with existing pages, add `> [!contradiction]` callouts on both pages.
 
 **Mode B (repository) vaults:** If `wiki/modules/`, `wiki/flows/`, or `wiki/decisions/` exist, link new or updated `concepts/` and `entities/` pages to the best-matching module, flow, or ADR, and add a short paragraph to those pages when the source is about code layout or behavior.
+
+**Mode ADLC vaults:** If the vault is Mode ADLC (`wiki/requirements/`, `wiki/user-stories/`, etc. exist), do NOT flatten BA sources into generic `entities/` + `concepts/`. Still write the raw-source summary to `sources/` as usual, then route the structured deliverables to the BA workers: `ba-suite-subagent` for requirements / stories / gaps / tests, and `architecture-subagent` for per-service technical specs. They preserve stable IDs and traceability. See `skills/wiki/references/ba-suite-pipeline.md` and `technical-planning.md`.
 
 ---
 

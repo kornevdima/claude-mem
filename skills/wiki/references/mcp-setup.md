@@ -136,3 +136,24 @@ In a Claude Code session, type `/mcp` to check connection status.
 Then test: "List all notes in my wiki folder."
 
 Other hosts (Cursor, Codex, OpenCode, …) register the same JSON via their own MCP configuration UI or config file — refer to your host's docs.
+
+---
+
+## ADLC MCP toolset
+
+Mode ADLC uses MCP for ingest sources, export, diagrams, and verification. The vault MCP options above still apply for note read / write. Add the servers the team uses:
+
+| MCP | Role in ADLC | Tools (examples) |
+|---|---|---|
+| ClickUp | Export deliverables to the tracker | `mcp__clickup__get_task`, `mcp__clickup__create_task` |
+| Atlassian (Jira / Confluence) | Ingest source context; alternative tracker | `getConfluencePage`, `searchJiraIssuesUsingJql`, `createJiraIssue` |
+| chrome-devtools | E2E verification of features | `navigate_page`, `evaluate_script`, `take_screenshot`, `list_console_messages`, `list_network_requests` |
+| PlantUML | Formal export diagrams (rendered with the ba-suite Office docs) | `render_plantuml` |
+
+Pick the tracker per team: ClickUp or Jira, not both. Register each server with your host's MCP config (Claude Code: `claude mcp add-json <name> '<json>' --scope user`, then `/mcp` to check). Keep tokens out of committed files; use env vars or the host keychain.
+
+Diagrams: tech documentation uses **Mermaid** (Markdown-native, no MCP) and HTML-exports to `.raw/exports/`. **PlantUML** (the MCP above) is reserved for the formal export bundle that ships with `ba-suite` Office docs.
+
+ClickUp mapping (export): Project to Space, Objective to Folder, Deliverable to List, Epic to Task, Story to Subtask, Task to Checklist Item. Maintain a `clickup-manifest.json` mapping wiki pages to task IDs for idempotent re-export.
+
+Allow the MCP tools you use in `.claude/settings.json` (see [`permissions.md`](permissions.md)): reads and local verification pre-allowed, outward-facing tracker writes gated.

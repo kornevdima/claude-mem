@@ -28,6 +28,8 @@ You will receive in your prompt:
 - `ast_ids`: list of AST node IDs already in the graph that you can connect to (may be empty)
 - `output_path`: absolute path where you write the JSON (e.g. `<project>/graphify-out/.graphify_chunk_03.json`)
 
+Record each node's `source_file` as the absolute path you read. The merge / update step rewrites it to a project-root-relative path so the committed `graph.json` is portable across checkouts. You do not need to compute relative paths yourself.
+
 ## What to extract
 
 ### For code files (kind: `code`)

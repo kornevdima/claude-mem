@@ -46,6 +46,20 @@ PROJECT = Path(sys.argv[1]).resolve()
 OUT = PROJECT / "graphify-out"
 
 
+def to_rel(src, project):
+    """Project-root-relative posix source_file, for portable committed graph artifacts.
+    Passes through already-relative paths; leaves paths outside the project unchanged."""
+    if not src:
+        return src
+    p = Path(src)
+    if not p.is_absolute():
+        return p.as_posix()
+    try:
+        return p.resolve().relative_to(project).as_posix()
+    except ValueError:
+        return src
+
+
 def jaccard(a: set, b: set) -> float:
     if not a and not b:
         return 0.0
@@ -121,22 +135,14 @@ def main() -> None:
     G_new = build_from_json(new_extract)
 
     print(f"[5] Prune nodes from deleted/changed source files")
-    affected_files = set()
-    for f in code_changed:
-        try:
-            affected_files.add(str(Path(f).resolve()))
-        except (OSError, ValueError):
-            pass
-    for f in deleted:
-        try:
-            affected_files.add(str(Path(f).resolve()))
-        except (OSError, ValueError):
-            pass
+    # Compare on project-root-relative paths so this works whether the existing graph
+    # stored absolute (pre-migration) or relative source_file.
+    affected_files = {to_rel(f, PROJECT) for f in code_changed} | {to_rel(f, PROJECT) for f in deleted}
 
     to_remove = []
     for nid, ndata in G_existing.nodes(data=True):
         src = ndata.get("source_file", "")
-        if src and str(Path(src).resolve()) in affected_files:
+        if src and to_rel(src, PROJECT) in affected_files:
             to_remove.append(nid)
     G_existing.remove_nodes_from(to_remove)
     print(f"  pruned {len(to_remove)} stale nodes from {len(affected_files)} affected files")
@@ -148,6 +154,14 @@ def main() -> None:
     bad_edges = [(u, v) for u, v in G_existing.edges() if u not in valid or v not in valid]
     G_existing.remove_edges_from(bad_edges)
     print(f"  merged total: {G_existing.number_of_nodes()} nodes, {G_existing.number_of_edges()} edges")
+
+    # Portability: rewrite source_file on all nodes to project-root-relative so the
+    # committed graph.json works across team members' checkouts. Also migrates an
+    # older graph that still holds absolute paths.
+    for _nid, _d in G_existing.nodes(data=True):
+        _s = _d.get("source_file")
+        if _s:
+            _d["source_file"] = to_rel(_s, PROJECT)
 
     print(f"[7] Re-cluster")
     G = G_existing

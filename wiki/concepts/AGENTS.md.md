@@ -7,7 +7,7 @@ aliases:
   - "agents.md"
   - "AGENTS dot MD"
 created: 2026-05-09
-updated: 2026-05-09
+updated: 2026-07-03
 tags:
   - concept
   - agents-md
@@ -91,6 +91,10 @@ What doesn't:
 - Generic project overviews ("This is a Python web app...").
 - Anything that just paraphrases README.
 - Lengthy architecture descriptions.
+
+## Practitioner counterpoint: keep it near-empty, prefer pull
+
+[[Matt Pocock]] barely uses CLAUDE.md/AGENTS.md at all: everything in it is **pushed** to the agent on every turn, eating smart-zone budget whether relevant or not. His preference is **pull** — skills with small description headers the agent loads on demand — reserving push for the automated *reviewer* (standards next to the diff). He also demonstrates the lifecycle of a once-popular AGENTS.md tip: "sacrifice grammar for the sake of concision" made plans readable, but he dropped it after replacing plan-reading with grilling sessions — instructions in the always-on file should be re-audited as the workflow changes. (Source: [[yt-pocock-ai-coding-workflow]]) This is consistent with the ETH data above: the always-loaded file earns its place only for load-bearing, always-relevant directives.
 
 ## Connections
 

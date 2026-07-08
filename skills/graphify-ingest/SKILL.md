@@ -9,7 +9,7 @@ Build a structural knowledge graph for a code repository and integrate it with t
 
 This skill is the **structural layer** of claude-mem. It produces:
 
-- `graphify-out/graph.json` — queryable NetworkX graph (committed)
+- `graphify-out/graph.json` — queryable NetworkX graph (committed; `source_file` paths are project-root-relative so it works across team members' checkouts)
 - `graphify-out/GRAPH_REPORT.md` — god nodes, surprising connections, suggested questions, audit trail
 - `graphify-out/graph.html` — interactive viz, open in browser
 - `wiki/code/_COMMUNITY_NN_<slug>.md` — one summary page per meaningful cluster

@@ -1,0 +1,100 @@
+{
+  "sources": {
+    ".raw/yt-campbell-after-ai-hype.md": {
+      "hash": "03224e2c4c3c59fa825f97ea0628e63c",
+      "ingested_at": "2026-07-03",
+      "pages_created": [
+        "wiki/sources/campbell-after-ai-hype.md"
+      ],
+      "pages_updated": [
+        "wiki/concepts/Generator-Evaluator Pattern.md",
+        "wiki/concepts/Product Management Layer Skill.md",
+        "wiki/index.md",
+        "wiki/sources/_index.md",
+        "wiki/log.md"
+      ]
+    },
+    ".raw/yt-orlov-ai-agent-memory-wiki-llm.md": {
+      "hash": "66727c2ce37800101f7fbc8f82577586",
+      "ingested_at": "2026-07-03",
+      "pages_created": [
+        "wiki/sources/orlov-rag-wiki-llm-graphify.md",
+        "wiki/entities/Orlov.md"
+      ],
+      "pages_updated": [
+        "wiki/entities/Andrej Karpathy.md",
+        "wiki/comparisons/Wiki vs RAG.md",
+        "wiki/concepts/graphify-integration.md",
+        "wiki/concepts/Contextual Retrieval.md",
+        "wiki/concepts/LLM Wiki Pattern.md",
+        "wiki/index.md",
+        "wiki/sources/_index.md",
+        "wiki/entities/_index.md",
+        "wiki/log.md"
+      ]
+    },
+    ".raw/yt-alvoeiro-multi-agent-architecture.md": {
+      "hash": "dccb5a02bc2d4c6d51dcf5a960176931",
+      "ingested_at": "2026-07-03",
+      "pages_created": [
+        "wiki/sources/yt-alvoeiro-multi-agent-architecture.md",
+        "wiki/concepts/Multi-Agent Communication Taxonomy.md",
+        "wiki/concepts/Validation Contract.md",
+        "wiki/concepts/Structured Handoff.md",
+        "wiki/entities/Factory.md",
+        "wiki/entities/Luke Alvoeiro.md"
+      ],
+      "pages_updated": [
+        "wiki/concepts/Generator-Evaluator Pattern.md",
+        "wiki/concepts/Context Engineering for Coding Agents.md",
+        "wiki/concepts/_index.md",
+        "wiki/entities/_index.md",
+        "wiki/sources/_index.md",
+        "wiki/index.md",
+        "wiki/log.md"
+      ]
+    },
+    ".raw/yt-schroeder-domain-specific-agents.md": {
+      "hash": "48d23a1738785096e163703a3e985c74",
+      "ingested_at": "2026-07-03",
+      "pages_created": [
+        "wiki/sources/yt-schroeder-domain-specific-agents.md",
+        "wiki/concepts/Domain-Specific Agents.md",
+        "wiki/entities/Justin Schroeder.md",
+        "wiki/entities/StandardAgents.md"
+      ],
+      "pages_updated": [
+        "wiki/concepts/Context Engineering for Coding Agents.md",
+        "wiki/concepts/Context Rot.md",
+        "wiki/index.md",
+        "wiki/concepts/_index.md",
+        "wiki/entities/_index.md",
+        "wiki/sources/_index.md",
+        "wiki/log.md"
+      ]
+    },
+    ".raw/yt-pocock-ai-coding-workflow.md": {
+      "hash": "edc53848b0345bd59d41dc2ac3dc15fc",
+      "ingested_at": "2026-07-03",
+      "pages_created": [
+        "wiki/sources/yt-pocock-ai-coding-workflow.md",
+        "wiki/concepts/Grilling Session.md",
+        "wiki/concepts/Ralph Wiggum Loop.md",
+        "wiki/concepts/Vertical Slices for Agent Tasks.md",
+        "wiki/concepts/Deep Modules.md",
+        "wiki/entities/Matt Pocock.md"
+      ],
+      "pages_updated": [
+        "wiki/concepts/Context Rot.md",
+        "wiki/concepts/Context Engineering for Coding Agents.md",
+        "wiki/concepts/AGENTS.md.md",
+        "wiki/concepts/Compounding Knowledge.md",
+        "wiki/index.md",
+        "wiki/concepts/_index.md",
+        "wiki/entities/_index.md",
+        "wiki/sources/_index.md",
+        "wiki/log.md"
+      ]
+    }
+  }
+}

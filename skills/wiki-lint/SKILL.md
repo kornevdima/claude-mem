@@ -55,6 +55,14 @@ Work through these in order:
 6. **Frontmatter gaps**. Pages missing required fields (type, status, created, updated, tags).
 7. **Empty sections**. Headings with no content underneath.
 8. **Stale index entries**. Items in `wiki/index.md` pointing to renamed or deleted pages.
+8a. **Stale `index.json`** (only if `wiki/index.json` exists). The generated locator's `generated` stamp predates the newest page under `wiki/` (or `services/*/wiki/` when built with `--services`) — re-run `skills/wiki-query/scripts/build_index_json.py`. Same rule for cached sub-answer pages in `questions/` (frontmatter `scope:`) whose cited pages are newer.
+
+### ADLC / multi-wiki layer (only if Mode ADLC)
+
+9. **Broken traceability**. `requirements/` IDs with no `traces_to` link down to `user-stories/`, or stories with no `test-cases/` coverage. The chain requirement → story → test should hold.
+10. **Orphan specs**. A `features/` page with no linked per-service spec under `services/*/wiki/`, or a service spec not referenced from any `features/` page.
+11. **Cross-wiki drift**. A feature marked shipped in the product wiki whose service code wiki shows no corresponding spec or decision — suggest running `wrap-up` to resync.
+12. **Unstable IDs**. `req_id` / story / test IDs that were renumbered. They must be append-only and stable (ba-suite convention).
 
 ### Graph layer (only if `graphify-out/graph.json` exists)
 

@@ -21,6 +21,9 @@ sources:
 
 How a claude-mem wiki gets shared across roles and across services. **This is a research-and-options page** — claude-mem keeps its current default (one wiki per project, co-located with code) until field feedback motivates a change.
 
+> [!note] Operational protocol shipped (2026-07-03)
+> The multi-role / multi-wiki **state-sharing protocol** — role → concern ownership, pull-first / wrap-up-last sessions, merge conventions for `log.md` / `hot.md` / indexes, machine-local symlinks, status fields as the cross-role state machine — now lives in `skills/wiki/references/team-sync.md`. This page remains the tooling / topology comparison behind it.
+
 ## Three orthogonal sub-problems
 
 When a team starts using claude-mem beyond a solo developer, three questions emerge:
