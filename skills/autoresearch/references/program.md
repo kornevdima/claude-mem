@@ -37,7 +37,8 @@ Plan-driven loop budgets (see `wiki/concepts/Plan-Driven Research Loop.md` for d
 - Max searches per question: **5**
 - Max sources fetched per question: **3**
 - Max passes per question: **2** — a question with no new sources after a rewritten second pass is marked `[!]` blocked
-- Max wiki pages created per session: **15** (`max_pages`)
+- Per-question page cap (parallel dispatch): **floor(remaining page budget ÷ open questions), minimum 2** — computed by the caller before each batch and passed to every subagent, because parallel subagents cannot see each other's page counts
+- Max wiki pages created per session: **15** (`max_pages`) — counts **content pages only** (sources, concepts, entities, questions). Meta files do not count: `_index.md` sub-indexes, and updates to `index.md` / `log.md` / `hot.md` / the plan artifact.
 - If a budget is reached before the plan completes: mark remaining questions `[!]` with note "budget", file what you have, list every `[!]` question under Open Questions in the synthesis
 
 ---

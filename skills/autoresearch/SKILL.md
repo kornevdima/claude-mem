@@ -63,13 +63,16 @@ The plan is live in Obsidian — the user watches statuses flip as research prog
 
 While open questions (`[ ]` or `[→]`) remain AND budgets allow:
 
-1. Pick the **first non-completed** question. Mark it `[→]` in the plan (update `updated:` too).
-2. **Dispatch a `research-subagent`** (Agent tool, `subagent_type: "research-subagent"`) with: the question, the topic, vault path, and the budgets + source rules from program.md. The subagent searches, fetches, files source/entity/concept pages, and returns a structured report.
+1. Take **all currently open** `[ ]` questions that are independent of each other (research questions from Step 1 almost always are — a question only waits if its wording depends on another's answer). Mark each `[→]` in the plan (update `updated:` too).
+2. **Dispatch one `research-subagent` per question in parallel** — a single turn with multiple Agent calls (`subagent_type: "research-subagent"`), max 4 concurrent; if more questions remain open, run further batches. Each dispatch carries: the question, the topic, vault path, the budgets + source rules from program.md, **and an explicit per-question page cap**. The subagent searches, fetches, files source/entity/concept pages, and returns a structured report. Parallel dispatch is why the loop is fast: questions are independent, so their wall-time overlaps; context stays isolated per question either way.
+   - **Budget partitioning (required for parallel dispatch)**: parallel subagents can't see each other's page counts, so the session budget must be split *before* dispatch: per-question page cap = `floor(remaining content-page budget ÷ open questions)`, minimum 2. Count pages created after each batch and recompute before the next. A subagent that hits its cap reports the overflow as gaps instead of filing more pages — the synthesis carries them as Open Questions.
+   - **Write-contention rule**: parallel subagents create pages but must NOT touch shared files — `wiki/index.md`, `wiki/log.md`, `wiki/hot.md`, `_index.md` files, and the plan artifact stay caller-owned (subagents already know this; it's what prevents write races).
    - Exception: if the plan has ≤2 questions, do the work inline (same procedure as the subagent) — dispatch overhead isn't justified.
-3. On report:
+3. On each report:
    - **New sources found** → mark `[✓]`, append a one-line note (key finding + pages created).
-   - **No new sources** → rewrite the question from a different angle and re-dispatch once. A second empty pass → mark `[!]` blocked with a note. Never spend more than 2 passes on one question.
-4. Re-read the plan before each iteration (statuses are the single source of truth — this is what makes the loop resumable).
+   - **No new sources** → rewrite the question from a different angle and re-dispatch once (these retries can join the next batch). A second empty pass → mark `[!]` blocked with a note. Never spend more than 2 passes on one question.
+   - If two parallel subagents created near-duplicate pages (same entity/concept), merge them before synthesis.
+4. Re-read the plan before each batch (statuses are the single source of truth — this is what makes the loop resumable).
 
 Stop when: all questions are `[✓]`/`[!]`, or `max_pages` / per-question budgets are exhausted. On budget stop: mark remaining questions `[!]` with note "budget".
 
@@ -128,7 +131,7 @@ Blocked (`[!]`) plan steps map 1:1 into Open Questions — nothing is silently d
 ## Step 4. File and Close
 
 1. Update `wiki/index.md`: add all new pages to the right sections, bump counts and date.
-2. Update `wiki/sources/_index.md`, `wiki/concepts/_index.md`, `wiki/entities/_index.md`.
+2. Update `wiki/sources/_index.md`, `wiki/concepts/_index.md`, `wiki/entities/_index.md` (where the vault has them) for every page the subagents created — subagents deliberately don't touch shared index files.
 3. Append to `wiki/log.md` (at the TOP):
    ```
    ## [YYYY-MM-DD] autoresearch | [Topic]

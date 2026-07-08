@@ -26,7 +26,7 @@ Redesign of `/autoresearch` from a fixed 3-round loop into a resumable, question
 |---|---|---|
 | 1 | PlanningTool: persisted plan, per-step statuses `[ ] [→] [✓] [!]` + notes | Plan artifact `wiki/questions/_plan Research [Topic].md` — a visible Obsidian note, resumable across sessions |
 | 2 | Loop picks first non-completed step until none remain | Topic decomposed into research questions = plan steps; loop until all closed or budget hit |
-| 3 | Step-typed executor routing (`[TYPE]` tag → agent) | One `research-subagent` dispatched per question; isolated context, main thread stays clean |
+| 3 | Step-typed executor routing (`[TYPE]` tag → agent) | One `research-subagent` per question, dispatched **in parallel batches (max 4)**; isolated context, main thread stays clean; shared files (index/log/hot/_index/plan) are caller-owned to prevent write races |
 | 4 | `is_stuck()` duplicate detection → change-strategy prompt | Question yielding no new sources: retry once with a rewritten angle, then mark `[!]` blocked |
 | 5 | `max_steps` hard budget + graceful termination report | Per-question search/fetch budgets in `program.md`; blocked steps flow into synthesis Open Questions |
 

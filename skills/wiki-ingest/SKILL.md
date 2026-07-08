@@ -123,7 +123,7 @@ Steps:
 
 1. **Read** the source completely. Do not skim.
 2. **Discuss** key takeaways with the user. Ask: "What should I emphasize? How granular?" Skip this if the user says "just ingest it."
-3. **Create** source summary in `wiki/sources/`. Use the source frontmatter schema from `references/frontmatter.md`.
+3. **Create** source summary in `wiki/sources/`. Use the source frontmatter schema from the wiki skill's reference: `../wiki/references/frontmatter.md` (this skill has no local references/ directory). If that file is unreachable, mirror the frontmatter of an existing `wiki/sources/` page.
 4. **Create or update** entity pages for every person, org, product, and repo mentioned. One page per entity.
 5. **Create or update** concept pages for significant ideas and frameworks.
 6. **Update** relevant domain page(s) and their `_index.md` sub-indexes.

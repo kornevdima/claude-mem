@@ -3,7 +3,7 @@
  "evals": [
   {
    "prompt": "/autoresearch the transactional outbox pattern in microservices. File everything into the wiki.",
-   "expected_output": "Plan artifact created with 3-7 questions then deleted after close-out; synthesis page in wiki/questions/ with Open Questions; >=3 source pages with confidence+key_claims; index/log/hot updated; <=15 new content pages.",
+   "expected_output": "Plan artifact created with 3-7 questions then deleted after close-out; synthesis page in wiki/questions/ with Open Questions; >=3 source pages with confidence+key_claims; index/log/hot updated; <=15 new content pages. Parallel dispatch (max 4) with per-question page caps = floor(remaining/open).",
    "assertions": [
     "synthesis page for the topic exists in wiki/questions/",
     ">=3 new source pages with confidence + key_claims frontmatter",
@@ -25,7 +25,8 @@
     "covers both open questions (tools comparison + operational pitfalls)",
     "seeded Q1 source (cdc-overview) preserved",
     "did not re-research Q1 (no duplicate CDC-definition source page)",
-    "index.md + hot.md updated"
+    "index.md + hot.md updated",
+    "page budget respected (<=15 new content pages, _index meta excluded)"
    ],
    "id": 1,
    "files": []

@@ -18,6 +18,7 @@ You will be given:
 - One research question (and the parent topic for context)
 - The vault path
 - Budgets and source rules (from `skills/autoresearch/references/program.md`)
+- A **page cap**: the maximum number of wiki pages you may create. This is your slice of the session budget — siblings run in parallel and can't see your page count, so the cap is how the session stays within its total. When you hit it, stop filing and report the remainder under Gaps.
 
 ## Your Process
 
@@ -29,13 +30,12 @@ You will be given:
    - `wiki/sources/` — one page per significant source (proper frontmatter: type, source_type, author, date_published, url, confidence, key_claims)
    - `wiki/entities/` — create or update pages for significant people/orgs/products (check index first)
    - `wiki/concepts/` — create or update pages for substantive concepts (check index first)
-6. Update `wiki/entities/_index.md`, `wiki/concepts/_index.md`, `wiki/sources/_index.md` for pages you created.
-7. Return the report below.
+6. Return the report below.
 
 ## Do NOT
 
 - Touch the plan artifact (`_plan Research *.md`) — the caller owns plan statuses
-- Update `wiki/index.md`, `wiki/log.md`, or `wiki/hot.md` (the caller does this after all questions close)
+- Update `wiki/index.md`, `wiki/log.md`, `wiki/hot.md`, or any `_index.md` sub-index (the caller updates all shared/index files after all questions close — you may run in parallel with sibling subagents, and shared files are where write races happen)
 - Create the synthesis page (caller's job)
 - Create duplicate pages
 - Exceed the given budgets — if the budget runs out, report what's missing instead

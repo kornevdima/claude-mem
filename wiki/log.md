@@ -25,6 +25,29 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-08] eval | Wave-2: large-vault wiki-query/wiki-lint cases — all pass, still non-discriminating on Sonnet
+- Fixture: generated 58-page vault + `index.json`; defects variant seeded a stale-claim contradiction (EU Card Processing vs PayFlow), near-duplicate retry pages, an index gap (Token Bucket), and a buried dead link (Adaptive Concurrency).
+- wiki-query multi-hop: **5/5 both arms** (skill used the grep-locate large-vault path, 6 files read). wiki-lint subtle: **5/5 both arms** — both also caught an unseeded fixture-generator typo (`type: entitie`). Skill run used 16% fewer tokens via subagent delegation.
+- Conclusion filed: query/lint correctness doesn't discriminate on Sonnet at this scale; measurable skill value is process (token efficiency, delegation, report structure). Discriminating evals need Haiku runners (pm-layer's approach) or 300+ page fixtures.
+- Graphify eval suite deferred to local run (`graphifyy` not installable in sandbox); evals.json scaffolds ready.
+
+---
+
+## [2026-07-08] impl + eval | autoresearch v2.2: parallel dispatch + budget partitioning (iterations 2–3)
+- Quick fixes: wiki-ingest frontmatter reference repointed to `../wiki/references/frontmatter.md`; program.md now states `_index.md`/meta files don't count against `max_pages`.
+- **Iteration 2** (parallel dispatch, max 4 concurrent): wall time −34% (fresh) / −22% (resume) vs sequential — but both runs **blew the 15-page budget** (23 and 18 pages): parallel subagents can't see each other's page counts. Eval caught it (fresh 6/7).
+- **Iteration 3** (budget partitioning: per-question cap = floor(remaining ÷ open questions), min 2, recomputed between batches; research-subagent now takes an explicit page cap and stops filing at it): **7/7 + 7/7**, 13/15 pages both runs, wall time still ~30% under sequential.
+- Also fixed a latent write-race: research-subagent no longer updates `_index.md` files — all shared/index files are caller-owned.
+- [[Plan-Driven Research Loop]] updated (parallel batches + write-contention rule). Viewer: `review-autoresearch-iteration3.html` in session outputs.
+
+---
+
+## [2026-07-08] eval | pm-layer E1–E8 all PASS (owner-run, local claude CLI)
+- `run-evals.sh` executed on the owner's machine after wave-1: **8/8 PASS** (E1–E8). Wave-1 coverage now complete for all five targeted skills.
+- Eval scaffolding for all 17 skills committed as `d88c0d2`.
+
+---
+
 ## [2026-07-08] eval | Wave-1 skill-creator eval pass: autoresearch, wiki-ingest, wiki-query, wiki-lint
 - Harness: 18 subagent runs (8 test cases × with-skill + baseline; autoresearch baseline = v1 from `d6203be`, rerun after a snapshot contamination was caught), programmatic grading, benchmark aggregation, static review viewers.
 - Results (with-skill vs baseline pass rate): autoresearch **100% vs 92%** (v1 fails resume close-out — leaves the `_plan` file), wiki-ingest **100% vs 76%** (baseline misses `.manifest.json` delta tracking and log-prepend convention), wiki-query **100% vs 100%**, wiki-lint **100% vs 100%** (ties — evals non-discriminating at this vault size; harder wave-2 cases registered).
