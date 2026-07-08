@@ -25,6 +25,14 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-08] defect | DEFECT-001: /project-profile first-run overwrites existing AGENTS.md
+- Filed in [[Project Profile Skill Suite]] under "Known Defects" (this vault has no `defects/` folder).
+- Discovered during a `/project-profile` first-run on a brownfield service repo whose existing `AGENTS.md` carried `wiki/` + ADLC topology sections; on "back up and proceed" the first-run replaced them with mechanical-only output.
+- The design spec says "augment rather than replace" (first-run flow, step 1) and Step 1 even passes `existing_agents_md` to the scanner, but composition writes from a fixed template and never merges the existing content back in — so unrecognized sections are dropped.
+- Severity: High (data loss). Workaround: manual merge from the `.bak` file. Fix direction: diff/merge into the existing file, preserving unknown sections until `--refresh` mode lands.
+
+---
+
 ## [2026-07-04] review | ADLC field review captured: [[ADLC Field Review Findings]]
 - Reviewed a production two-wiki ADLC setup end-to-end (genericized — no project names): flow-trace over both wiki logs + ~24 feature plans, duplication analysis (a/b/c classification), per-repo usage ledgers. Two parallel Explore workers (~240K subagent output); main context got only the condensed reports.
 - Headline findings filed: the pipeline ships but **inverted** (code-first, BA registered after prod; unregistered local IDs the failure mode); the handoff seam leaks (zero requirement-ID references in plans, re-derivation of context the plan should carry — the `architecture-subagent` template enforces exactly what the manual substitute skipped); records must be pages not prose (verdicts were narrative-only; two "not implemented" pages contradicted shipped reality — the plan-rot trap live); duplication ~6–8% by volume / 25–30% hard in the shared layer (single-source formulas + decision rationale); efficiency operator-set (48–66% delegation on pipelined features vs 4% on a main-thread marathon; harness bounds variance, operator sets the mean).
