@@ -25,6 +25,19 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-08] eval + fix | Graphify suite G1–G5: three real defects in graphify-update found and fixed
+- Runner: `skills/graphify-ingest/evals/run-evals.sh` (G1 ingest → G2 query → G3 path → G4 explain → G5 update) over the `demo-app` fixture, owner-run locally. First attempt failed on harness permissions (`claude -p` can't answer approval prompts) — fixed with `--add-dir` + `--dangerously-skip-permissions` on the throwaway workspace; G3/G4 graders hardened against prompt-echo false positives.
+- **G1–G4 PASS** after harness fix. G5 FAIL was genuine: the eval agent refused to commit a degraded graph and diagnosed `update.py`:
+  - **DEFECT: cross-boundary edge destruction** — pruning changed-file nodes removes edges into unchanged files, which isolated re-extraction can't rebuild (101→85 edges; 22 edges around the most-connected node lost). *Fixed*: boundary edges snapshotted before prune and restored post-merge when both endpoints survive. Caveat noted: a deleted call in a changed file can be resurrected until the next full rebuild.
+  - **DEFECT: `docs_changed` never pruned** — doc-derived nodes were purely additive; removed concepts lingered forever. *Fixed*: docs_changed added to the prune set.
+  - **DEFECT: vault-meta docs pollute the graph** — 16 AGENTS.md nodes broke Jaccard label inheritance for 6/8 clusters. *Fixed*: AGENTS.md/CLAUDE.md/wiki//.raw/ filtered from semantic chunks and prune set.
+  - Also noted by the agent: `save_manifest()` at the end of a degraded run would have silently locked in the loss on the next run — mitigated by the edge-restoration fix; full-rebuild reconciliation stays in skill guidance.
+- G5 rerun pending post-fix. The refusal behavior itself (verify before commit, restore baseline, report) is exactly the Generator-Evaluator posture we want — worth noting in [[graphify-integration]].
+- **G5 PASS (rerun #2, after plugin refresh)**: fixed update.py confirmed live — "22 cross-boundary edges snapshotted and restored", AGENTS.md nodes filtered (13 dropped), graph 55 nodes / 107 edges, 3 labels inherited + 2 deliberately corrected for member drift. Grader amended: asserts the *inheritance mechanism* (≥1 verbatim carry-over, no placeholders, edge-restoration evidence) instead of ≥50% name immutability — the skill's own guidance tells Claude to rename drifted labels, so verbatim-majority was testing against design intent. Runner gained `--grade-only` for free regrades. **Graphify suite: G1–G5 all PASS.**
+- **G5 rerun #1 (post-fix) still failed — two lessons.** (1) *Stale-plugin trap*: the skill executes scripts from the **installed plugin**, not the dev checkout, so the update.py fixes never ran; any script fix needs `claude plugin marketplace update claude-obsidian-marketplace` before re-evaling. (2) **DEFECT #4: file-node ID mismatch** — ingest slugs file nodes from project-anchored paths (`services_order_service_py`) while update passed bare relative paths (`order_service_py`), silently renaming file nodes mid-graph. *Fixed*: update.py anchors all paths to PROJECT before extract(). Runner now also `git checkout -- graphify-out` before each G5 attempt so failed updates can't poison the next run's baseline.
+
+---
+
 ## [2026-07-08] eval | Wave-2: large-vault wiki-query/wiki-lint cases — all pass, still non-discriminating on Sonnet
 - Fixture: generated 58-page vault + `index.json`; defects variant seeded a stale-claim contradiction (EU Card Processing vs PayFlow), near-duplicate retry pages, an index gap (Token Bucket), and a buried dead link (Adaptive Concurrency).
 - wiki-query multi-hop: **5/5 both arms** (skill used the grep-locate large-vault path, 6 files read). wiki-lint subtle: **5/5 both arms** — both also caught an unseeded fixture-generator typo (`type: entitie`). Skill run used 16% fewer tokens via subagent delegation.

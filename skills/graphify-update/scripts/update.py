@@ -96,9 +96,16 @@ def main() -> None:
             old_communities.setdefault(str(cid), set()).add(nid)
 
     print(f"[2] Re-extract changed code via AST (cache-fast)")
+    # Anchor every path to the project root before extraction. Ingest extracts from
+    # absolute paths under PROJECT; if update passes bare relative paths, extract()
+    # slugs them differently and the same file gets a second node ID
+    # (services_order_service_py vs order_service_py — eval G5 finding). Same input
+    # shape ⇒ same node IDs ⇒ merge and edge restoration line up.
     code_paths = []
     for f in code_changed:
         p = Path(f)
+        if not p.is_absolute():
+            p = PROJECT / p
         if not p.exists():
             continue
         code_paths.extend(collect_files(p) if p.is_dir() else [p])
@@ -109,20 +116,54 @@ def main() -> None:
         ast_new = {"nodes": [], "edges": [], "input_tokens": 0, "output_tokens": 0}
 
     print(f"[3] Merge semantic chunks (if any)")
+
+    # Vault-meta docs (AGENTS.md, CLAUDE.md, wiki/, .raw/) describe claude-mem's own
+    # conventions, not the system under analysis. Letting them into a code graph adds
+    # edge-less concept nodes that perturb Louvain clustering — observed in eval G5:
+    # 16 AGENTS.md nodes knocked 6 of 8 clusters below the Jaccard label-inheritance
+    # threshold. Filter them out of both semantic chunks and the prune set.
+    _META_DOC_SUFFIXES = ("AGENTS.md", "CLAUDE.md")
+    _META_DOC_PREFIXES = ("wiki/", ".raw/", "graphify-out/")
+
+    def is_meta_doc(f: str) -> bool:
+        rf = to_rel(f, PROJECT)
+        return rf.endswith(_META_DOC_SUFFIXES) or rf.startswith(_META_DOC_PREFIXES)
+
     sem_nodes: list[dict] = []
     sem_edges: list[dict] = []
     sem_hyper: list[dict] = []
     chunk_paths = sorted(OUT.glob(".graphify_chunk_*.json"))
+    skipped_meta = 0
+    skipped_meta_rel = 0
     for cp in chunk_paths:
         try:
             ch = json.loads(cp.read_text())
         except json.JSONDecodeError as e:
             print(f"  ! {cp.name}: invalid JSON ({e}). Skipping.")
             continue
-        sem_nodes.extend(ch.get("nodes", []))
-        sem_edges.extend(ch.get("edges", []))
-        sem_hyper.extend(ch.get("hyperedges", []))
-    print(f"  semantic: {len(sem_nodes)} nodes, {len(sem_edges)} edges from {len(chunk_paths)} chunks")
+        for n in ch.get("nodes", []):
+            if is_meta_doc(n.get("source_file", "")):
+                skipped_meta += 1
+                continue
+            sem_nodes.append(n)
+        # Edges and hyperedges carry source_file too. Filtering only nodes left the
+        # vault-meta edges dangling (build_from_json drops them) but let vault-meta
+        # HYPEREDGES through — and those then replaced the real code hyperedges.
+        for e in ch.get("edges", []):
+            if is_meta_doc(e.get("source_file", "")):
+                skipped_meta_rel += 1
+                continue
+            sem_edges.append(e)
+        for h in ch.get("hyperedges", []):
+            if is_meta_doc(h.get("source_file", "")):
+                skipped_meta_rel += 1
+                continue
+            sem_hyper.append(h)
+    if skipped_meta or skipped_meta_rel:
+        print(f"  filtered {skipped_meta} vault-meta doc nodes, "
+              f"{skipped_meta_rel} edges/hyperedges (AGENTS.md/wiki/.raw)")
+    print(f"  semantic: {len(sem_nodes)} nodes, {len(sem_edges)} edges, "
+          f"{len(sem_hyper)} hyperedges from {len(chunk_paths)} chunks")
 
     print(f"[4] Build new-extraction graph fragment")
     new_extract = {
@@ -137,15 +178,35 @@ def main() -> None:
     print(f"[5] Prune nodes from deleted/changed source files")
     # Compare on project-root-relative paths so this works whether the existing graph
     # stored absolute (pre-migration) or relative source_file.
-    affected_files = {to_rel(f, PROJECT) for f in code_changed} | {to_rel(f, PROJECT) for f in deleted}
+    # docs_changed is included: without it, doc-derived nodes are purely additive —
+    # concepts removed from a doc would linger in the graph forever (eval G5 finding).
+    docs_changed = [f for f in changes.get("docs_changed", []) if not is_meta_doc(f)]
+    affected_files = (
+        {to_rel(f, PROJECT) for f in code_changed}
+        | {to_rel(f, PROJECT) for f in deleted}
+        | {to_rel(f, PROJECT) for f in docs_changed}
+    )
 
     to_remove = []
     for nid, ndata in G_existing.nodes(data=True):
         src = ndata.get("source_file", "")
         if src and to_rel(src, PROJECT) in affected_files:
             to_remove.append(nid)
+
+    # Snapshot edges that cross the prune boundary BEFORE removing nodes. Removing a
+    # node removes its incident edges — including edges to nodes in UNCHANGED files,
+    # which the isolated re-extraction of changed files can never rebuild (the caller
+    # of a changed function lives in a file we don't re-parse). Observed in eval G5:
+    # a one-file feature destroyed 22 real edges around the most-connected node.
+    to_remove_set = set(to_remove)
+    boundary_edges = [
+        (u, v, dict(d))
+        for u, v, d in G_existing.edges(data=True)
+        if (u in to_remove_set) != (v in to_remove_set)
+    ]
     G_existing.remove_nodes_from(to_remove)
     print(f"  pruned {len(to_remove)} stale nodes from {len(affected_files)} affected files")
+    print(f"  snapshotted {len(boundary_edges)} cross-boundary edges for restoration")
 
     print(f"[6] Merge new fragment into existing graph")
     G_existing.update(G_new)
@@ -153,7 +214,41 @@ def main() -> None:
     valid = set(G_existing.nodes())
     bad_edges = [(u, v) for u, v in G_existing.edges() if u not in valid or v not in valid]
     G_existing.remove_edges_from(bad_edges)
+
+    # Restore cross-boundary edges whose endpoints both survived the merge (node IDs
+    # are stable across re-extraction, so a re-extracted node reconnects to its old
+    # neighbors). Caveat: an edge FROM a changed file whose call was actually deleted
+    # in the edit is restored too — a full /graphify-ingest rebuild reconciles that,
+    # which is another reason periodic full rebuilds stay in the skill's guidance.
+    restored = 0
+    for u, v, d in boundary_edges:
+        if u in G_existing and v in G_existing and not G_existing.has_edge(u, v):
+            G_existing.add_edge(u, v, **d)
+            restored += 1
+    print(f"  restored {restored} cross-boundary edges")
+
+    # Hyperedges live in G.graph, and nx.Graph.update() does self.graph.update(other.graph)
+    # — so G_new's hyperedge list REPLACES the existing one instead of merging with it.
+    # A doc chunk carrying any hyperedge therefore wiped every code hyperedge built by
+    # the initial ingest. Rebuild the union explicitly: existing ones persist, a
+    # re-extracted one wins by id, and any whose members no longer all exist is dropped.
+    # AST extraction never emits hyperedges, so this is the only thing keeping them alive.
+    merged_hyper: dict[str, dict] = {}
+    for h in existing.get("hyperedges", []) + sem_hyper:
+        key = h.get("id") or h.get("label", "")
+        if key:
+            merged_hyper[key] = h
+    nodes_now = set(G_existing.nodes())
+    hyper_out = [
+        h for h in merged_hyper.values()
+        if h.get("nodes") and all(n in nodes_now for n in h["nodes"])
+    ]
+    dropped_hyper = len(merged_hyper) - len(hyper_out)
+    G_existing.graph["hyperedges"] = hyper_out
+
     print(f"  merged total: {G_existing.number_of_nodes()} nodes, {G_existing.number_of_edges()} edges")
+    print(f"  hyperedges: {len(hyper_out)} kept"
+          + (f", {dropped_hyper} dropped (members no longer in graph)" if dropped_hyper else ""))
 
     # Portability: rewrite source_file on all nodes to project-root-relative so the
     # committed graph.json works across team members' checkouts. Also migrates an
@@ -221,7 +316,7 @@ def main() -> None:
     merged_out = {
         "nodes": nodes_out,
         "edges": edges_out,
-        "hyperedges": new_extract.get("hyperedges", []),
+        "hyperedges": hyper_out,
         "input_tokens": 0,
         "output_tokens": 0,
     }
