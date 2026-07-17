@@ -25,7 +25,7 @@ You will be given:
 
 1. Read `wiki/index.md` to get the full list of pages.
 2. For each wiki page, check:
-   - Frontmatter has required fields (type, status, created, updated, tags)
+   - Frontmatter has required fields (type, status, created, updated, tags); `type` is also the OKF-required field (see the wiki skill's `okf_export.py`), and a missing `description` is an INFO-level export nit
    - All wikilinks in the page resolve to real files
    - All headings have content underneath them
    - Page is linked from at least one other page (no orphans)

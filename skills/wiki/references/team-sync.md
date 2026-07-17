@@ -59,4 +59,4 @@ Cross-role coordination runs on frontmatter status, not on chat: `specified → 
 
 ## Non-git participants
 
-A stakeholder who reads but doesn't run agents gets a derived view — Obsidian Publish, a static-site export of the product wiki, or the `.raw/exports/` Office bundle from `ba-export`. Editors without code access are the one case where the wiki may live in a sibling repo instead of co-located; the trade-offs live in [[Wiki Sharing Patterns]].
+A stakeholder who reads but doesn't run agents gets a derived view — Obsidian Publish, a static-site export of the product wiki, the `.raw/exports/` Office bundle from `ba-export`, or an OKF bundle (`skills/wiki/scripts/okf_export.py`): the vault rendered to Google's Open Knowledge Format, portable to any OKF consumer outside this toolchain. Editors without code access are the one case where the wiki may live in a sibling repo instead of co-located; the trade-offs live in [[Wiki Sharing Patterns]].

@@ -52,7 +52,7 @@ Work through these in order:
 3. **Stale claims**. Assertions on older pages that newer sources have contradicted or updated.
 4. **Missing pages**. Concepts or entities mentioned in multiple pages but lacking their own page.
 5. **Missing cross-references**. Entities mentioned in a page but not linked.
-6. **Frontmatter gaps**. Pages missing required fields (type, status, created, updated, tags).
+6. **Frontmatter gaps**. Pages missing required fields (type, status, created, updated, tags). `type` is also the one field the Open Knowledge Format requires — a page without it degrades the OKF export (`skills/wiki/scripts/okf_export.py` falls back to a folder-derived type). Missing `description` is INFO-level: the export derives one from the first paragraph, but an authored line exports better.
 7. **Empty sections**. Headings with no content underneath.
 8. **Stale index entries**. Items in `wiki/index.md` pointing to renamed or deleted pages.
 8a. **Stale `index.json`** (only if `wiki/index.json` exists). The generated locator's `generated` stamp predates the newest page under `wiki/` (or `services/*/wiki/` when built with `--services`) — re-run `skills/wiki-query/scripts/build_index_json.py`. Same rule for cached sub-answer pages in `questions/` (frontmatter `scope:`) whose cited pages are newer.
