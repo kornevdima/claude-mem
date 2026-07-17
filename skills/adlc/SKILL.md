@@ -42,7 +42,7 @@ Do not enter the loop on an epic that isn't buildable. Check, in order:
 2. **Per-service spec exists** in the service's code wiki. Missing → that's spec-phase work (`architecture-subagent`, Gates 1–3), not loop work. STOP and say so.
 3. **Grilling done.** A new epic, a cross-service feature, or a spec with open questions gets a grilling session with the human before the loop starts (`technical-planning.md` § grilling gate). This is the one stage that cannot run unattended — never skip it silently.
 4. **Service AGENTS.md exists.** Missing → run `/project-profile` first; generic workers are only as good as the service's law.
-5. **Set the run policy** with the operator (once, defaults in parentheses): checkpoint `auto` — continue to the next story on green — or `ask` — pause at every story boundary (auto); on verifier FAIL `stop` or `file-and-continue` (stop); commit granularity per-story on a feature branch (yes; branch first if on the default branch). Record the answers in the ledger frontmatter.
+5. **Set the run policy** with the operator (once, defaults in parentheses): checkpoint `auto` — continue to the next story on green — or `ask` — pause at every story boundary (auto); on verifier FAIL `stop` or `file-and-continue` (stop); commit granularity per-story on a feature branch (yes; branch first if on the default branch); branch topology per `skills/wiki/references/git-flow.md` — in a multi-repo vault cut `wiki/<epic-id>` for the session's wiki writes. Record the answers (and the wiki/code branch pairing) in the ledger frontmatter.
 
 ---
 
@@ -155,6 +155,6 @@ Resume: /adlc  (ledger: wiki/sprints/_run EPIC-ID.md)
 - Review loop ≤ 3 rounds; verifier gets one reload-and-rerun per false-looking failure (its contract), not endless retries.
 - The board is a derived view: never write delivery state there that isn't backed by a record; on disagreement the records win.
 - Workers draft on their pinned model; the judgment is here. Don't upgrade a worker's model to fix quality — tighten its packet (spec, contract, standards) or catch it at re-verify.
-- Commit per story; **push and PR only on the operator's word**. Wiki edits follow the vault's convention (wrap-up reports them; the operator commits).
+- Commit per story; **push and PR only on the operator's word**. Wiki edits follow the vault's convention (wrap-up reports them; the operator commits) and ride the session's wiki branch per `git-flow.md` — wiki and code changes never share a commit.
 - Release-ready means every criterion literally: any pending criterion is `conditional — <criterion> pending`, never ✅.
 - If a constraint conflicts with finishing the epic this session, respect the constraint and leave a resumable ledger.

@@ -35,4 +35,4 @@ Run this when the operator signals the session is ending. The goal is to leave e
 - Markdown is the system of record. Do not generate Office files here (that is the export step, see `wiki/references/ba-suite-pipeline.md`).
 - Append-only `log.md`: newest at top, never edit past entries.
 - Keep PII out of the committed wiki; sensitive staffing / context stays in gitignored private notes.
-- Do not commit or push unless the operator asks.
+- Do not commit or push unless the operator asks. When they do: follow `wiki/references/git-flow.md` — wiki-only commits (`wiki:` prefix in co-located repos), on the session's `wiki/<epic-id>` branch when one exists; offer to merge the wiki branches of features that landed on main this session.

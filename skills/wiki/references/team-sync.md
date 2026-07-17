@@ -1,6 +1,6 @@
 # Team state sharing across wikis (multi-role, multi-wiki)
 
-How a team — developers, architects, BA / QA, tech writers — keeps state coherent when several people (and their agents) work against the same ADLC wiki set: one product wiki plus N service code wikis. Complements [`modes.md`](modes.md) (folder maps) and the [[Wiki Sharing Patterns]] concept page (tooling / topology options for access). This doc is the operating protocol.
+How a team — developers, architects, BA / QA, tech writers — keeps state coherent when several people (and their agents) work against the same ADLC wiki set: one product wiki plus N service code wikis. Complements [`modes.md`](modes.md) (folder maps), [`git-flow.md`](git-flow.md) (branch topology: wiki branches, code-only PRs, auto-merge on feature landing), and the [[Wiki Sharing Patterns]] concept page (tooling / topology options for access). This doc is the operating protocol.
 
 ## Principles
 

@@ -26,6 +26,14 @@ wiki/log.md merge=union
 
 `log.md` is append-only with newest entries at the top, so concurrent sessions (teammates, parallel agents, a wrap-up racing an ingest) both prepend — a normal merge conflicts every time, while `merge=union` keeps both entries automatically. The `**/` pattern covers co-located code wikis under `services/`. The team-sync protocol (`team-sync.md`) depends on this being present before the second concurrent session ever runs.
 
+In a co-located repo (Mode B wiki inside a code repo), also add:
+
+```gitattributes
+wiki/** linguist-generated=true
+```
+
+so GitHub collapses wiki files in PR diffs — reviewers see code only. Branch topology for agent sessions (wiki branches, code-only PRs, the worktree seam) lives in [`git-flow.md`](git-flow.md).
+
 ---
 
 ## .gitignore
