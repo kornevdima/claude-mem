@@ -37,7 +37,7 @@ Each service is its own service: its own repo, its own Mode B code wiki, its own
 
 **Review loop:** on CHANGES_REQUESTED the dispatcher loops back to `feature-builder` (code findings) and `feature-tester` (test gaps), then re-dispatches `feature-reviewer`. Cap the loop at **3 rounds**; escalate to the human if findings persist. Only on APPROVED does the pipeline proceed to verify. When dispatching the reviewer, **push the standards**: include the service's AGENTS.md conventions + Don'ts (or their exact paths) and the spec / contract in the dispatch packet alongside the diff range — an automated reviewer needs the code and the standards side by side, not a chance to skip the pull.
 
-The dispatcher (ADLC agent) authors the per-feature verification contract, sequences build -> test -> review -> verify, and commits. The product wiki `features/` page links to the service spec; the `wrap-up` skill keeps both sides in sync at session end.
+The dispatcher (ADLC agent) authors the per-feature verification contract, sequences build -> test -> review -> verify, and commits. The `adlc` skill is this dispatcher made invocable: a resumable epic loop with a `_run` ledger, checkpoint policy, and end-of-epic distillation into repo-local workers. The product wiki `features/` page links to the service spec; the `wrap-up` skill keeps both sides in sync at session end.
 
 ### Code graph grounding (when the service has one)
 
