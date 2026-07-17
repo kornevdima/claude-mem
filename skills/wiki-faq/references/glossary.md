@@ -1,6 +1,6 @@
 # Glossary
 
-claude-mem terminology. Use this when the user asks "what is X?" and X is a project term.
+adlc terminology. Use this when the user asks "what is X?" and X is a project term.
 
 ## Wiki and vault
 
@@ -40,7 +40,7 @@ Each adds 2–4 folders with their own frontmatter shapes. See [[SDLC Wiki Conce
 ## Graph layer
 
 **graphify**
-The Python library (`graphifyy` on PyPI) that builds a structural code graph from a source tree. AST extraction (free) plus optional LLM-driven semantic extraction (parallel subagents). claude-mem wraps it via `/graphify-ingest`, `/graphify-update`, and three query skills.
+The Python library (`graphifyy` on PyPI) that builds a structural code graph from a source tree. AST extraction (free) plus optional LLM-driven semantic extraction (parallel subagents). adlc wraps it via `/graphify-ingest`, `/graphify-update`, and three query skills.
 
 **AST**
 Abstract Syntax Tree. Deterministic representation of code structure produced by tree-sitter parsers. Captures imports, function definitions, calls, class hierarchies. Free to compute; no LLM involved.
@@ -49,7 +49,7 @@ Abstract Syntax Tree. Deterministic representation of code structure produced by
 LLM-driven graph fragment that captures relationships AST can't see: shared data assumptions, indirect dependencies, conceptual similarity, doc-to-code links. Each chunk runs in a `graphify-extract-subagent` for parallelism.
 
 **Community**
-A cluster of related nodes detected by Louvain or Leiden algorithm. Numeric ID assigned at clustering time. claude-mem labels meaningful communities (≥3 members) with human-readable names.
+A cluster of related nodes detected by Louvain or Leiden algorithm. Numeric ID assigned at clustering time. adlc labels meaningful communities (≥3 members) with human-readable names.
 
 **Label**
 2–5 word human-readable name for a community. Stored in `graphify-out/labels.json`. Preserved across `/graphify-update` runs via Jaccard similarity matching against the previous run's communities (threshold 0.6).
@@ -74,7 +74,7 @@ A reusable workflow defined in `skills/<name>/SKILL.md` with YAML frontmatter (`
 A worker definition in `agents/<name>-subagent.md` dispatched by skills via the Agent tool with `subagent_type: "<name>-subagent"`. Runs in its own isolated context and returns a single message — used for parallel batch work and context isolation. Four exist: `wiki-ingest-subagent`, `wiki-lint-subagent`, `graphify-extract-subagent`, `mechanical-scanner-subagent`.
 
 **Hook**
-A lifecycle event handler. claude-mem ships hooks for `SessionStart` (load hot cache) and `Stop` (prompt to refresh hot cache when wiki changed) across three host formats: `hooks/hooks.json` (Claude Code), `.cursor/hooks.json` (Cursor), `.github/hooks/hooks.json` (Copilot). See [[Claude-mem Hooks]].
+A lifecycle event handler. adlc ships hooks for `SessionStart` (load hot cache) and `Stop` (prompt to refresh hot cache when wiki changed) across three host formats: `hooks/hooks.json` (Claude Code), `.cursor/hooks.json` (Cursor), `.github/hooks/hooks.json` (Copilot). See [[Plugin Hooks]].
 
 **Manifest**
 `.raw/.manifest.json` (wiki layer) or `graphify-out/manifest.json` (graph layer). Tracks what's been ingested / processed so subsequent runs can skip unchanged inputs. Hash-based change detection.
@@ -97,5 +97,5 @@ Incremental rebuild after code changes. Run `/graphify-update`. Detects changed 
 
 - [[SDLC Wiki Concerns]] — full design rationale for modes + concerns
 - [[graphify-integration]] — structural-layer architecture
-- [[Claude-mem Hooks]] — hook design across hosts
+- [[Plugin Hooks]] — hook design across hosts
 - [[LLM Wiki Pattern]] — Karpathy's original pattern (foundation)

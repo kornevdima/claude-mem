@@ -90,7 +90,7 @@ When the user provides source material before Gate 1:
 
 ## Gate Execution
 
-Apply the artifact formats inline, per each gate's Output Expectations below. For the claude-mem Mode ADLC overrides — per-service specs, BA trace-down, Mermaid diagrams, human gate between gates — read [`_index.md`](_index.md) and [`../technical-planning.md`](../technical-planning.md).
+Apply the artifact formats inline, per each gate's Output Expectations below. For the adlc Mode ADLC overrides — per-service specs, BA trace-down, Mermaid diagrams, human gate between gates — read [`_index.md`](_index.md) and [`../technical-planning.md`](../technical-planning.md).
 
 ## Output Expectations By Gate
 

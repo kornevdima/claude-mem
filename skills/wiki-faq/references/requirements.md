@@ -1,17 +1,17 @@
 # Requirements
 
-What you need installed before claude-mem is useful. Most of this is optional — you only need the pieces for the skills you'll actually run.
+What you need installed before adlc is useful. Most of this is optional — you only need the pieces for the skills you'll actually run.
 
-## Host (the AI coding agent that loads claude-mem)
+## Host (the AI coding agent that loads adlc)
 
-claude-mem is primarily a Claude Code plugin but the skills follow the cross-platform Agent Skills spec. Pick one:
+adlc is primarily a Claude Code plugin but the skills follow the cross-platform Agent Skills spec. Pick one:
 
 | Host | Status | How it loads |
 |---|---|---|
 | **Claude Code** | Primary | Plugin install via local marketplace, GitHub marketplace, or `--plugin-dir`. See `README.md` install section. |
-| **Cursor** | Supported | Reads `AGENTS.md` natively. Symlink `skills/` into `~/.cursor/skills/claude-mem` or use Cursor's plugin loader. Hooks: `.cursor/hooks.json` already configured. |
-| **Codex CLI** | Supported | `ln -s "$(pwd)/skills" ~/.codex/skills/claude-mem` |
-| **OpenCode** | Supported | `ln -s "$(pwd)/skills" ~/.opencode/skills/claude-mem` |
+| **Cursor** | Supported | Reads `AGENTS.md` natively. Symlink `skills/` into `~/.cursor/skills/adlc` or use Cursor's plugin loader. Hooks: `.cursor/hooks.json` already configured. |
+| **Codex CLI** | Supported | `ln -s "$(pwd)/skills" ~/.codex/skills/adlc` |
+| **OpenCode** | Supported | `ln -s "$(pwd)/skills" ~/.opencode/skills/adlc` |
 | **GitHub Copilot** (cloud / CLI / JetBrains preview) | Hooks supported | Reads `AGENTS.md` natively. Hooks: `.github/hooks/hooks.json` already configured. |
 
 The `wiki/`, `wiki-ingest`, `wiki-query`, `wiki-lint`, `save`, `autoresearch`, `project-profile`, `obsidian-markdown`, `obsidian-bases`, `wiki-faq` skills work in any of these. The `graphify-*` skills additionally need Python (see below).
@@ -24,7 +24,7 @@ Required for the wiki layer. Any version 1.7+ works; 1.12+ adds the native CLI w
 - Linux: `flatpak install flathub md.obsidian.Obsidian`
 - Windows: `winget install Obsidian.Obsidian`
 
-claude-mem ships **no bundled Obsidian plugins or themes**. The first time you open a project folder in Obsidian, Obsidian creates a fresh `.obsidian/` config. Install whatever community plugins you want; nothing is required for the skills to work.
+adlc ships **no bundled Obsidian plugins or themes**. The first time you open a project folder in Obsidian, Obsidian creates a fresh `.obsidian/` config. Install whatever community plugins you want; nothing is required for the skills to work.
 
 ## Python (only for `graphify-*` skills)
 
@@ -66,7 +66,7 @@ If you skip `bin/setup-graphify.sh`, the first `/graphify-ingest` will halt with
 
 ## Git (recommended)
 
-claude-mem hooks (`SessionStart` load hot cache, `Stop` refresh hot cache) and graphify's manifest tracking work best in a git working tree. None of the skills *require* git, but several of them recommend it for change tracking.
+adlc hooks (`SessionStart` load hot cache, `Stop` refresh hot cache) and graphify's manifest tracking work best in a git working tree. None of the skills *require* git, but several of them recommend it for change tracking.
 
 ## What you do NOT need
 

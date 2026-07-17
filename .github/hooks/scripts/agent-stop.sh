@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# claude-mem agentStop hook — Copilot
+# adlc agentStop hook — Copilot
 # If wiki pages were modified during this turn, prompt the agent to refresh wiki/hot.md.
 
 set -e

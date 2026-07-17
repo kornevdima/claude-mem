@@ -76,10 +76,10 @@ PYTHON=$(cat graphify-out/.graphify_python 2>/dev/null || echo python3)
 SKILL_DIR=""
 for cand in \
     "${CLAUDE_PLUGIN_ROOT:+$CLAUDE_PLUGIN_ROOT/skills/wiki-lint}" \
-    "$HOME/.claude/plugins/claude-mem/skills/wiki-lint" \
-    "$HOME/.codex/skills/claude-mem/skills/wiki-lint" \
-    "$HOME/.opencode/skills/claude-mem/skills/wiki-lint" \
-    "$HOME/.cursor/skills/claude-mem/skills/wiki-lint"; do
+    "$HOME/.claude/plugins/adlc/skills/wiki-lint" \
+    "$HOME/.codex/skills/adlc/skills/wiki-lint" \
+    "$HOME/.opencode/skills/adlc/skills/wiki-lint" \
+    "$HOME/.cursor/skills/adlc/skills/wiki-lint"; do
     [ -n "$cand" ] && [ -d "$cand" ] && { SKILL_DIR="$cand"; break; }
 done
 [ -z "$SKILL_DIR" ] && { echo "Cannot locate wiki-lint skill dir; set SKILL_DIR explicitly."; exit 1; }

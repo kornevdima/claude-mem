@@ -78,7 +78,7 @@ Respect the user's choice. Log the skipped step as an open item.
 
 Registry state persists as **Markdown** so it is diffable and lives with the project. Resolve the location in this order:
 
-1. If a claude-mem vault exists (a `wiki/` folder), file under **`wiki/governance/`**.
+1. If a adlc vault exists (a `wiki/` folder), file under **`wiki/governance/`**.
 2. Otherwise, file under **`docs/governance/`** at the repo root.
 
 Files:

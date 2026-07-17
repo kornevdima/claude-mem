@@ -18,7 +18,7 @@
 #   EVAL_MODEL      optional --model override
 #   EVAL_MAX_TURNS  --max-turns cap per case (default: 25)
 #
-# Precondition: the claude-mem plugin (product-management-layer skill) must be
+# Precondition: the adlc plugin (product-management-layer skill) must be
 # installed for the invoking user — the scratch workspace has no plugin config.
 # Running all 8 cases makes 8 real model calls; expect cost and a few minutes.
 

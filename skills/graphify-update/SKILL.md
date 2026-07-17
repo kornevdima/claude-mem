@@ -58,8 +58,8 @@ if [ -f "$TARGET/graphify-out/.graphify_python" ]; then
     fi
 fi
 
-PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(ls -d "$HOME"/.claude/plugins/cache/*/claude-mem/*/ 2>/dev/null | sort -V | tail -1 | sed 's:/$::')}"
-[ -z "$PLUGIN_ROOT" ] && PLUGIN_ROOT="$HOME/.claude/plugins/claude-mem"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(ls -d "$HOME"/.claude/plugins/cache/*/adlc/*/ 2>/dev/null | sort -V | tail -1 | sed 's:/$::')}"
+[ -z "$PLUGIN_ROOT" ] && PLUGIN_ROOT="$HOME/.claude/plugins/adlc"
 
 if [ -z "$PYTHON" ]; then
     SETUP="$PLUGIN_ROOT/bin/setup-graphify.sh"
@@ -68,7 +68,7 @@ if [ -z "$PYTHON" ]; then
 fi
 ```
 
-`PLUGIN_ROOT` is reused in later steps. If `CLAUDE_PLUGIN_ROOT` is unset, the snippet locates the newest install under `~/.claude/plugins/cache/*/claude-mem/*/`.
+`PLUGIN_ROOT` is reused in later steps. If `CLAUDE_PLUGIN_ROOT` is unset, the snippet locates the newest install under `~/.claude/plugins/cache/*/adlc/*/`.
 
 ### Step 2 — Detect what changed
 

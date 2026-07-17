@@ -1,6 +1,6 @@
 ---
 type: concept
-title: "Claude-mem Hooks"
+title: "Plugin Hooks"
 created: 2026-05-09
 updated: 2026-05-09
 tags:
@@ -12,9 +12,9 @@ related:
   - "[[graphify-integration]]"
 ---
 
-# Claude-mem Hooks
+# Plugin Hooks
 
-Plugin lifecycle hooks for the claude-mem wiki vault. Three host tools are supported: Claude Code, Cursor, and GitHub Copilot. Each reads its own config file in its native format; the runtime behavior is the same.
+Plugin lifecycle hooks for the adlc wiki vault. Three host tools are supported: Claude Code, Cursor, and GitHub Copilot. Each reads its own config file in its native format; the runtime behavior is the same.
 
 ## Per-tool config locations
 

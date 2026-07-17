@@ -117,7 +117,7 @@ def main() -> None:
 
     print(f"[3] Merge semantic chunks (if any)")
 
-    # Vault-meta docs (AGENTS.md, CLAUDE.md, wiki/, .raw/) describe claude-mem's own
+    # Vault-meta docs (AGENTS.md, CLAUDE.md, wiki/, .raw/) describe adlc's own
     # conventions, not the system under analysis. Letting them into a code graph adds
     # edge-less concept nodes that perturb Louvain clustering — observed in eval G5:
     # 16 AGENTS.md nodes knocked 6 of 8 clusters below the Jaccard label-inheritance

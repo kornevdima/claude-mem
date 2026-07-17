@@ -1,13 +1,13 @@
 ---
 name: graphify-ingest
-description: Build a queryable code-structure graph for a codebase using graphify (AST + optional semantic extraction), then file the result into the claude-mem wiki at wiki/code/. Trigger phrases - graphify this codebase, build the code graph, ingest the code, /graphify-ingest, refresh the graph.
+description: Build a queryable code-structure graph for a codebase using graphify (AST + optional semantic extraction), then file the result into the adlc wiki at wiki/code/. Trigger phrases - graphify this codebase, build the code graph, ingest the code, /graphify-ingest, refresh the graph.
 ---
 
 # graphify-ingest
 
-Build a structural knowledge graph for a code repository and integrate it with the claude-mem wiki.
+Build a structural knowledge graph for a code repository and integrate it with the adlc wiki.
 
-This skill is the **structural layer** of claude-mem. It produces:
+This skill is the **structural layer** of adlc. It produces:
 
 - `graphify-out/graph.json` — queryable NetworkX graph (committed; `source_file` paths are project-root-relative so it works across team members' checkouts)
 - `graphify-out/GRAPH_REPORT.md` — god nodes, surprising connections, suggested questions, audit trail
@@ -62,14 +62,14 @@ If the user has not yet seen the wiki layer, briefly tell them what you're about
 Delegate to the bundled installer. It detects the best Python (>=3.10,<3.14), installs `graphifyy` via the right strategy (pip, --user, --break-system-packages), verifies the import, and pins the interpreter for this project.
 
 ```bash
-PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(ls -d "$HOME"/.claude/plugins/cache/*/claude-mem/*/ 2>/dev/null | sort -V | tail -1 | sed 's:/$::')}"
-[ -z "$PLUGIN_ROOT" ] && PLUGIN_ROOT="$HOME/.claude/plugins/claude-mem"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(ls -d "$HOME"/.claude/plugins/cache/*/adlc/*/ 2>/dev/null | sort -V | tail -1 | sed 's:/$::')}"
+[ -z "$PLUGIN_ROOT" ] && PLUGIN_ROOT="$HOME/.claude/plugins/adlc"
 SETUP="$PLUGIN_ROOT/bin/setup-graphify.sh"
 bash "$SETUP" "$TARGET"
 PYTHON=$(cat "$TARGET/graphify-out/.graphify_python")
 ```
 
-`PLUGIN_ROOT` is reused in later steps. If `CLAUDE_PLUGIN_ROOT` is unset (it should be set by Claude Code at skill invocation, but isn't always), the snippet locates the newest install under `~/.claude/plugins/cache/*/claude-mem/*/`.
+`PLUGIN_ROOT` is reused in later steps. If `CLAUDE_PLUGIN_ROOT` is unset (it should be set by Claude Code at skill invocation, but isn't always), the snippet locates the newest install under `~/.claude/plugins/cache/*/adlc/*/`.
 
 If the script exits non-zero (no compatible Python, install failure), it tells the user exactly what to do next (install Python 3.13 via pyenv or Homebrew). Stop here and surface that message — don't try to recover automatically.
 
@@ -183,7 +183,7 @@ If `$TARGET/AGENTS.md` exists but lacks a `## Wiki + Graph` section, append (or 
 ```markdown
 ## Wiki + Graph
 
-This project uses claude-mem (narrative wiki) + graphify (structural code graph). Both layers are committed.
+This project uses adlc (narrative wiki) + graphify (structural code graph). Both layers are committed.
 
 **Vault**: `wiki/`
 **Code graph**: `graphify-out/graph.json`
@@ -208,7 +208,7 @@ This project uses claude-mem (narrative wiki) + graphify (structural code graph)
 Append if not already present:
 
 ```
-# claude-mem + graphify (per-developer state, transient flags)
+# adlc + graphify (per-developer state, transient flags)
 graphify-out/cost.json
 graphify-out/.graphify_python
 wiki/.needs_graph_update

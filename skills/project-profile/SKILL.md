@@ -19,7 +19,7 @@ The design is informed by the [[Project Profile Skill Suite]] and the empirical 
 - **AGENTS.md auto-generated from configs is net-positive only when content is concrete.** Repository overviews are net-negative. Cut them.
 - **Tribal knowledge is the only consistent positive.** Interview the human; don't guess.
 - **Specific actionable directives outperform descriptive prose 1.6×** in agent compliance.
-- **Cross-tool standard is AGENTS.md.** Don't invent a claude-mem-specific format.
+- **Cross-tool standard is AGENTS.md.** Don't invent a adlc-specific format.
 
 ## When to invoke
 
@@ -226,7 +226,7 @@ Print the full proposed AGENTS.md to the user. Prompt:
 - **Edit**: accept inline edits, then write (same backup step on the augment path).
 - **Reject**: don't write anything; report "AGENTS.md not created." (No backup is made — nothing was touched.)
 
-### Step 8 — Append to wiki/log.md (if claude-mem wiki present)
+### Step 8 — Append to wiki/log.md (if adlc wiki present)
 
 If `$TARGET/wiki/log.md` exists, prepend a log entry:
 
@@ -251,7 +251,7 @@ On the augment path, record it as a merge instead of a creation:
 - Foreign sections preserved: <list, or "none">
 ```
 
-If no claude-mem wiki present, skip this step. The skill is useful in projects without a wiki too.
+If no adlc wiki present, skip this step. The skill is useful in projects without a wiki too.
 
 ### Step 9 — Report to the user
 

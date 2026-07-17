@@ -4,7 +4,7 @@ How the 14 skills compose into real work. Read this when the user asks "what's t
 
 ## Two layers
 
-claude-mem has **two parallel layers** in every project:
+adlc has **two parallel layers** in every project:
 
 | Layer | What it captures | Lives in | Owned by |
 |---|---|---|---|
@@ -138,7 +138,7 @@ A small dev team picks `B`. A platform team picks `B + ops + qa`. A regulated Sa
 
 ## See also
 
-- [[Claude-mem Hooks]] — what the SessionStart and Stop hooks do, cross-tool
+- [[Plugin Hooks]] — what the SessionStart and Stop hooks do, cross-tool
 - [[graphify-integration]] — the structural-layer architecture
 - [[Project Profile Skill Suite]] — `/project-profile` design
 - `README.md` — install and quickstart

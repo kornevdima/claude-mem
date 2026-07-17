@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# claude-mem: graphify installer
+# adlc: graphify installer
 #
 # Installs graphifyy (the Python library powering the graphify-ingest and
 # graphify-update skills) into a compatible Python interpreter and pins
@@ -23,7 +23,7 @@ NC='\033[0m'
 
 PROJECT="${1:-}"
 
-echo "claude-mem: graphify installer"
+echo "adlc: graphify installer"
 echo
 
 # ── 1. Detect best Python interpreter ─────────────────────────────────────────

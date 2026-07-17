@@ -1,24 +1,24 @@
 ---
 name: wiki-faq
 description: >
-  In-session guided help for claude-mem. Answers questions about requirements
+  In-session guided help for adlc. Answers questions about requirements
   (host tools, Python, Obsidian), the workflow (which skill when, end-to-end
   flows), troubleshooting (common errors and fixes), and terminology
-  (glossary of claude-mem concepts). Reference docs hold canonical content;
+  (glossary of adlc concepts). Reference docs hold canonical content;
   this skill routes the user's question to the right one and synthesizes a
   focused chat answer.
   Triggers on: "/wiki-faq", "how do I get started", "I'm new", "where do I start",
-  "first time setup", "what is claude-mem", "what's the workflow",
+  "first time setup", "what is adlc", "what's the workflow",
   "explain the workflow", "what are the requirements", "what do I need",
   "why is X broken", "graphify isn't working", "hot cache not loading",
   "skills not appearing", "edge drop", "labels.json mismatch", "what is hot cache",
   "what is .raw", "what is a vault", "explain mode B", "explain mode ADLC", "what are concerns", "what is wrap-up", "agentic mode",
-  "what is graphify", "wiki-faq", "claude-mem faq".
+  "what is graphify", "wiki-faq", "adlc faq".
 ---
 
-# wiki-faq: Guided Help for claude-mem
+# wiki-faq: Guided Help for adlc
 
-Help users understand what claude-mem is, what it requires, how the skills compose, and what to do when something breaks. Reference docs hold the canonical content; this skill routes the user's question to the right one and gives a distilled chat answer.
+Help users understand what adlc is, what it requires, how the skills compose, and what to do when something breaks. Reference docs hold the canonical content; this skill routes the user's question to the right one and gives a distilled chat answer.
 
 ## Routing
 
@@ -29,8 +29,8 @@ Map the question to ONE of these reference files (or two for an open-ended overv
 | "How do I get started?", "what do I need?", "Python version?", "host tools?", "Obsidian setup?" | [`references/requirements.md`](references/requirements.md) |
 | "What's the workflow?", "which skill when?", "end-to-end example", "how does this fit together?", "explain the layers" | [`references/workflow.md`](references/workflow.md) |
 | "Why is graphify broken?", "hot cache not loading", "graphifyy not installed", "edge drop too high", "labels.json mismatch", "Python 3.14 issue" | [`references/troubleshooting.md`](references/troubleshooting.md) |
-| "What is X?" where X is a claude-mem term (vault, .raw, hot cache, base mode, concerns, ADLC, wrap-up, community, label, AST, subagent, skill) | [`references/glossary.md`](references/glossary.md) |
-| Open-ended overview ("explain claude-mem", "what is this", "I just installed it") | requirements + workflow combined |
+| "What is X?" where X is a adlc term (vault, .raw, hot cache, base mode, concerns, ADLC, wrap-up, community, label, AST, subagent, skill) | [`references/glossary.md`](references/glossary.md) |
+| Open-ended overview ("explain adlc", "what is this", "I just installed it") | requirements + workflow combined |
 
 If the question doesn't fit any of these, fall back to `wiki-query` for content questions, or ask the user to clarify.
 
@@ -64,4 +64,4 @@ The reference docs go stale when:
 - A new common failure mode emerges in user reports (add to `troubleshooting.md`).
 - A new concept enters the project vocabulary (add to `glossary.md`).
 
-Update the reference doc when you encounter the gap. The skill is meta — it documents the rest of claude-mem and needs to track its evolution.
+Update the reference doc when you encounter the gap. The skill is meta — it documents the rest of adlc and needs to track its evolution.

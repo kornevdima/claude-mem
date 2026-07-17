@@ -1,12 +1,12 @@
 # Bundled BA method set
 
-These are the BA methodology docs (the ba-suite skill set) **bundled into claude-mem** so the external `ba-suite` plugin is NOT required. The `ba-suite-subagent` and `ba-export-subagent` read these directly; they do not call `ba-suite:*` via the Skill tool.
+These are the BA methodology docs (the ba-suite skill set) **bundled into adlc** so the external `ba-suite` plugin is NOT required. The `ba-suite-subagent` and `ba-export-subagent` read these directly; they do not call `ba-suite:*` via the Skill tool.
 
 Source: derived from the ba-suite skill set (see `ATTRIBUTION.md`). One file per method.
 
 ## ADLC overrides (read these BEFORE applying any method doc)
 
-The method docs were written to emit Office files to `/mnt/user-data/outputs/`. In claude-mem that is overridden:
+The method docs were written to emit Office files to `/mnt/user-data/outputs/`. In adlc that is overridden:
 
 1. **System of record is the wiki Markdown.** When authoring (ingest), write each deliverable as a Markdown note into the ADLC wiki folder (table below), with YAML frontmatter, `[[wikilinks]]`, and stable IDs. Do NOT emit Office files during authoring.
 2. **Office only on export.** `.docx` / `.xlsx` are produced only by the `ba-export` path, into `.raw/exports/`. PlantUML for formal-export diagrams; Mermaid in the living wiki docs.

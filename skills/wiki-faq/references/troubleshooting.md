@@ -89,8 +89,8 @@ Test: open a fresh session in this repo and ask "what's in the hot cache?" If it
 **Causes and fixes**:
 
 1. **Plugin not installed/loaded**. Run `claude plugin list` to confirm. If absent, run the install command from `README.md` install section.
-2. **Plugin cache stale**. Run `claude plugin marketplace update claude-obsidian-marketplace` then `/reload-plugins` in-session.
-3. **Per-session dev mode** but session was started without `--plugin-dir`. Restart with `claude --plugin-dir /path/to/claude-mem`.
+2. **Plugin cache stale**. Run `claude plugin marketplace update adlc-marketplace` then `/reload-plugins` in-session.
+3. **Per-session dev mode** but session was started without `--plugin-dir`. Restart with `claude --plugin-dir /path/to/adlc`.
 
 ### "Slash command works but skill triggers don't"
 
@@ -134,6 +134,6 @@ Test: open a fresh session in this repo and ask "what's in the hot cache?" If it
 
 ## See also
 
-- [[Claude-mem Hooks]] — full hook design across Claude Code, Cursor, Copilot
+- [[Plugin Hooks]] — full hook design across Claude Code, Cursor, Copilot
 - [[graphify-integration]] — structural-layer design and known gotchas
 - `hooks/hooks.json` — current Claude Code hook config

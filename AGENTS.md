@@ -1,4 +1,4 @@
-# claude-mem: Agent Instructions
+# adlc: Agent Instructions
 
 This repo is a Claude Code plugin **and** an Obsidian vault that builds persistent, compounding knowledge bases using Andrej Karpathy's LLM Wiki pattern. Cursor reads this file natively; Claude Code reads it alongside the auto-loaded skill descriptions. Codex CLI, OpenCode, and other Agent Skills-compatible hosts can use the skills via the symlink pattern below.
 
@@ -21,8 +21,8 @@ Open the entire project folder as the Obsidian vault root, not just `wiki/`. The
 All skills live in `skills/<name>/SKILL.md`. Claude Code installs them via the plugin manifest (`.claude-plugin/plugin.json`); any Agent Skills-compatible host (Codex CLI, OpenCode, …) can pick them up by symlinking the directory into its own skill path:
 
 ```bash
-ln -s "$(pwd)/skills" ~/.codex/skills/claude-mem
-ln -s "$(pwd)/skills" ~/.opencode/skills/claude-mem
+ln -s "$(pwd)/skills" ~/.codex/skills/adlc
+ln -s "$(pwd)/skills" ~/.opencode/skills/adlc
 ```
 
 For the full skill list with trigger phrases, see [README.md](README.md). For individual skill behavior, read `skills/<name>/SKILL.md` directly.
@@ -64,7 +64,7 @@ To reference this vault as a knowledge base from another project, add to that pr
 
 ```markdown
 ## Wiki Knowledge Base
-Path: /path/to/claude-mem
+Path: /path/to/adlc
 
 When you need context not already in this project:
 1. Read wiki/hot.md first (recent context, ~500 words)

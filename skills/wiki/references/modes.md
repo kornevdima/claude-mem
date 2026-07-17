@@ -1,8 +1,8 @@
 # Wiki Modes
 
-claude-mem ships scaffolds aligned with its primary use cases: **Mode B (Repository)** for code projects, **Mode C (Business / Project)** for product documentation, and **Mode ADLC (Agentic Development Life Cycle)** for small teams where AI agents cover the BA / QA / PM roles and humans operate them. B and C can be combined (B+C). ADLC is a separate, additive option (it does not replace B or C); it composes with the `qa` and `ops` concerns and with co-located Mode B code wikis.
+adlc ships scaffolds aligned with its primary use cases: **Mode B (Repository)** for code projects, **Mode C (Business / Project)** for product documentation, and **Mode ADLC (Agentic Development Life Cycle)** for small teams where AI agents cover the BA / QA / PM roles and humans operate them. B and C can be combined (B+C). ADLC is a separate, additive option (it does not replace B or C); it composes with the `qa` and `ops` concerns and with co-located Mode B code wikis.
 
-> The original LLM Wiki pattern by Andrej Karpathy defined six modes (A: Website, B: Repository, C: Business, D: Personal, E: Research, F: Book / Course). The full historical pattern is preserved at [`.raw/llm-wiki-pattern-spec.md`](../../../.raw/llm-wiki-pattern-spec.md). Modes A, D, E, F are out of scope for the active claude-mem skills but you can still scaffold them by hand from the reference if needed.
+> The original LLM Wiki pattern by Andrej Karpathy defined six modes (A: Website, B: Repository, C: Business, D: Personal, E: Research, F: Book / Course). The full historical pattern is preserved at [`.raw/llm-wiki-pattern-spec.md`](../../../.raw/llm-wiki-pattern-spec.md). Modes A, D, E, F are out of scope for the active adlc skills but you can still scaffold them by hand from the reference if needed.
 
 ---
 

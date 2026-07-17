@@ -1,6 +1,6 @@
 # ba-suite integration (ADLC mode)
 
-The BA method set is **bundled** into claude-mem at `skills/wiki/references/ba/` (no external `ba-suite` plugin required). This doc defines how it plugs into an ADLC vault so its outputs land as canonical wiki Markdown and can be exported back out. Used by Mode ADLC (see [`modes.md`](modes.md)).
+The BA method set is **bundled** into adlc at `skills/wiki/references/ba/` (no external `ba-suite` plugin required). This doc defines how it plugs into an ADLC vault so its outputs land as canonical wiki Markdown and can be exported back out. Used by Mode ADLC (see [`modes.md`](modes.md)).
 
 ## Principle
 

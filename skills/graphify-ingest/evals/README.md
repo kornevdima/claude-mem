@@ -10,7 +10,7 @@ Covers all five graphify skills against one fixture project (`fixtures/demo-app`
 | G4 | graphify-explain | Node + neighbors | OrderService + ≥2 real neighbors |
 | G5 | graphify-update | Incremental update, label preservation | new `LoyaltyService` node appears; ≥50% of old community labels carried over |
 
-Run locally (needs installed claude-mem plugin + `bash bin/setup-graphify.sh` done once):
+Run locally (needs installed adlc plugin + `bash bin/setup-graphify.sh` done once):
 
 ```bash
 bash skills/graphify-ingest/evals/run-evals.sh            # full pipeline, G1 is the slow/expensive one

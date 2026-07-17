@@ -1,17 +1,17 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "claude-obsidian-marketplace",
-  "description": "Local marketplace for the claude-mem plugin (Claude + Obsidian knowledge companion with optional structural code-graph layer via graphify).",
+  "name": "adlc-marketplace",
+  "description": "Local marketplace for the adlc plugin (Agentic Development Life Cycle harness: Obsidian wiki knowledge substrate, role skills, plan-driven delivery loop, optional code graph via graphify).",
   "owner": {
     "name": "dmytro"
   },
   "plugins": [
     {
-      "name": "claude-mem",
-      "description": "Claude + Obsidian knowledge companion. Persistent, compounding wiki vault plus an optional structural code graph (via graphify) wired into the same vault. 15 skills, 4 subagents.",
+      "name": "adlc",
+      "description": "Agentic Development Life Cycle harness. Obsidian wiki knowledge substrate + role skills + plan-driven delivery loop with build/test/review/verify workers. 19 skills, 13 subagents.",
       "category": "productivity",
       "source": "./",
-      "homepage": "https://github.com/kornevdima/claude-mem"
+      "homepage": "https://github.com/kornevdima/adlc"
     }
   ]
 }

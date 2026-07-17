@@ -21,7 +21,7 @@
 #                   temp dir and the fixture is inert, so the blast radius is nil;
 #                   set EVAL_PERMS="" to restore gates and watch it deadlock.)
 #
-# Preconditions: claude-mem plugin installed for the invoking user; graphifyy
+# Preconditions: adlc plugin installed for the invoking user; graphifyy
 # installed (bash bin/setup-graphify.sh). G1 makes heavy model calls (subagent
 # extraction) — expect several minutes and real cost.
 

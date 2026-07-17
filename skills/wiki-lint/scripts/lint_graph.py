@@ -1,4 +1,4 @@
-"""Graph-layer lint checks for the claude-mem wiki vault.
+"""Graph-layer lint checks for the adlc wiki vault.
 
 Cross-references:
   graphify-out/graph.json     — source of truth for cluster IDs and members

@@ -42,7 +42,7 @@ case E1 is the vendor-sunset retrospective that motivated the skill.
 Env knobs: `CLAUDE_CMD` (default `claude`; put extra flags here), `EVAL_MODEL`
 (optional `--model`), `EVAL_MAX_TURNS` (default 25).
 
-**Precondition:** the claude-mem plugin must be installed for the invoking user —
+**Precondition:** the adlc plugin must be installed for the invoking user —
 the scratch workspace carries no plugin config, so skill triggering (what E5/E6
 test) relies on the user-level install.
 

@@ -65,7 +65,7 @@ When in doubt, check `wiki/hot.md` first — its graph snapshot lists god nodes 
 
 ### Three graph primitives — prefer the dedicated skills
 
-claude-mem ships three skills that wrap graphify's query side. **Use them when the user invokes them directly** (or when the question maps cleanly to one shape):
+adlc ships three skills that wrap graphify's query side. **Use them when the user invokes them directly** (or when the question maps cleanly to one shape):
 
 | User question shape | Skill to dispatch |
 |---|---|
@@ -197,10 +197,10 @@ A machine-readable mirror of the vault's frontmatter for large vaults where raw 
 SKILL_DIR=""
 for cand in \
     "${CLAUDE_PLUGIN_ROOT:+$CLAUDE_PLUGIN_ROOT/skills/wiki-query}" \
-    "$HOME/.claude/plugins/claude-mem/skills/wiki-query" \
-    "$HOME/.codex/skills/claude-mem/skills/wiki-query" \
-    "$HOME/.opencode/skills/claude-mem/skills/wiki-query" \
-    "$HOME/.cursor/skills/claude-mem/skills/wiki-query"; do
+    "$HOME/.claude/plugins/adlc/skills/wiki-query" \
+    "$HOME/.codex/skills/adlc/skills/wiki-query" \
+    "$HOME/.opencode/skills/adlc/skills/wiki-query" \
+    "$HOME/.cursor/skills/adlc/skills/wiki-query"; do
     [ -n "$cand" ] && [ -d "$cand" ] && { SKILL_DIR="$cand"; break; }
 done
 python3 "$SKILL_DIR/scripts/build_index_json.py" .            # product wiki only
